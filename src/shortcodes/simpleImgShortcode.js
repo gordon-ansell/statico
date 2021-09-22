@@ -23,7 +23,7 @@ class SimpleImgShortcode extends NunjucksShortcode
      */
     render(context, args)
     {
-        let kwargs = args[1] ?? {};
+        let kwargs = args[1] || {};
 
         let imgSpec = {} 
 

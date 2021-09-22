@@ -25,7 +25,7 @@ class LinkShortcode extends NunjucksShortcode
     {
         let url = args[0];
         let txt = args[1];
-        let kwargs = args[2] ?? {};
+        let kwargs = args[2] || {};
 
         let ret = `<a href="${url}"`;
         for (let arg in kwargs) {
