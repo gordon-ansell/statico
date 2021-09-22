@@ -54,7 +54,7 @@ class TemplateParser extends BaseParser
      */
     async parse(files, parseName = null, paginate = true)
     {
-        let pn = parseName ?? 'NULL';
+        let pn = parseName || 'NULL';
         this.notProcessed = [];
         this.paginators = [];
 
