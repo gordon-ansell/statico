@@ -1,0 +1,28 @@
+{
+	"folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "../framework"
+        },
+        {
+            "path": "../../gordonansell.com"
+        },
+        {
+            "path": "../statico-plugins/statico-plugin-scss"
+        },
+        {
+            "path": "../statico-plugins/statico-plugin-images"
+        },
+        {
+            "path": "../../scss"
+        },
+        {
+            "path": "../statico-plugins/statico-plugin-navigation"
+        },
+        {
+            "path": "../statico-plugins/statico-plugin-ratingstars"
+        }
+    ]
+}
