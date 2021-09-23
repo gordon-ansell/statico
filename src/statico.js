@@ -276,8 +276,6 @@ class Statico
             }
         }
 
-        syslog.inspect(assets, "warning");
-
         let doassets = true;
         if (this.config.processArgs.argv.noassets) {
             doassets = false;
