@@ -37,7 +37,7 @@ try {
     });    
 
     // Start up statico.
-    let statico = new Statico(null, null, 'trace', [], pa);
+    let statico = new Statico(null, null, 'notice', [], pa);
     return statico.init().then(function() {
         return statico.run();
     });
