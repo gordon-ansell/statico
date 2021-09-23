@@ -46,7 +46,11 @@ class BaseParser
         let base = path.join(this.config.sitePath, this.config.outputPath);
         let op = path.join(this.config.outputPath, filePath.replace(this.config.sitePath, ''));
 
-        fsutils.mkdirRecurse(path.dirname(base));
+        if (path.dirname(op).includes('gordonansell.com/_site/Users')) {
+            syslog.error(`Spurious directory creation on behalf of ${filePath}`);
+            throw new StaticoError(`Hold on, we're creating a spurious directory: ${path.dirname(base)}`);
+        }
+        fsutils.mkdirRecurse(path.dirname(op));
         fsutils.copyFile(filePath, op);
 
         syslog.debug(`Copied file ${TemplatePathUrl.sh(filePath)} ===> ${TemplatePathUrl.sh(op)}.`);

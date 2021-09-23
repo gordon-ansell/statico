@@ -154,7 +154,7 @@ class Statico
     async cleanUp()
     {
         // Clean the output directory.
-        if (fsutils.deleteFolderRecursive(path.join(this.config.sitePath, this.config.outputPath))) {
+        if (fsutils.deleteFolderRecursive(this.config.outputPath)) {
             syslog.notice("Cleaned output directory.")
         }
 
@@ -507,26 +507,6 @@ class Statico
         }
     }
 
-    /**
-     * Copy a file.
-     * 
-     * @param   {string}    filePath    Where the file is.
-     * 
-     * @return  
-     */
-    /*
-    async _copyFile(filePath)
-    {
-        let base = path.join(this.config.sitePath, this.config.outputPath);
-        let op = path.join(this.config.outputPath, filePath.replace(this.config.sitePath, ''));
-
-        fsutils.mkdirRecurse(path.dirname(base));
-        fsutils.copyFile(filePath, op);
-
-        syslog.debug(`Copied file ${TemplatePathUrl.sh(filePath)} ===> ${TemplatePathUrl.sh(op)}.`);
-    }
-    */
- 
 
 }
 

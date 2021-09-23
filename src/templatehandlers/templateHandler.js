@@ -75,9 +75,6 @@ class TemplateHandler
      */
     writeFile(buffer, ofn, fp)
     {
-        if (ofn.includes('_site/Users')) {
-            throw new Error(`Output file name is improperly formed: ${ofn}`);
-        }
         fsutils.mkdirRecurse(path.dirname(ofn));
         fs.writeFileSync(ofn, buffer);
         let op = TemplatePathUrl.sh(ofn);
