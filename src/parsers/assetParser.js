@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const { syslog, progress } = require('gajn-framework');
+const { syslog } = require('gajn-framework');
 const BaseParser = require('./baseParser');
 
 /**
@@ -38,7 +38,7 @@ class AssetParser extends BaseParser
     {
         let totalItems = files.length;
         let count = 0;
-        progress.printProgress(0);
+        syslog.printProgress(0);
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
@@ -65,13 +65,13 @@ class AssetParser extends BaseParser
                 this._copyFile(element);
             }
             count++;
-            progress.printProgress((count / totalItems) * 100);
+            syslog.printProgress((count / totalItems) * 100);
         }));
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
         }
-        progress.endProgress();
+        syslog.endProgress();
     }
 
 }

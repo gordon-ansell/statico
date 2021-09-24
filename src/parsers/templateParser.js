@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const { syslog, fsutils, progress } = require('gajn-framework');
+const { syslog } = require('gajn-framework');
 const TemplateFile = require('../templateFile');
 const StaticoError = require('../staticoError');
 const StaticoTemplateHandlerError = require('../templatehandlers/staticoTemplateHandlerError');
@@ -60,7 +60,7 @@ class TemplateParser extends BaseParser
 
         let totalFiles = files.length;
         let count = 0;
-        progress.printProgress(0);
+        syslog.printProgress(0);
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
@@ -86,10 +86,10 @@ class TemplateParser extends BaseParser
                 this._copyFile(element);
             }
             count++;
-            progress.printProgress((count/totalFiles) * 100);
+            syslog.printProgress((count/totalFiles) * 100);
         }));
 
-        progress.endProgress();
+        syslog.endProgress();
 
     }
 
