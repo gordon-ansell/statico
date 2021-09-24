@@ -12,7 +12,6 @@ const TemplateFile = require('../templateFile');
 const StaticoError = require('../staticoError');
 const StaticoTemplateHandlerError = require('../templatehandlers/staticoTemplateHandlerError');
 const CollectionDateSorted = require('../collectionDateSorted');
-const CollectionAlphaSorted = require('../collectionDateSorted');
 const BaseParser = require('./baseParser');
 
 /**

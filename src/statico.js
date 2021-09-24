@@ -8,7 +8,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const { syslog, FsParser, fsutils, string, progress } = require('gajn-framework');
+const { syslog, FsParser, fsutils, string } = require('gajn-framework');
 const matter = require('gray-matter');
 const pack = require('../package.json');
 const Config = require('./config');
@@ -424,7 +424,7 @@ class Statico
 
                 let totalItems = entries.length;
                 let count = 0;
-                progress.printProgress(0, taxType);
+                syslog.printProgress(0, taxType);
             
                 await Promise.all(entries.map(async taxName => {
 
@@ -461,11 +461,11 @@ class Statico
                     opFiles.push(ofn);
 
                     count++;
-                    progress.printProgress((count / totalItems) * 100, taxType);
+                    syslog.printProgress((count / totalItems) * 100, taxType);
 
                 }));
 
-                progress.endProgress;
+                syslog.endProgress;
             }
 
         }));
