@@ -343,15 +343,15 @@ class Statico
 
             let totalItems = this.config.toParseThroughLayout[parseName].length;
             let count = 0;
-            progress.printProgress(0);
+            syslog.printProgress(0);
 
             await Promise.all(this.config.toParseThroughLayout[parseName].map(async templateFile => {
                 this.config.templateHandlers.getHandlerForExt(templateFile.ext).parseThroughLayoutAndWrite(templateFile);
                 count++;
-                progress.printProgress((count/totalItems) * 100);
+                syslog.printProgress((count/totalItems) * 100);
             }));    
 
-            progress.endProgress();
+            syslog.endProgress();
         }
 
         this.config.toParseThroughLayout[parseName] = []; 

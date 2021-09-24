@@ -380,6 +380,10 @@ class Config
         if (this.assetHandlerDefaults) {
             this.assetHandlers.loadDefaults(this.assetHandlerDefaults);
         }
+
+        if (this.logLevel) {
+            syslog.setLevel(this.logLevel);
+        }
     }
 
     /**
