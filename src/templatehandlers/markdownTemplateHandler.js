@@ -21,6 +21,7 @@ const path = require('path');
 const StaticoTemplateHandlerError = require('./staticoTemplateHandlerError');
 const TemplatePathUrl = require('../templatePathUrl');
 const beautify = require('js-beautify').html;
+const { COLOR_FG_BLACK } = require('gajn-framework/src/logger/decorator/ansi');
 
 class StaticoMarkdownTemplateHandlerError extends StaticoTemplateHandlerError {}
 
@@ -145,6 +146,19 @@ class MarkdownTemplateHandler extends TemplateHandler
                 }
                 templateFile.data.leader_text = striptags(templateFile.data.leader_html);
             }
+        }
+
+        // Count the words.
+        let words = string.countWords(templateFile.data.content_text);
+
+        if (templateFile.data.leader) {
+            words += string.countWords(templateFile.data.leader_text);
+        }
+        templateFile.data.wordCount = words;
+        if (!this.config.totalWordCount) {
+            this.config.totalWordCount = words; 
+        } else {
+            this.config.totalWordCount += words; 
         }
 
         // Deal with the layout.
