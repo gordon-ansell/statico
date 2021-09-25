@@ -12,16 +12,11 @@ const TemplateHandler = require('./templateHandler');
 const showdown = require('showdown');
 const footnotes = require('@webdesigndecal/showdown-footnotes');
 
-const { syslog } = require('gajn-framework');
-const fs = require('fs');
+const { syslog, string } = require('gajn-framework');
 const striptags = require("striptags");
 const TemplateFile = require('../templateFile');
-const { fsutils } = require('gajn-framework');
-const path = require('path');
 const StaticoTemplateHandlerError = require('./staticoTemplateHandlerError');
-const TemplatePathUrl = require('../templatePathUrl');
 const beautify = require('js-beautify').html;
-const { COLOR_FG_BLACK } = require('gajn-framework/src/logger/decorator/ansi');
 
 class StaticoMarkdownTemplateHandlerError extends StaticoTemplateHandlerError {}
 
