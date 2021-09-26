@@ -27,7 +27,33 @@ class AssetParser extends BaseParser
         super(config);
     }
 
-     /**
+    /**
+     * See if an asset is filtered.
+     * 
+     * @param   {string}    assetPath   Path to the asset.
+     * 
+     * @return  {boolen}
+     */
+    isAssetFiltered(assetPath)
+    {
+        if (!this.config.assetFilters) {
+            return false;
+        }
+
+        let af = this.config.assetFilters;
+
+        if (af.justCopyDirs) {
+            for (let item of af.justCopyDirs) {
+                if (assetPath.startsWith(item)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Parser run.
      * 
      * @param   {string[]}  files       Files to parse.
@@ -43,7 +69,7 @@ class AssetParser extends BaseParser
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
             let ext = path.extname(element).substr(1);
-            if (this.config.assetHandlers.hasHandlerForExt(ext))  {
+            if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
                 try {
                     syslog.debug(`About to parse asset ${trimmed}.`, 'Statico.run')
                     this.config.events.emit('statico.preparseassetfile', trimmed);
