@@ -155,6 +155,7 @@ class Pagination
                     },
                     permalink: templateFile.data.permalink + count + '/',
                     robots: "noindex,follow",
+                    sitemap: false,
                     title: templateFile.data.title + ' (page ' + count + ')',
                     description: desc + ' (page ' + count + ')'
                 }
