@@ -65,11 +65,14 @@ class Watcher
         let ext = path.extname(filePath);
 
         if ('.scss' == ext && this.config.scssBuild) {
+            this.statico.process();
+            /*
             let tmp = this.config.scssBuild;
             filePath = [];
             for (let item in tmp) {
                 filePath.push(path.join(this.config.sitePath, item));
             }
+            */
         }
 
         this.statico.process(filePath);
