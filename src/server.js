@@ -36,6 +36,12 @@ class Server
     #port = 8081;
 
     /**
+     * The server itself.
+     * @member {object}
+     */
+    #server = null;
+
+    /**
      * Constructor.
      * 
      * @param   {string}    sitePath    Where to serve from.
@@ -68,7 +74,7 @@ class Server
         syslog.trace("Address: " + address, 'Server');
         syslog.trace("Port: " + port, 'Server');
 
-        let server = http.createServer(function (request, response) {
+        this.#server = http.createServer(function (request, response) {
         
             let filePath = sitePath + request.url;
             syslog.trace("Request URL: " + request.url, 'Server');
@@ -163,8 +169,20 @@ class Server
 
         syslog.notice("Server running at: " + address);    
         
-        return server;
+        return this.#server;
 
+    }
+
+    /**
+     * Stop the server.
+     * 
+     * 
+     */
+    stop()
+    {
+        if (this.#server) {
+            this.#server.exit();
+        }
     }
 }
 

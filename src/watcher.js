@@ -36,6 +36,12 @@ class Watcher
     server = null;
 
     /**
+     * File queue.
+     * @member {string[]}
+     */
+    q = [];
+
+    /**
      * Constructor.
      * 
      * @param   {Config}        config      Config object.
@@ -52,28 +58,20 @@ class Watcher
     }
 
     /**
+     * The actual watch run.
+     */
+
+    /**
      * Do the watch.
      * 
      * 
      * @return 
      */
-    watch()
+    async watch()
     {
         let watcherCfg = this.config.watcher;
 
         let ignores = watcherCfg.ignores || [];
-        /*
-        let ignores = [
-            path.join(this.config.sitePath, 'node_modules'),
-            path.join(this.config.sitePath, '_conv'),
-            path.join(this.config.sitePath, '_site'),
-            path.join(this.config.sitePath, '_tmp'),
-            path.join(this.config.sitePath, '_generatedImages'),
-            /(^|[\/\\])\../,
-        ];
-        */
-
-        syslog.inspect(ignores, "warning");
 
         const ch = chokidar.watch(this.config.sitePath, {
             ignored: ignores,
@@ -83,14 +81,28 @@ class Watcher
         syslog.notice('Starting file watcher ...');
         this.config.watching = true;
 
-        ch.on('all', (event, path) => {
-            syslog.debug(`${event} on ${path}`);
+        ch.on('change', async (path) => {
+            syslog.debug(`File changed: ${path}`);
             this.statico.process(path);
             if (null !== this.server && this.config.processArgs.argv.servesync) {
                 syslog.notice(`Telling browsersync to refresh.`);
                 this.server.reload('*.*');
             }
-        })
+        });
+
+        ch.on('add', async (path) => {
+            syslog.debug(`File added: ${path}`);
+            this.statico.process(path);
+            if (null !== this.server && this.config.processArgs.argv.servesync) {
+                syslog.notice(`Telling browsersync to refresh.`);
+                this.server.reload('*.*');
+            }
+        });
+
+        process.on('SIGINT', () => {
+            ch.close();
+            this.server.stop();
+        });
     }
 }
 
