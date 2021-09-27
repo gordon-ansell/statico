@@ -70,6 +70,7 @@ class Watcher
             for (let item in tmp) {
                 filePath.push(path.join(this.config.sitePath, item));
             }
+            syslog.inspect(filePath, "warning");
         }
 
         this.statico.process(filePath);
