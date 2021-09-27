@@ -92,13 +92,15 @@ module.exports = function(configData) {
             cacheCssJsMax: "86400",
             cacheImagesMax: "2592000"    
         },
-        watcherIgnores = [
-            path.join(configData.sitePath, 'node_modules'),
-            path.join(configData.sitePath, '_conv'),
-            path.join(configData.sitePath, '_site'),
-            path.join(configData.sitePath, '_tmp'),
-            path.join(configData.sitePath, '_generatedImages'),
-            /(^|[\/\\])\../,
-        ]
+        watcher: {
+            ignores: [
+                path.join(configData.sitePath, 'node_modules'),
+                path.join(configData.sitePath, '_conv'),
+                path.join(configData.sitePath, '_site'),
+                path.join(configData.sitePath, '_tmp'),
+                path.join(configData.sitePath, '_generatedImages'),
+                /(^|[\/\\])\../,
+            ]
+        }
     }
 }

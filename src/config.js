@@ -116,7 +116,8 @@ class Config
             tempDir: '_tmp',
             watching: false,
             inlineCss: {},
-            postsInFeed: 20
+            postsInFeed: 20,
+            watcher: {}
         };        
     }
 

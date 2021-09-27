@@ -59,7 +59,9 @@ class Watcher
      */
     watch()
     {
-        let ignores = this.config.watcherIgnores;
+        let watcherCfg = this.config.watcher;
+
+        let ignores = watcherCfg.ignores || [];
         /*
         let ignores = [
             path.join(this.config.sitePath, 'node_modules'),
