@@ -60,6 +60,14 @@ class Watcher
     /**
      * The actual watch run.
      */
+    async _run(path)
+    {
+        this.statico.process(path);
+        if (null !== this.server && this.config.processArgs.argv.servesync) {
+            syslog.notice(`Telling browsersync to refresh.`);
+            this.server.reload('*.*');
+        }
+    }
 
     /**
      * Do the watch.
@@ -83,20 +91,12 @@ class Watcher
 
         ch.on('change', async (path) => {
             syslog.notice(`File changed: ${path}`);
-            this.statico.process(path);
-            if (null !== this.server && this.config.processArgs.argv.servesync) {
-                syslog.notice(`Telling browsersync to refresh.`);
-                this.server.reload('*.*');
-            }
+            await this._run(path);
         });
 
         ch.on('add', async (path) => {
             syslog.notice(`File added: ${path}`);
-            this.statico.process(path);
-            if (null !== this.server && this.config.processArgs.argv.servesync) {
-                syslog.notice(`Telling browsersync to refresh.`);
-                this.server.reload('*.*');
-            }
+            await this._run(path);
         });
 
         process.on('SIGINT', () => {

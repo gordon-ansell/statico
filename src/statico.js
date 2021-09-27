@@ -63,6 +63,12 @@ class Statico
     config = null;
 
     /**
+     * Are we processing?
+     * @member {boolean}
+     */
+    isProcessing = false;
+
+    /**
      * Late parsers.
      * @member {string[]}
      */
@@ -248,6 +254,8 @@ class Statico
      */
     async process(files)
     {            
+        this.isProcessing = true;
+
         syslog.notice('-'.repeat(50));
 
         this.#startTime = Date.now();
@@ -334,6 +342,8 @@ class Statico
         // Finish up.
         syslog.notice(`Statico processing completed in ${(Date.now() - this.#startTime) / 1000} seconds.`);
         syslog.notice('-'.repeat(50));
+
+        this.isProcessing = false;
 
     }
 
