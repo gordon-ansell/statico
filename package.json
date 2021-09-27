@@ -6,6 +6,9 @@
 	"license": "MIT",
 	"minimum-stability": "dev",
 	"main": "index.js",
+    "bin": {
+        "statico": "./index.js"
+    },
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gordon-ansell/gajn-statico"
