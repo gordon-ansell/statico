@@ -276,30 +276,22 @@ class Statico
             }
         }
 
-        let doassets = true;
-        if (this.config.processArgs.argv.noassets) {
-            doassets = false;
+        // Tell user.
+        syslog.notice('Processing assets.');
+
+        // Images?
+        let doimages = true;
+        if (this.config.processArgs.argv.noimages) {
+            doimages = false;
+            syslog.warning('Skipping images.');
         }
         
-        if (doassets) {
-            syslog.notice('Processing assets.');
+        // Assets parse.
+        let assetParser = new AssetParser(this.config);
+        await assetParser.parse(assets, !doimages);
 
-            // Assets parse.
-            let assetParser = new AssetParser(this.config);
-            await assetParser.parse(assets);
-
-            // Copy the generated images.
-            await this.copyGeneratedImages();
-        } else {
-            syslog.warning('Skipping assets.');
-
-            // Assets parse.
-            let assetParser = new AssetParser(this.config);
-            await assetParser.parse(assets, true);
-
-            // Copy the generated images.
-            await this.copyGeneratedImages();
-        }
+        // Copy the generated images.
+        await this.copyGeneratedImages();
 
         // Create the template parser.
         let templateParser = new TemplateParser(this.config);

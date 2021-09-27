@@ -43,7 +43,7 @@ class ProcessArgs
               "clean",
               "watch",
               "convert",
-              "noassets"
+              "noimages"
             ],
             default: {
               dev: false,
