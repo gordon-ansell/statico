@@ -181,7 +181,7 @@ class Server
     stop()
     {
         if (this.#server) {
-            this.#server.exit();
+            this.#server.close();
         }
     }
 }
