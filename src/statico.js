@@ -111,6 +111,7 @@ class Statico
         this.#output = output;
 
 
+        syslog.notice('='.repeat(50));
         syslog.notice(`Statico version ${pack.version} started.`);
         syslog.info(`Input directory: ${this.#input}.`);
         syslog.info(`Output directory: ${this.#output}.`);
@@ -247,6 +248,8 @@ class Statico
      */
     async process(files)
     {            
+        syslog.notice('-'.repeat(50));
+
         this.#startTime = Date.now();
 
         if (!files) {
@@ -330,6 +333,7 @@ class Statico
 
         // Finish up.
         syslog.notice(`Statico processing completed in ${(Date.now() - this.#startTime) / 1000} seconds.`);
+        syslog.notice('-'.repeat(50));
 
     }
 
