@@ -62,6 +62,12 @@ class Watcher
      */
     async _run(path)
     {
+        let ext = path.extname(path);
+
+        if ('.scss' == ext && this.config.scssBuild) {
+            path = this.config.scssBuild;
+        }
+
         this.statico.process(path);
         if (null !== this.server && this.config.processArgs.argv.servesync) {
             syslog.notice(`Telling browsersync to refresh.`);

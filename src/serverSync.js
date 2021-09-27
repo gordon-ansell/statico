@@ -91,6 +91,16 @@ class ServerSync
     {
         this.#server.reload(files);
     }
+
+    /**
+     * Stop the server.
+     */
+    stop()
+    {
+        if (this.#server) {
+            this.#server.exit();
+        }
+    }
 }
 
 module.exports = ServerSync;
