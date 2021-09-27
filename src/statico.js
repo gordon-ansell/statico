@@ -283,6 +283,7 @@ class Statico
         
         if (doassets) {
             syslog.notice('Processing assets.');
+
             // Assets parse.
             let assetParser = new AssetParser(this.config);
             await assetParser.parse(assets);
@@ -291,6 +292,11 @@ class Statico
             await this.copyGeneratedImages();
         } else {
             syslog.warning('Skipping assets.');
+
+            // Assets parse.
+            let assetParser = new AssetParser(this.config);
+            await assetParser.parse(assets, true);
+
             // Copy the generated images.
             await this.copyGeneratedImages();
         }
