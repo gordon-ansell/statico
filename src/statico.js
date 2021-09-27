@@ -291,6 +291,8 @@ class Statico
             await this.copyGeneratedImages();
         } else {
             syslog.warning('Skipping assets.');
+            // Copy the generated images.
+            await this.copyGeneratedImages();
         }
 
         // Create the template parser.
