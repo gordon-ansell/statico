@@ -82,7 +82,7 @@ class Watcher
         this.config.watching = true;
 
         ch.on('change', async (path) => {
-            syslog.debug(`File changed: ${path}`);
+            syslog.notice(`File changed: ${path}`);
             this.statico.process(path);
             if (null !== this.server && this.config.processArgs.argv.servesync) {
                 syslog.notice(`Telling browsersync to refresh.`);
@@ -91,7 +91,7 @@ class Watcher
         });
 
         ch.on('add', async (path) => {
-            syslog.debug(`File added: ${path}`);
+            syslog.notice(`File added: ${path}`);
             this.statico.process(path);
             if (null !== this.server && this.config.processArgs.argv.servesync) {
                 syslog.notice(`Telling browsersync to refresh.`);
@@ -100,8 +100,9 @@ class Watcher
         });
 
         process.on('SIGINT', () => {
-            ch.close();
             this.server.stop();
+            ch.close();
+            process.exit(0);
         });
     }
 }
