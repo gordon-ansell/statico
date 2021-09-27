@@ -65,9 +65,7 @@ class AssetParser extends BaseParser
     {
         let totalItems = files.length;
         let count = 0;
-        if (!skip) {
-            syslog.printProgress(0);
-        }
+        syslog.printProgress(0);
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
@@ -85,7 +83,7 @@ class AssetParser extends BaseParser
                         }
                         if (process) {
                             let handler = this.config.assetHandlers.getHandlerForExt(ext);
-                            await handler.process(element);
+                            await handler.process(element, skip);
                             syslog.info(`Handled asset: ${trimmed}.`);
                         }
                     } catch (e) {
@@ -95,20 +93,14 @@ class AssetParser extends BaseParser
             } else {
                 this._copyFile(element);
             }
-            if (!skip) {
-                count++;
-                syslog.printProgress((count / totalItems) * 100);
-            }
+            count++;
+            syslog.printProgress((count / totalItems) * 100);
         }));
 
-        if (!skip) {
-            if (this.config.cacheAssets) {
-                this.config.assetCacheHandler.saveMap();
-            }
+        if (this.config.cacheAssets) {
+            this.config.assetCacheHandler.saveMap();
         }
-        if (!skip) {
-            syslog.endProgress();
-        }
+        syslog.endProgress();
     }
 
 }
