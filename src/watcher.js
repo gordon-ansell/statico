@@ -59,6 +59,8 @@ class Watcher
      */
     watch()
     {
+        let ignores = this.config.watcherIgnores;
+        /*
         let ignores = [
             path.join(this.config.sitePath, 'node_modules'),
             path.join(this.config.sitePath, '_conv'),
@@ -67,6 +69,9 @@ class Watcher
             path.join(this.config.sitePath, '_generatedImages'),
             /(^|[\/\\])\../,
         ];
+        */
+
+        syslog.inspect(ignores, "warning");
 
         const ch = chokidar.watch(this.config.sitePath, {
             ignored: ignores,

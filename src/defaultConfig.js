@@ -6,6 +6,8 @@
  */
 'use strict';
 
+const path = require('path');
+
 /**
  * Default configuration.
  */
@@ -89,6 +91,14 @@ module.exports = function(configData) {
         site: {
             cacheCssJsMax: "86400",
             cacheImagesMax: "2592000"    
-        }
+        },
+        watcherIgnores = [
+            path.join(configData.sitePath, 'node_modules'),
+            path.join(configData.sitePath, '_conv'),
+            path.join(configData.sitePath, '_site'),
+            path.join(configData.sitePath, '_tmp'),
+            path.join(configData.sitePath, '_generatedImages'),
+            /(^|[\/\\])\../,
+        ]
     }
 }
