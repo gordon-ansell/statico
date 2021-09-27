@@ -71,24 +71,22 @@ class AssetParser extends BaseParser
             let trimmed = element.replace(this.config.sitePath, '');
             let ext = path.extname(element).substr(1);
             if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
-                if (!skip) {
-                    try {
-                        syslog.debug(`About to parse asset ${trimmed}.`, 'Statico.run')
-                        this.config.events.emit('statico.preparseassetfile', trimmed);
-                        let process = false;
-                        if (this.config.processArgs.argv.clean || this.config.doNotCacheAssetExts.includes(ext)) {
-                            process = true;
-                        } else if (this.config.cacheAssets) {
-                            process = this.config.assetCacheHandler.check(trimmed);
-                        }
-                        if (process) {
-                            let handler = this.config.assetHandlers.getHandlerForExt(ext);
-                            await handler.process(element, skip);
-                            syslog.info(`Handled asset: ${trimmed}.`);
-                        }
-                    } catch (e) {
-                        syslog.error(`Failed to process asset ${trimmed}: ${e.message}`);
+                try {
+                    syslog.debug(`About to parse asset ${trimmed}.`, 'Statico.run')
+                    this.config.events.emit('statico.preparseassetfile', trimmed);
+                    let process = false;
+                    if (this.config.processArgs.argv.clean || this.config.doNotCacheAssetExts.includes(ext)) {
+                        process = true;
+                    } else if (this.config.cacheAssets) {
+                        process = this.config.assetCacheHandler.check(trimmed);
                     }
+                    if (process) {
+                        let handler = this.config.assetHandlers.getHandlerForExt(ext);
+                        await handler.process(element, skip);
+                        syslog.info(`Handled asset: ${trimmed}.`);
+                    }
+                } catch (e) {
+                    syslog.error(`Failed to process asset ${trimmed}: ${e.message}`);
                 }
             } else {
                 this._copyFile(element);
