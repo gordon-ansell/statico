@@ -200,11 +200,11 @@ class Statico
         // Process it all.
         await this.process();
 
-        let serverSaved = null;
+        let server;
 
         // Serve?
         if (this.config.processArgs.argv.serve) {
-            let server = new Server(
+            server = new Server(
                 path.join(this.config.outputPath),
                 this.config.hostname
             );
@@ -213,17 +213,16 @@ class Statico
         // Servesync?
         } else if (this.config.processArgs.argv.servesync) {
             const ServerSync = require('./serverSync');
-            let server = new ServerSync(
+            server = new ServerSync(
                 path.join(this.config.outputPath),
                 this.config.hostname,
             );
             server.start();
-            serverSaved = server;
         } 
 
         // Watch?
         if (this.config.processArgs.argv.watch) {
-            let watcher = new Watcher(this.config, this, serverSaved);
+            let watcher = new Watcher(this.config, this, server);
             watcher.watch();
         }
 
