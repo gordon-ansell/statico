@@ -29,7 +29,7 @@ module.exports = function(configData) {
         // Filters used when parsing filesystem.
         fsParserFilters: {
             allowPaths: ['_posts'],
-            ignorePaths: ['_', 'node_modules', '_conv'],
+            ignorePaths: ['_', 'node_modules', '_conv', '_drafts'],
             allowFiles: [],
             ignoreFiles: ['.', '_', 'package.json', 'package-lock.json'],
             ignoreFilesFirst: undefined,
