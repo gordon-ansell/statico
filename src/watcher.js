@@ -60,19 +60,19 @@ class Watcher
     /**
      * The actual watch run.
      */
-    async _run(path)
+    async _run(filePath)
     {
-        let ext = path.extname(path);
+        let ext = path.extname(filePath);
 
         if ('.scss' == ext && this.config.scssBuild) {
             let tmp = this.config.scssBuild;
-            path = [];
+            filePath = [];
             for (let item in tmp) {
-                path.push(path.join(this.config.sitePath, path));
+                filePath.push(path.join(this.config.sitePath, item));
             }
         }
 
-        this.statico.process(path);
+        this.statico.process(filePath);
         if (null !== this.server && this.config.processArgs.argv.servesync) {
             syslog.notice(`Telling browsersync to refresh.`);
             this.server.reload('*.*');
@@ -99,14 +99,14 @@ class Watcher
         syslog.notice('Starting file watcher ...');
         this.config.watching = true;
 
-        ch.on('change', async (path) => {
-            syslog.notice(`File changed: ${path}`);
-            await this._run(path);
+        ch.on('change', async (filePath) => {
+            syslog.notice(`File changed: ${filePath}`);
+            await this._run(filePath);
         });
 
-        ch.on('add', async (path) => {
-            syslog.notice(`File added: ${path}`);
-            await this._run(path);
+        ch.on('add', async (filePath) => {
+            syslog.notice(`File added: ${filePath}`);
+            await this._run(filePath);
         });
 
         process.on('SIGINT', () => {
