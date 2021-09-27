@@ -67,10 +67,9 @@ class Watcher
         if ('.scss' == ext && this.config.scssBuild) {
             let tmp = this.config.scssBuild;
             filePath = [];
-            for (let item in tmp) {
+            for (let item of tmp) {
                 filePath.push(path.join(this.config.sitePath, item));
             }
-            syslog.inspect(filePath, "warning");
         }
 
         this.statico.process(filePath);
