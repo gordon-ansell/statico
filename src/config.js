@@ -434,8 +434,13 @@ class Config
      */
     collateProcessArgs()
     {
-        // Establish the mode.
+        // Mode from .env?
         let mode = 'dev';
+        if (process.env.MODE) {
+            mode = process.env.MODE;
+        }
+
+        // Establish the mode.
         if (this.processArgs.argv.dev) {
             mode = 'dev';
         } else if (this.processArgs.argv.staging) {
