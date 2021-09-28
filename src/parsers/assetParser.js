@@ -66,9 +66,6 @@ class AssetParser extends BaseParser
         let totalItems = files.length;
         let count = 0;
         await syslog.printProgress(0);
-        syslog.printProgress(1);
-
-        throw new Error('Stopping');
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
@@ -98,13 +95,13 @@ class AssetParser extends BaseParser
                 this._copyFile(element);
             }
             count++;
-            syslog.printProgress((count / totalItems) * 100);
+            await syslog.printProgress((count / totalItems) * 100);
         }));
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
         }
-        syslog.endProgress();
+        await syslog.endProgress();
     }
 
 }
