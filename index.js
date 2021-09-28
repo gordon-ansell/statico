@@ -41,6 +41,8 @@ try {
     let logLevel = process.env.LOG_LEVEL || 'notice';
     let logContexts = process.env.LOG_CONTEXTS || [];
 
+    syslog.inspect(process.env);
+
     // Start up statico.
     let statico = new Statico(null, null, logLevel, logContexts, pa);
     return statico.init().then(function() {
