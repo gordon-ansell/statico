@@ -522,7 +522,7 @@ class Statico
             let from = path.join(this.config.sitePath, this.config.assetHandlers.image.outputDir);
             let to = path.join(this.config.outputPath, this.config.assetHandlers.image.outputDir);
             syslog.info(`Copying generated images ${from} => ${to}`);
-            await fsutils.copyDir(from, to);
+            await fsutils.copyDirAsync(from, to);
         }
     }
 
