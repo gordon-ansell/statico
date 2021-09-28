@@ -434,6 +434,7 @@ class Config
      */
     collateProcessArgs()
     {
+        syslog.inspect(process.env, "warning", "ENV");
         // Mode from .env?
         let mode = 'dev';
         if (process.env.MODE) {
