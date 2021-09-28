@@ -518,7 +518,7 @@ class Statico
     async copyGeneratedImages()
     {
         if (this.config.assetHandlers.image) {
-            syslog.inspect(`Copying generated images.`);
+            syslog.notice(`Copying generated images.`);
             let from = path.join(this.config.sitePath, this.config.assetHandlers.image.outputDir);
             let to = path.join(this.config.outputPath, this.config.assetHandlers.image.outputDir);
             syslog.info(`Copying generated images ${from} => ${to}`);
