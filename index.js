@@ -10,6 +10,7 @@
 const { syslog } = require('gajn-framework');
 const ProcessArgs = require('./src/processArgs');
 const Statico = require('./src/statico');
+const dotenv = require('dotenv').config;
 
 try {
 
@@ -36,8 +37,12 @@ try {
         syslog.inspect(promise, "warning", "Promise object");
     });    
 
+    // .env
+    let logLevel = process.env.LOG_LEVEL || 'notice';
+    let logContexts = process.env.LOG_CONTEXTS || [];
+
     // Start up statico.
-    let statico = new Statico(null, null, 'notice', [], pa);
+    let statico = new Statico(null, null, logLevel, logContexts, pa);
     return statico.init().then(function() {
         return statico.run();
     });

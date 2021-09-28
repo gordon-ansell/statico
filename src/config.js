@@ -385,6 +385,10 @@ class Config
         if (this.logLevel) {
             syslog.setLevel(this.logLevel);
         }
+
+        if (this.logContexts) {
+            syslog.addContexts(logContexts);
+        }
     }
 
     /**

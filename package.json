@@ -27,6 +27,7 @@
         "@webdesigndecal/showdown-footnotes": "*",
         "browser-sync": "*",
         "chokidar": "*",
+        "dotenv": "*",
 		"gajn-framework": "gordon-ansell/gajn-framework",
 		"gray-matter": "*",
         "js-beautify": "*",
