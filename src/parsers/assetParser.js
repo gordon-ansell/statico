@@ -66,6 +66,7 @@ class AssetParser extends BaseParser
         let totalItems = files.length;
         let count = 0;
         syslog.printProgress(0);
+        syslog.printProgress(1);
 
         throw new Error('Stopping');
 
