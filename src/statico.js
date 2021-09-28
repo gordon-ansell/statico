@@ -136,6 +136,9 @@ class Statico
         this.config.loadSiteConfig();
         this.config.mergeBaseConfigs();
         this.config.collateProcessArgs();
+
+        syslog.notice(`Running in mode: ${this.config.mode}.`);
+
         this.config.events.emit('statico.init.postbaseconfig');
         this.config.loadDefaultFilters();
         this.config.loadDefaultShortcodes();
