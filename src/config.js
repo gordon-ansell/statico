@@ -439,6 +439,7 @@ class Config
         let mode = 'dev';
         if (process.env.MODE) {
             mode = process.env.MODE;
+            syslog.warning(`Setting mode to: ${mode}`);
         }
 
         // Establish the mode.
