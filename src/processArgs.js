@@ -50,7 +50,9 @@ class ProcessArgs
               staging: false,
               prod: false,
               serve: false,
-              watch: false
+              watch: false,
+              noimages: false,
+              clean: false
             },
             unknown: function (unknownArgument) {
               throw new StaticoCommandLineError(`Unrecognised argument: '${unknownArgument}'. Use --help to see the list of supported commands.`);
