@@ -41,7 +41,7 @@ try {
     let logLevel = process.env.LOG_LEVEL || 'notice';
     let logContexts = process.env.LOG_CONTEXTS || [];
 
-    syslog.inspect(dotenv.parsed, "warning");
+    syslog.inspect(process.env, "warning");
 
     // Start up statico.
     let statico = new Statico(null, null, logLevel, logContexts, pa);
