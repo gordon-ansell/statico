@@ -73,12 +73,15 @@ class AssetParser extends BaseParser
             if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
                 try {
                     syslog.debug(`About to parse asset ${trimmed}.`, 'Statico.run')
-                    this.config.events.emit('statico.preparseassetfile', trimmed);
-                    let process = false;
-                    if (this.config.processArgs.argv.clean || this.config.doNotCacheAssetExts.includes(ext)) {
-                        process = true;
-                    } else if (this.config.cacheAssets) {
-                        process = this.config.assetCacheHandler.check(trimmed);
+                    let process = true;
+                    if (!skip) {
+                        this.config.events.emit('statico.preparseassetfile', trimmed);
+                        process = false;
+                        if (this.config.processArgs.argv.clean || this.config.doNotCacheAssetExts.includes(ext)) {
+                            process = true;
+                        } else if (this.config.cacheAssets) {
+                            process = this.config.assetCacheHandler.check(trimmed);
+                        }
                     }
                     if (process) {
                         let handler = this.config.assetHandlers.getHandlerForExt(ext);
