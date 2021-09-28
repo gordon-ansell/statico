@@ -10,7 +10,7 @@
 const { syslog } = require('gajn-framework');
 const ProcessArgs = require('./src/processArgs');
 const Statico = require('./src/statico');
-const dotenv = require('dotenv').config;
+const dotenv = require('dotenv').config();
 
 try {
 
