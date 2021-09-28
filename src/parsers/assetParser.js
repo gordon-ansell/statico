@@ -67,6 +67,8 @@ class AssetParser extends BaseParser
         let count = 0;
         syslog.printProgress(0);
 
+        throw new Error('Stopping');
+
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
             let ext = path.extname(element).substr(1);
