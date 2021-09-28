@@ -434,12 +434,10 @@ class Config
      */
     collateProcessArgs()
     {
-        syslog.inspect(process.env, "warning", "ENV");
         // Mode from .env?
         let mode = 'dev';
         if (process.env.MODE) {
             mode = process.env.MODE;
-            syslog.warning(`Setting mode to: ${mode}`);
         }
 
         // Establish the mode.
@@ -450,6 +448,8 @@ class Config
         } else if (this.processArgs.argv.prod) {
             mode = 'prod';
         }
+
+        this.mode = mode;
 
         // Mode related stuff.
         if (this.modes && this.modes[mode]) {
