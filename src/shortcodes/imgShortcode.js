@@ -40,13 +40,14 @@ class ImgShortcode extends NunjucksShortcode
         let ret = '';
         let imgHtml = new ImageHtml(opts);
 
-        ret = imgHtml.render(args[0], imgSpec);
+        ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
 
         let imgs = imgHtml.metaIds;
         if (imgs.length > 0) {
             if (!this.config.imagesSaved) {
                 this.config.imagesSaved = {};
             }
+            syslog.inspect(imgs);
             if (this.config.imagesSaved[context.ctx.permalink]) {
                 this.config.imagesSaved[context.ctx.permalink] = 
                     merge.merge(this.config.imagesSaved[context.ctx.permalink], imgs);
