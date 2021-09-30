@@ -106,6 +106,8 @@ class Config
             layoutDir: undefined,
             hostname: os.hostname(),
             mode: 'dev',
+            assetsDir: 'assets',
+            assetsPath: null,
             cacheDir: '_cache',
             cachePath: undefined,
             cacheAssets: true,
@@ -388,6 +390,10 @@ class Config
 
         if (this.logContexts) {
             syslog.addContexts(logContexts);
+        }
+
+        if (null === this.assetsPath) {
+            this.assetsPath = path.join(this.sitePath, this.assetsDir);
         }
     }
 
