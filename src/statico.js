@@ -139,26 +139,6 @@ class Statico
 
         syslog.notice(`Running in mode: ${this.config.mode}.`);
 
-        let tmp1 = '/assets/images/posts/myimage.jpeg';
-        let tmp2 = '/images/posts/myimage.jpeg';
-        let tmp3 = 'http://mydomain.com/images/posts/myimage.jpeg';
-        
-        syslog.warning(this.config.asset(tmp1));
-        syslog.warning(this.config.asset(tmp2));
-        syslog.warning(this.config.asset(tmp3));
-
-        this.config.assetsPath = 'https://cdn.somewhere.com';
-
-        syslog.warning(this.config.asset(tmp1));
-        syslog.warning(this.config.asset(tmp2));
-        syslog.warning(this.config.asset(tmp3));
-
-        this.config.assetsDir = null;
-
-        syslog.warning(this.config.asset(tmp1));
-        syslog.warning(this.config.asset(tmp2));
-        syslog.warning(this.config.asset(tmp3));
-
         this.config.events.emit('statico.init.postbaseconfig');
         this.config.loadDefaultFilters();
         this.config.loadDefaultShortcodes();
