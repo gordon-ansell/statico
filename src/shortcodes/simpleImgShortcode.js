@@ -39,7 +39,7 @@ class SimpleImgShortcode extends NunjucksShortcode
 
         let imgHtml = new ImageHtml(opts);
         let ret = '';
-        ret = imgHtml.render(args[0], imgSpec);
+        ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
 
         let imgs = imgHtml.metaIds;
         if (imgs.length > 0) {
