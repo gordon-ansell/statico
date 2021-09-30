@@ -47,7 +47,6 @@ class ImgShortcode extends NunjucksShortcode
             if (!this.config.imagesSaved) {
                 this.config.imagesSaved = {};
             }
-            syslog.inspect(imgs, "warning");
             if (this.config.imagesSaved[context.ctx.permalink]) {
                 this.config.imagesSaved[context.ctx.permalink] = 
                     merge.merge(this.config.imagesSaved[context.ctx.permalink], imgs);
