@@ -423,6 +423,7 @@ class Config
         if (this.assetsPath) {
             let u = new URL(ass, this.assetsPath);
             ass = u.toString();
+            syslog.warning(`Returning ${u.toString()}`);
         }
 
         return ass;
