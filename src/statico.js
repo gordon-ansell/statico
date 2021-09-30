@@ -137,8 +137,6 @@ class Statico
         this.config.mergeBaseConfigs();
         this.config.collateProcessArgs();
 
-        syslog.warning(this.config.assetsPath);
-
         syslog.notice(`Running in mode: ${this.config.mode}.`);
 
         this.config.events.emit('statico.init.postbaseconfig');

@@ -108,6 +108,7 @@ class Config
             mode: 'dev',
             assetsDir: 'assets',
             assetsPath: null,
+            assetsDirTrimExtra: true,
             cacheDir: '_cache',
             cachePath: undefined,
             cacheAssets: true,
