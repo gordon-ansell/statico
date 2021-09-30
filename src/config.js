@@ -416,6 +416,8 @@ class Config
             }
         }
 
+        ass = pathUtils.addLeadingSlash(ass);
+
         // If we have an assets path, put that at the start.
         if (this.assetsPath) {
             ass = path.join(this.assetsPath, ass);
