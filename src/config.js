@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, merge } = require('gajn-framework');
+const { syslog, merge, pathUtils } = require('gajn-framework');
 const { EventManager, CacheManager } = require('gajn-framework');
 const fs = require('fs');
 const os = require('os');
@@ -108,7 +108,6 @@ class Config
             mode: 'dev',
             assetsDir: 'assets',
             assetsPath: null,
-            assetsDirTrimExtra: true,
             cacheDir: '_cache',
             cachePath: undefined,
             cacheAssets: true,
@@ -393,9 +392,36 @@ class Config
             syslog.addContexts(logContexts);
         }
 
-        if (null === this.assetsPath) {
-            this.assetsPath = path.join(this.sitePath, this.assetsDir);
+    }
+
+    /**
+     * Get the correct assets path for something.
+     * 
+     * @param   {string}    ass     Input asset - should be a root relative dir.
+     * 
+     * @return  {string}
+     */
+    asset(ass)
+    {
+        // If we're passed and absolute path with an appropriate domain, just return.
+        if (ass.startsWith('http')) {
+            return ass;
         }
+
+        // First see if it already begins with the assets dir. If not, add it.
+        if (this.assetsDir) {
+            let tmp = pathUtils.removeBothSlashes(ass);
+            if (!tmp.startsWith(pathUtils.removeBothSlashes(this.assetsDir))) {
+                ass = path.join(this.assetsDir, ass);
+            }
+        }
+
+        // If we have an assets path, put that at the start.
+        if (this.assetsPath) {
+            ass = path.join(this.assetsPath, ass);
+        }
+
+        return ass;
     }
 
     /**
