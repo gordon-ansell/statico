@@ -19,6 +19,7 @@ const defaultShortcodes = require('./shortcodes/defaultShortcodes')
 const HandlerCollection = require('./handlerCollection');
 const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreprocessor');
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
+const URL = require('url');
 
 /**
  * Config class.
@@ -420,7 +421,8 @@ class Config
 
         // If we have an assets path, put that at the start.
         if (this.assetsPath) {
-            ass = path.join(this.assetsPath, ass);
+            let u = new URL(ass, this.assetsPath);
+            ass = u.toString();
         }
 
         return ass;
