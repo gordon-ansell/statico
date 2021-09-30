@@ -11,19 +11,6 @@ const path = require('path');
 /**
  * Default configuration.
  */
-/*
-module.exports = {
-    // Filters used when parsing filesystem.
-    fsParserFilters: {
-        allowPaths: undefined,
-        ignorePaths: ['_'],
-        allowFiles: undefined,
-        ignoreFiles: ['.'],
-        ignoreFilesFirst: undefined,
-        ignoreExts: undefined,
-    }
-}
-*/
 
 module.exports = function(configData) {
     
@@ -32,6 +19,7 @@ module.exports = function(configData) {
         fsParserFilters: {
             allowPaths: ['_posts'],
             ignorePaths: ['_', 'node_modules', '_conv', '_drafts'],
+            ignoreDirs: ['.git'],
             allowFiles: [],
             ignoreFiles: ['.', '_', 'package.json', 'package-lock.json'],
             ignoreFilesFirst: undefined,

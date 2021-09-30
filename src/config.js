@@ -390,7 +390,7 @@ class Config
         }
 
         if (this.logContexts) {
-            syslog.addContexts(logContexts);
+            syslog.addContexts(this.logContexts);
         }
 
     }
