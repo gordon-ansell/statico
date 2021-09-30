@@ -153,6 +153,12 @@ class Statico
         syslog.warning(this.config.asset(tmp2));
         syslog.warning(this.config.asset(tmp3));
 
+        this.config.assetsDir = null;
+
+        syslog.warning(this.config.asset(tmp1));
+        syslog.warning(this.config.asset(tmp2));
+        syslog.warning(this.config.asset(tmp3));
+
         this.config.events.emit('statico.init.postbaseconfig');
         this.config.loadDefaultFilters();
         this.config.loadDefaultShortcodes();
