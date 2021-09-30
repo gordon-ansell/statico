@@ -19,7 +19,7 @@ const defaultShortcodes = require('./shortcodes/defaultShortcodes')
 const HandlerCollection = require('./handlerCollection');
 const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreprocessor');
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
-const URL = require('url');
+const { URL } = require('url');
 
 /**
  * Config class.
