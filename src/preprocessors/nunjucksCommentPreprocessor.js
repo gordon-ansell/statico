@@ -49,20 +49,17 @@ class NunjucksCommentPreprocessor
         const regex = /\[\/\/\]\:\s\#\s\(\@(.*)\)/g;
         let m;
         while ((m = regex.exec(content)) !== null) {
-            // This is necessary to avoid infinite loops with zero-width matches
-            if (m.index === regex.lastIndex) {
+           if (m.index === regex.lastIndex) {
                 regex.lastIndex++;
             }
 
             if (m) {
-
                 let rep = '';
 
                 let cmds = m[1].trim();
                 if (cmds.includes('|')) {
 
                     let sp = cmds.split('|');
-
                     let count = 0;
                     for (let item of sp) {
 
@@ -104,6 +101,24 @@ class NunjucksCommentPreprocessor
             } 
         }
 
+        // Raw.
+        const regexRaw = /\[\/\/\]\:\s\#\s\(\-(.*)\)/g
+        while ((m = regex.exec(content)) !== null) {
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+
+            if (m) {
+
+                rep = '[//]: (@' + rep + ')';
+
+                ret = ret.replace(m[0], rep);
+            } else {
+                syslog.inspect(m, "warning");
+            } 
+        }
+ 
+ 
         //syslog.warning(ret);
         return ret;
     }
