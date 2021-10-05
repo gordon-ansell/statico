@@ -103,7 +103,7 @@ class NunjucksCommentPreprocessor
 
         // Raw.
         const regexRaw = /\[\/\/\]\:\s\#\s\(\-(.*)\)/g
-        while ((m = regexRaw.exec(content)) !== null) {
+        while ((m = regexRaw.exec(ret)) !== null) {
             if (m.index === regex.lastIndex) {
                 regex.lastIndex++;
             }
