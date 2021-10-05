@@ -110,7 +110,7 @@ class NunjucksCommentPreprocessor
 
             if (m) {
 
-                rep = '[//]: (@' + rep + ')';
+                let rep = '[//]: (@' + rep + ')';
 
                 ret = ret.replace(m[0], rep);
             } else {
