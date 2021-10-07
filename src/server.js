@@ -124,7 +124,7 @@ class Server
                 '.otf': 'application/font-otf',
                 '.wasm': 'application/wasm',
                 '.otf': 'application/x-font-opentype',
-                '.ttf': 'application/x-font-ttf',
+                '.ttf': 'application/x-font-truetype',
                 '.woff': 'application/font-woff',
             };
         
