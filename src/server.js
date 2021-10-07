@@ -134,7 +134,8 @@ class Server
                 '.jpeg': 'inline',
                 '.webp': 'inline',
                 '.gif': 'inline',
-                '.svg': 'inline'
+                '.svg': 'inline',
+                '.ttf': 'inline'
             };
 
             let dispType = dispTypes[extname] || '';
