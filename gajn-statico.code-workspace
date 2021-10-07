@@ -23,6 +23,9 @@
         },
         {
             "path": "../statico-plugins/statico-plugin-ratingstars"
+        },
+        {
+            "path": "../statico-plugins/statico-plugin-socialshares"
         }
     ]
 }
