@@ -123,9 +123,7 @@ class Server
                 '.eot': 'application/vnd.ms-fontobject',
                 '.otf': 'application/font-otf',
                 '.wasm': 'application/wasm',
-                '.otf': 'application/x-font-opentype',
-                '.ttf': 'application/x-font-truetype',
-                '.woff': 'application/font-woff',
+                '.otf': 'application/x-font-opentype'
             };
         
             let contentType = mimeTypes[extname] || 'application/octet-stream';
