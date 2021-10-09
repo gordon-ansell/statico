@@ -76,10 +76,13 @@ class MarkdownTemplateHandler extends TemplateHandler
         let fp = templateFile.filePath.replace(this.sitePath, '');
         syslog.trace(`Markdown template handler is processing file: ${fp}`, 'TemplateHandler:Markdown');
 
+        // Save for RSS.
+        templateFile.data.contentRss = templateFile.data.content;
+
         // Preprocess?
         if (this.#preprocessors && this.#preprocessors.length > 0) {
             for (let pp of this.#preprocessors) {
-                templateFile.data.contentRss = await pp.preprocessString(templateFile.data.content, true);
+                templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, true);
                 templateFile.data.content = await pp.preprocessString(templateFile.data.content);
             }
         }

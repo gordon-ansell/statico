@@ -96,9 +96,6 @@ class NunjucksImagePreprocessor
             }
         }
 
-        if (rss) {
-            syslog.warning(ret);
-        }
         return ret;
     }
 
