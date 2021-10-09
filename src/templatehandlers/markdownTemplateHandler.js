@@ -79,6 +79,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         // Preprocess?
         if (this.#preprocessors && this.#preprocessors.length > 0) {
             for (let pp of this.#preprocessors) {
+                templateFile.data.contentRss = await pp.preprocessString(templateFile.data.content, true);
                 templateFile.data.content = await pp.preprocessString(templateFile.data.content);
             }
         }
@@ -102,6 +103,15 @@ class MarkdownTemplateHandler extends TemplateHandler
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content_html);
             } else {
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content);
+            }
+            templateFile.data.content_text = striptags(templateFile.data.content_html);
+        }
+        if (templateFile.data.contentRss) {
+            if (compile.content) {
+                templateFile.data.content_html_rss = this.parseThroughTemplate(templateFile.data.contentRss, templateFile.data);
+                templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.content_html_rss);
+            } else {
+                templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.contentRss);
             }
             templateFile.data.content_text = striptags(templateFile.data.content_html);
         }

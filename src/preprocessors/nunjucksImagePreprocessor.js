@@ -40,10 +40,11 @@ class NunjucksImagePreprocessor
      * Preprocess a string.
      * 
      * @param   {string}    content     Content to preprocess.
+     * @param   {boolean}   rss         For RSS?
      * 
      * @return  {string}
      */
-    async preprocessString(content)
+    async preprocessString(content, rss = false)
     {
         let ret = content;
         const regex = /!\[([^\]]*)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g;
@@ -61,7 +62,12 @@ class NunjucksImagePreprocessor
                 if (m[3]) {
                     title = m[3].trim();
                 }
-                let rep = `{% img "${url}"`;
+                let rep;
+                if (rss) {
+                    rep = `{% simpleimg "${url}"`;
+                } else {
+                    rep = `{% img "${url}"`;
+                }
                 if (alt) {
                     rep += `, alt="${alt}"`;
                 }
