@@ -65,7 +65,6 @@ class NunjucksImagePreprocessor
                 let rep;
                 if (rss) {
                     rep = `{% simpleimg "${url}"`;
-                    syslog.warning('here');
                 } else {
                     rep = `{% img "${url}"`;
                 }
@@ -97,7 +96,9 @@ class NunjucksImagePreprocessor
             }
         }
 
-        //syslog.warning(ret);
+        if (rss) {
+            syslog.warning(ret);
+        }
         return ret;
     }
 
