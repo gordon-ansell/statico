@@ -113,7 +113,7 @@ class MarkdownTemplateHandler extends TemplateHandler
             } else {
                 templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.contentRss);
             }
-            templateFile.data.content_text = striptags(templateFile.data.content_html);
+            syslog.warning("Here");
         }
         if (templateFile.data.excerpt) {
             if (compile.excerpt) {
