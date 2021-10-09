@@ -91,9 +91,10 @@ class AssetParser extends BaseParser
                 } catch (e) {
                     syslog.error(`Failed to process asset ${trimmed}: ${e.message}`);
                 }
-            } else {
-                this._copyFile(element);
+            //} else {
+            //    this._copyFile(element);
             }
+            this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
             count++;
             await syslog.printProgress((count / totalItems) * 100);
         }));
