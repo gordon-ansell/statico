@@ -77,12 +77,17 @@ class MarkdownTemplateHandler extends TemplateHandler
         syslog.trace(`Markdown template handler is processing file: ${fp}`, 'TemplateHandler:Markdown');
 
         // Save for RSS.
-        templateFile.data.contentRss = templateFile.data.content;
+        let rss = this.config.rssBuildSeparateContent || false;
+        if (rss) {
+            templateFile.data.contentRss = templateFile.data.content;
+        }
 
         // Preprocess?
         if (this.#preprocessors && this.#preprocessors.length > 0) {
             for (let pp of this.#preprocessors) {
-                templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, true);
+                if (rss) {
+                    templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, true);
+                }
                 templateFile.data.content = await pp.preprocessString(templateFile.data.content);
             }
         }
@@ -109,7 +114,7 @@ class MarkdownTemplateHandler extends TemplateHandler
             }
             templateFile.data.content_text = striptags(templateFile.data.content_html);
         }
-        if (templateFile.data.contentRss) {
+        if (rss && templateFile.data.contentRss) {
             if (compile.content) {
                 templateFile.data.content_html_rss = this.parseThroughTemplate(templateFile.data.contentRss, templateFile.data);
                 templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.content_html_rss);
