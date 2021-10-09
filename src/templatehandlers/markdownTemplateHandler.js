@@ -80,7 +80,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         if (this.#preprocessors && this.#preprocessors.length > 0) {
             for (let pp of this.#preprocessors) {
                 templateFile.data.contentRss = await pp.preprocessString(templateFile.data.content, true);
-                syslog.inspect(templateFile.data.contentRss, "warning");
+                //syslog.inspect(templateFile.data.contentRss, "warning");
                 templateFile.data.content = await pp.preprocessString(templateFile.data.content);
             }
         }
