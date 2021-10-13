@@ -429,6 +429,22 @@ class Config
     }
 
     /**
+     * Qualify a URL.
+     * 
+     * @param   {string}    path    Path to qualify.
+     * 
+     * @return  {string}
+     */
+    qualify(path)
+    {
+        if (path.startsWith('http://') || path.startsWith('https://')) {
+            return path;
+        }
+
+        return new URL(path, this.hostname).href;
+    }
+
+    /**
      * Load the default config.
      * 
      * @return {void}
