@@ -29,7 +29,7 @@ class ImagesIncludeShortcode extends NunjucksShortcode
         let ret = '';
         if (this.config.imagesSaved && this.config.imagesSaved[context.ctx.permalink]) {
             for (let item of this.config.imagesSaved[context.ctx.permalink]) {
-                ret += `<link itemprop="image" href="${item}" />`
+                ret += `<link itemprop="image" href="${this.config.qualify(item)}" />`
             }
         } 
         return ret;
