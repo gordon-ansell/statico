@@ -37,7 +37,7 @@ class SimpleImgShortcode extends NunjucksShortcode
             lazyload: this.config.lazyload
         }
 
-        let imgHtml = new ImageHtml(opts, thie.config.hostname);
+        let imgHtml = new ImageHtml(opts, this.config.hostname);
         let ret = '';
         ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
 
