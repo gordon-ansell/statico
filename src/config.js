@@ -445,6 +445,24 @@ class Config
     }
 
     /**
+     * Unqualify a URL.
+     * 
+     * @param   {string}    path    Path to qualify.
+     * 
+     * @return  {string}
+     */
+    unqualify(path)
+    {
+        if (!path.startsWith(this.hostname)) {
+            return path;
+        }
+
+        path = path.replace(this.hostname, '');
+
+        return new URL(path, this.hostname).path;
+    }
+
+     /**
      * Load the default config.
      * 
      * @return {void}
