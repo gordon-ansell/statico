@@ -16,6 +16,7 @@ function absurlFilter(url, base)
 {
     syslog.error(url);
     if (url.trim().substring(0,4) == 'http') {
+        syslog.error('here 1');
         if (url.trim().startsWith(base + base)) {
             syslog.error(`Double base error (*) in absurlFilter: ${url.trim()}`);
         }
@@ -23,6 +24,7 @@ function absurlFilter(url, base)
     }
 
     let ret = (new URL(url.trim(), base.trim())).toString();
+    syslog,error('ret = ' + ret);
     if (ret.startsWith(base + base)) {
         syslog.error(`Double base error in absurlFilter: ${ret}`);
     }
