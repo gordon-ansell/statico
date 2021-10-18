@@ -24,7 +24,7 @@ function absurlFilter(url, base)
     }
 
     let ret = (new URL(url.trim(), base.trim())).toString();
-    syslog,error('ret = ' + ret);
+    syslog.error('ret = ' + ret);
     if (ret.startsWith(base + base)) {
         syslog.error(`Double base error in absurlFilter: ${ret}`);
     }
