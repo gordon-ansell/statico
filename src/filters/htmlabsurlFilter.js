@@ -55,6 +55,8 @@ function htmlabsurlFilter(content, base)
         ret = string.replaceAll(ret, l, absurl(l, base));
     }
 
+    ret = string.replaceAll(ret, base + base, base);
+
     return ret;
 }
 
