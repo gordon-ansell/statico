@@ -14,6 +14,7 @@ const { URL } = require('url');
  */
 function absurlFilter(url, base)
 {
+    syslog.error(url);
     if (url.trim().substring(0,4) == 'http') {
         if (url.trim().startsWith(base + base)) {
             syslog.error(`Double base error (*) in absurlFilter: ${url.trim()}`);
