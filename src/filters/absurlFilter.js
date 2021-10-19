@@ -14,15 +14,14 @@ const { URL } = require('url');
  */
 function absurlFilter(url, base)
 {
-    let ret; 
 
-    if (url.trim().startsWith(base.trim())) {
-        ret = url.trim();
+    if (url.trim().startsWith('https://') || url.trim().startsWith('http://')) {
+        return url.trim();
     }
 
-    ret = (new URL(url.trim(), base.trim())).toString();
+    let ret = (new URL(url.trim(), base.trim())).toString();
 
-    if (ret.startsWith(base + base)) {
+    if (ret.startsWith(base.trim() + base.trim())) {
         syslog.error(`Double base error in absurlFilter: ${ret}`);
     }
 
