@@ -51,12 +51,14 @@ function htmlabsurlFilter(content, base)
     links = Array.from([... new Set(links)]);
 
     for (let l of links) {
-        ret = string.replaceAll(ret, l, absurl(l, base));
+        l = l.trim();
+        if (!l.startsWith('http://') && !l.startsWith('https')) {
+            ret = string.replaceAll(ret, l, absurl(l, base));
+        }
     }
 
     if (ret.includes(base.trim() + base.trim())) {
         syslog.error(`URL returned from htmlabsurlFilter contains double base.`)
-        syslog.inspect(ret, "warning");
         ret = string.replaceAll(ret, base.trim() + base.trim(), base.trim());
     }
 
