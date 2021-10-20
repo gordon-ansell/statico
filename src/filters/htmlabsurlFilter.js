@@ -64,6 +64,11 @@ function htmlabsurlFilter(content, base, noimages = false)
     for (let l of links) {
         syslog.warning(l + ' => ' + absurl(l, base));
         ret = string.replaceAll(ret, l, absurl(l, base));
+        if (ret.includes(base.trim() + base.trim())) {
+            syslog.error('We have double bases after: ' + l);
+        } else {
+            syslog.error('Clear after: ' + l);
+        }
     }
 
     if (ret.includes(base.trim() + base.trim())) {
