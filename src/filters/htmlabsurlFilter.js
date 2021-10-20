@@ -27,7 +27,7 @@ function htmlabsurlFilter(content, base, noimages = false)
         if (m) {
             let htmlParam = m[1];
             let link = m[2];
-            if (!link.trim.startsWith('http') && !link.trim.startsWith('https')) {
+            if (!link.trim().startsWith('http') && !link.trim().startsWith('https')) {
                 if ('srcset' == htmlParam) {
                     let commaSp = link.trim().split(',');
                     for (let item of commaSp) {
