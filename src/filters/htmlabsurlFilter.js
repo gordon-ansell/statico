@@ -12,10 +12,13 @@ const absurl = require('./absurlFilter');
 /**
  * HTML URL filter. Make all relative URLs found into absolute URLs.
  */
-function htmlabsurlFilter(content, base)
+function htmlabsurlFilter(content, base, noimages = false)
 {
     let ret = content;
     let regex = /(srcset|src|href)="(.*?)"/gmi;
+    if (noimages) {
+        regex = /(href)="(.*?)"/gmi;
+    }
     let m;
     let srcsets = [];
     let links = [];
