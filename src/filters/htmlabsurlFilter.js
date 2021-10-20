@@ -48,13 +48,10 @@ function htmlabsurlFilter(content, base)
 
     }
 
-    links = Array.from([... new Set(links)]);
+    links = [... new Set(links)];
 
     for (let l of links) {
-        l = l.trim();
-        if (!l.startsWith('http://') && !l.startsWith('https')) {
-            ret = string.replaceAll(ret, l, absurl(l, base));
-        }
+        ret = string.replaceAll(ret, l, absurl(l, base));
     }
 
     if (ret.includes(base.trim() + base.trim())) {
