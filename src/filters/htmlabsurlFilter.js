@@ -53,6 +53,8 @@ function htmlabsurlFilter(content, base, noimages = false)
 
     links = [... new Set(links)];
 
+    syslog.inspect(links, "warning");
+
     for (let l of links) {
         ret = string.replaceAll(ret, l, absurl(l, base));
     }
