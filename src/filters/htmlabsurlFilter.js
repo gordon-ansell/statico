@@ -56,9 +56,9 @@ function htmlabsurlFilter(content, base)
 
     if (ret.includes(base.trim() + base.trim())) {
         syslog.error(`URL returned from htmlabsurlFilter contains double base.`)
+        syslog.inspect(ret, "warning");
+        ret = string.replaceAll(ret, base.trim() + base.trim(), base.trim());
     }
-
-    //ret = string.replaceAll(ret, base + base, base);
 
     return ret;
 }
