@@ -55,25 +55,16 @@ function htmlabsurlFilter(content, base, noimages = false)
 
     links = [... new Set(links)];
 
-    syslog.inspect(links, "warning");
-
-    if (ret.includes(base.trim() + base.trim())) {
-        syslog.error(`Content to parse in htmlabsurlFilter already contains double base(s).`)
-    }
-
     for (let l of links) {
-        syslog.warning(l + ' => ' + absurl(l, base));
         ret = string.replaceAll(ret, l, absurl(l, base));
-        if (ret.includes(base.trim() + base.trim())) {
-            syslog.error('We have double bases after: ' + l);
-        } else {
-            syslog.error('Clear after: ' + l);
-        }
     }
 
     if (ret.includes(base.trim() + base.trim())) {
-        syslog.error(`Content returned from htmlabsurlFilter contains double base(s).`)
         ret = string.replaceAll(ret, base.trim() + base.trim(), base.trim());
+    }
+
+    if (ret.includes(base.trim() + base.trim())) {
+        syslog.warning('Content return from htmlabsurlFilter contains double bases.');
     }
 
     return ret;
