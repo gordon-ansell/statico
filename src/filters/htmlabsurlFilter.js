@@ -57,13 +57,17 @@ function htmlabsurlFilter(content, base, noimages = false)
 
     syslog.inspect(links, "warning");
 
+    if (ret.includes(base.trim() + base.trim())) {
+        syslog.error(`Content to parse in htmlabsurlFilter already contains double base(s).`)
+    }
+
     for (let l of links) {
         syslog.warning(l + ' => ' + absurl(l, base));
         ret = string.replaceAll(ret, l, absurl(l, base));
     }
 
     if (ret.includes(base.trim() + base.trim())) {
-        syslog.error(`URL returned from htmlabsurlFilter contains double base.`)
+        syslog.error(`Content returned from htmlabsurlFilter contains double base(s).`)
         ret = string.replaceAll(ret, base.trim() + base.trim(), base.trim());
     }
 
