@@ -83,6 +83,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
 
         // Preprocess?
+        syslog.inspect(this.#preprocessors, "warning");
         if (this.#preprocessors && this.#preprocessors.length > 0) {
             for (let pp of this.#preprocessors) {
                 if (rss) {
