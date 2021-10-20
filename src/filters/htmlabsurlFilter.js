@@ -27,25 +27,27 @@ function htmlabsurlFilter(content, base, noimages = false)
         if (m) {
             let htmlParam = m[1];
             let link = m[2];
-            if ('srcset' == htmlParam) {
-                let commaSp = link.trim().split(',');
-                for (let item of commaSp) {
-                    if (item.trim().includes(' ')) {
-                        let spaceSp = item.trim().split(' ');
-                        if (spaceSp.length > 1) {
-                            let lastBit = spaceSp[spaceSp.length - 1];
-                            if ('w' == lastBit[lastBit.length - 1]) {
-                                spaceSp.pop();
+            if (!link.trim.startsWith('http') && !link.trim.startsWith('https')) {
+                if ('srcset' == htmlParam) {
+                    let commaSp = link.trim().split(',');
+                    for (let item of commaSp) {
+                        if (item.trim().includes(' ')) {
+                            let spaceSp = item.trim().split(' ');
+                            if (spaceSp.length > 1) {
+                                let lastBit = spaceSp[spaceSp.length - 1];
+                                if ('w' == lastBit[lastBit.length - 1]) {
+                                    spaceSp.pop();
+                                }
                             }
+                            links.push(spaceSp.join(' ')); 
+                        } else {
+                            links.push(item.trim());
                         }
-                        links.push(spaceSp.join(' ')); 
-                    } else {
-                        links.push(item.trim());
                     }
-                }
 
-            } else {
-                links.push(link.trim());
+                } else {
+                    links.push(link.trim());
+                }
             }
         }
 
