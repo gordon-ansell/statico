@@ -76,10 +76,6 @@ module.exports = function(configData) {
         paginationDefaults: {
             size: 10,
         },
-        site: {
-            cacheCssJsMax: "86400",
-            cacheImagesMax: "2592000"    
-        },
         watcher: {
             ignores: [
                 path.join(configData.sitePath, 'node_modules'),
