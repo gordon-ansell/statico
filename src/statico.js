@@ -183,7 +183,7 @@ class Statico
                 let od = path.join(this.config.sitePath, this.config.assetHandlers.image.outputDir);
                 if (fs.existsSync(od)) {
                     fsutils.deleteFolderRecursive(od);
-                    syslog.notice('Cleanup requested - generated image directory.');
+                    syslog.notice('Cleanup requested - deleted generated image directory.');
                 }
             }
             if (this.config.assetCacheFile && fs.existsSync(this.config.assetCacheFile)) {
