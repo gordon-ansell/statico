@@ -64,7 +64,7 @@ class NunjucksImagePreprocessor
                 }
                 let rep;
                 if (rss) {
-                    rep = `{% simpleimg "${url}"`;
+                    rep = `{% simpleimg "${url}", rss=true`;
                 } else {
                     rep = `{% img "${url}"`;
                 }
