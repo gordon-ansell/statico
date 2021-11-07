@@ -41,11 +41,12 @@ class NunjucksImagePreprocessor
      * 
      * @param   {string}    content     Content to preprocess.
      * @param   {string}    permalink   Permalink for post.
+     * @param   {string}    outputPath  Output path.
      * @param   {boolean}   rss         For RSS?
      * 
      * @return  {string}
      */
-    async preprocessString(content, permalink, rss = false)
+    async preprocessString(content, permalink, outputPath, rss = false)
     {
         let ret = content;
         const regex = /!\[([^\]]*)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g;
@@ -58,20 +59,15 @@ class NunjucksImagePreprocessor
 
             if (m) {
                 let alt = m[1].trim();
-                if (m[2].includes('glenn-tilbrook')) {
-                    syslog.error(permalink);
-                    syslog.error(m[2]);
-                }
 
                 let url;
                 if (!m[2].trim().startsWith('/')) {
+                    syslog.error(outputPath);
                     url = path.join(permalink, m[2].trim());
                 } else {
                     url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
                 }
-                if (m[2].includes('glenn-tilbrook')) {
-                    syslog.error(url);
-                }
+
                 let title;
                 if (m[3]) {
                     title = m[3].trim();
