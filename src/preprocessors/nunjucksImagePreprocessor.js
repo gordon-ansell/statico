@@ -65,7 +65,7 @@ class NunjucksImagePreprocessor
                     let fp = filePath.trim().replace(this.config.sitePath, '');
                     let sp = fp.split('/');
                     sp.pop();
-                    let fp = sp.join('/');
+                    fp = sp.join('/');
                     url = path.join(fp, m[2].trim());
                     syslog.error('==>' + url);
                 } else {
