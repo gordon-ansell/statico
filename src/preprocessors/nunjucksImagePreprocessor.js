@@ -62,6 +62,9 @@ class NunjucksImagePreprocessor
                 }
 
                 let url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
+                if (m[2].includes('glenn-tilbrook')) {
+                    syslog.error(url);
+                }
                 let title;
                 if (m[3]) {
                     title = m[3].trim();
