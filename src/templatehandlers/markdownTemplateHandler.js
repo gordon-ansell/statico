@@ -87,10 +87,10 @@ class MarkdownTemplateHandler extends TemplateHandler
             for (let pp of this.#preprocessors) {
                 if (rss) {
                     templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, templateFile.data.permalink, 
-                        templateFile.outputPath, true);
+                        templateFile.filePath, true);
                 }
                 templateFile.data.content = await pp.preprocessString(templateFile.data.content, templateFile.data.permalink, 
-                    templateFile.outputPath);
+                    templateFile.filePath);
             }
         }
 

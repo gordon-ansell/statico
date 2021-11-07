@@ -46,7 +46,7 @@ class NunjucksImagePreprocessor
      * 
      * @return  {string}
      */
-    async preprocessString(content, permalink, outputPath, rss = false)
+    async preprocessString(content, permalink, filePath, rss = false)
     {
         let ret = content;
         const regex = /!\[([^\]]*)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g;
@@ -64,6 +64,7 @@ class NunjucksImagePreprocessor
                 if (!m[2].trim().startsWith('/')) {
                     url = path.join(permalink, m[2].trim());
                     syslog.error('==>' + url);
+                    syslog,error(filePath.trim().replace(this.config.sitePath, ''));
                 } else {
                     url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
                     syslog.error(url);
