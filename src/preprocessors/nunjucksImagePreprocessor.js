@@ -62,10 +62,11 @@ class NunjucksImagePreprocessor
 
                 let url;
                 if (!m[2].trim().startsWith('/')) {
-                    syslog.error(outputPath);
+                    syslog.error('==>' + outputPath);
                     url = path.join(permalink, m[2].trim());
                 } else {
                     url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
+                    syslog.error(url);
                 }
 
                 let title;
