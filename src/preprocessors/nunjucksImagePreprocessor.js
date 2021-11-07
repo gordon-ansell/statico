@@ -59,7 +59,7 @@ class NunjucksImagePreprocessor
             if (m) {
                 let alt = m[1].trim();
                 if (m[2].includes('glenn-tilbrook')) {
-                    syslog.error(outputPath);
+                    syslog.error(premalink);
                     syslog.error(m[2]);
                 }
 
