@@ -40,11 +40,12 @@ class NunjucksImagePreprocessor
      * Preprocess a string.
      * 
      * @param   {string}    content     Content to preprocess.
+     * @param   {string}    outputPath  Output path,
      * @param   {boolean}   rss         For RSS?
      * 
      * @return  {string}
      */
-    async preprocessString(content, rss = false)
+    async preprocessString(content, outputPath, rss = false)
     {
         let ret = content;
         const regex = /!\[([^\]]*)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g;
@@ -58,6 +59,7 @@ class NunjucksImagePreprocessor
             if (m) {
                 let alt = m[1].trim();
                 if (m[2].includes('glenn-tilbrook')) {
+                    syslog.error(outputPath);
                     syslog.error(m[2]);
                 }
 
