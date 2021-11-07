@@ -318,7 +318,7 @@ class TemplateFile
         }
 
         let published = true;
-        if (this.data.published) {
+        if ('published' in this.data) {
             published = this.data.published;
         } else {
             let now = new Date();
