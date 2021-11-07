@@ -57,10 +57,11 @@ class NunjucksImagePreprocessor
 
             if (m) {
                 let alt = m[1].trim();
-                let url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
-                if (url.includes('glenn-tilbrook')) {
+                if (m[2].includes('glenn-tilbrook')) {
                     syslog.error(url);
                 }
+
+                let url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
                 let title;
                 if (m[3]) {
                     title = m[3].trim();
