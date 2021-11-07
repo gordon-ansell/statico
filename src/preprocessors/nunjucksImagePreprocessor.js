@@ -62,7 +62,7 @@ class NunjucksImagePreprocessor
 
                 let url;
                 if (!m[2].trim().startsWith('/')) {
-                    let fp = pathUtils.removeLastseg(filePath.trim().replace(this.config.sitePath, ''));
+                    let fp = pathUtils.removeLastSeg(filePath.trim().replace(this.config.sitePath, ''));
                     url = path.join(fp, m[2].trim());
                 } else {
                     url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
