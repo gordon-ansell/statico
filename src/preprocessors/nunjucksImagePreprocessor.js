@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const { syslog, string } = require('gajn-framework');
+const { syslog, string, pathUtils } = require('gajn-framework');
 const StaticoError = require('../staticoError');
 const TemplatePathUrl = require('../templatePathUrl');
 
@@ -62,15 +62,10 @@ class NunjucksImagePreprocessor
 
                 let url;
                 if (!m[2].trim().startsWith('/')) {
-                    let fp = filePath.trim().replace(this.config.sitePath, '');
-                    let sp = fp.split('/');
-                    sp.pop();
-                    fp = sp.join('/');
+                    let fp = pathUtils.removeLastseg(filePath.trim().replace(this.config.sitePath, ''));
                     url = path.join(fp, m[2].trim());
-                    syslog.error('==>' + url);
                 } else {
                     url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
-                    syslog.error(url);
                 }
 
                 let title;
