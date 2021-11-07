@@ -65,7 +65,7 @@ class NunjucksImagePreprocessor
 
                 let url;
                 if (!m[2].trim().startsWith('/')) {
-                    url = path.join(permalink, 'assets', m[2].trim());
+                    url = path.join(permalink, m[2].trim());
                 } else {
                     url = path.resolve(m[2].trim()).replace(this.config.sitePath, '');
                 }
