@@ -209,7 +209,7 @@ class Statico
         }
 
         if (this.config.processArgs.argv.express) {
-            let exp = new ExpressRunner();
+            let exp = new ExpressRunner(this.#input);
             exp.run();
             return 0;
         }

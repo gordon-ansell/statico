@@ -14,18 +14,25 @@ const { syslog } = require('gajn-framework');
  */
 class ExpressRunner
 {
-    run()
+    /**
+     * Runs express.
+     *
+     * @return  {number}  Return code.
+     */
+    run(input)
     {
         const app = express();
         const port = 3000;
 
         app.get('/', (req, res) => {
-            res.send('Hello World!')
-        });
+            res.sendFile(path.join(input, '_sl', 'contact', 'form', 'index.html'))
+       });
           
         app.listen(port, () => {
             syslog.notice(`Statico serverless listening at http://localhost:${port}`)
-        })
+        });
+
+        return 0;
     }
 }
 
