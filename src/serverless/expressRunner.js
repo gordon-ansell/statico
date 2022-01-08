@@ -29,7 +29,7 @@ class ExpressRunner
 
         app.get('/', (req, res) => {
             let f = path.join(input, '_sl', 'contact', 'form', 'index.html');
-            let f = "/Users/gordonansell/Dev/gordonansell.com/_sl/contact/form/index.html";
+            f = "/Users/gordonansell/Dev/gordonansell.com/_sl/contact/form/index.html";
             if (!fs.existsSync(f)) {
                 syslog.error(`File ${f} not found.`)
             } else {
