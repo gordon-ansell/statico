@@ -44,6 +44,7 @@ class ProcessArgs
               "watch",
               "convert",
               "noimages",
+              "expressonly",
               "express"
             ],
             default: {
@@ -54,6 +55,7 @@ class ProcessArgs
               watch: false,
               noimages: false,
               clean: false,
+              expressonly: false,
               express: false
             },
             unknown: function (unknownArgument) {

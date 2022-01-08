@@ -6,7 +6,6 @@
  */
 'use strict';
 
-const e = require('express');
 const express = require('express');
 const fs = require('fs');
 const { syslog } = require('gajn-framework');
@@ -22,14 +21,13 @@ class ExpressRunner
      *
      * @return  {number}  Return code.
      */
-    run(input)
+    run(filePath)
     {
         const app = express();
         const port = 3000;
 
         app.get('/', (req, res) => {
-            let f = path.join(input, '_sl', 'contact', 'form', 'index.html');
-            f = "/Users/gordonansell/Dev/gordonansell.com/_sl/contact/form/index.html";
+            let f = path.join(filePath, 'sl', 'contact', 'form.html');
             if (!fs.existsSync(f)) {
                 syslog.error(`File ${f} not found.`)
             } else {

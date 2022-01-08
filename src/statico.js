@@ -208,9 +208,9 @@ class Statico
             return 0;
         }
 
-        if (this.config.processArgs.argv.express) {
+        if (this.config.processArgs.argv.expressonly) {
             let exp = new ExpressRunner();
-            exp.run(this.#input);
+            exp.run(this.config.outputPath);
             return 0;
         }
 
@@ -241,6 +241,13 @@ class Statico
         if (this.config.processArgs.argv.watch) {
             let watcher = new Watcher(this.config, this, server);
             watcher.watch();
+        }
+
+        // Express?
+        if (this.config.processArgs.argv.express) {
+            let exp = new ExpressRunner();
+            exp.run(this.config.outputPath);
+            return 0;
         }
 
         // Return.
