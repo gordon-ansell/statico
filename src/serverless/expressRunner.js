@@ -8,6 +8,7 @@
 
 const express = require('express');
 const { syslog } = require('gajn-framework');
+const path = require('path');
 
 /**
  * Express runner class.
