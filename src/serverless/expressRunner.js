@@ -26,7 +26,7 @@ class ExpressRunner
         const app = express();
         const port = 3000;
 
-        app.use('/assets', express.static('assets'));
+        app.use('/assets', express.static(path.join(filePath, 'assets')));
 
         app.get('/', (req, res) => {
             let f = path.join(filePath, 'sl', 'contact', 'form', 'index.html');
