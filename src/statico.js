@@ -20,6 +20,7 @@ const TemplateParser = require('./parsers/templateParser');
 const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
 const Converter = require('./converter');
+const ExpressRunner = require('./serverless/expressRunner');
 
 /**
  * Main worker class.
@@ -204,6 +205,12 @@ class Statico
         if (this.config.processArgs.argv.convert) {
             let conv = new Converter('/Users/gordonansell/Dev/gordonansell.com/_conv', this.config);
             await conv.convert();
+            return 0;
+        }
+
+        if (this.config.processArgs.argv.express) {
+            let exp = new ExpressRunner();
+            exp.run();
             return 0;
         }
 
