@@ -26,8 +26,8 @@ class ExpressRunner
         const port = 3000;
 
         app.get('/', (req, res) => {
-            res.sendFile(path.join(input, '_sl', 'contact', 'form', 'index.html'))
-       });
+            res.sendFile(path.join(input, '_sl', 'contact', 'form', 'index.html'));
+        });
           
         app.listen(port, () => {
             syslog.notice(`Statico serverless listening at http://localhost:${port}`)
