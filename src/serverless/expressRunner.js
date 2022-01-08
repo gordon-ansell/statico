@@ -7,6 +7,7 @@
 'use strict';
 
 const express = require('express');
+const { syslog } = require('gajn-framework');
 
 /**
  * Express runner class.
@@ -23,7 +24,7 @@ class ExpressRunner
         });
           
         app.listen(port, () => {
-            console.log(`Example app listening at http://localhost:${port}`)
+            syslog.notice(`Statico serverless listening at http://localhost:${port}`)
         })
     }
 }
