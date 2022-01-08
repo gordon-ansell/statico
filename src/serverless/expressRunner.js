@@ -27,7 +27,7 @@ class ExpressRunner
         const port = 3000;
 
         app.get('/', (req, res) => {
-            let f = path.join(filePath, 'sl', 'contact', 'form.html');
+            let f = path.join(filePath, 'sl', 'contact', 'form', 'index.html');
             if (!fs.existsSync(f)) {
                 syslog.error(`File ${f} not found.`)
             } else {
