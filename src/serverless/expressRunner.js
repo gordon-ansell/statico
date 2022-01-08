@@ -26,7 +26,9 @@ class ExpressRunner
         const port = 3000;
 
         app.get('/', (req, res) => {
-            res.sendFile(path.join(input, '_sl', 'contact', 'form', 'index.html'));
+            let f = path.join(input, '_sl', 'contact', 'form', 'index.html');
+            syslog.warning(f);
+            res.sendFile(f);
         });
           
         app.listen(port, () => {
