@@ -89,10 +89,7 @@ class ServerExpress
     stop()
     {
         if (this.#server) {
-            this.#server.close(()=>{
-                syslog.notice(`Statico server shut down.`);
-                this.#server = null;
-            });
+            syslog.notice(`Statico server shutting down.`);
         }
     }
 }

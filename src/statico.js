@@ -209,19 +209,21 @@ class Statico
             return 0;
         }
 
-        if (this.config.processArgs.argv.expressonly) {
-            let exp = new ExpressRunner();
-            exp.run(this.config.outputPath);
-            return 0;
-        }
+        let server;
 
         // Process it all.
         await this.process();
 
-        let server;
-
         // Serve?
-        if (this.config.processArgs.argv.serve) {
+        if (this.config.processArgs.argv.servenode) {
+            server = new Server(
+                path.join(this.config.outputPath),
+                this.config.hostname
+            );
+            server.start();
+
+        // Express?
+        } else if (this.config.processArgs.argv.serve) {
             server = new ServerExpress(
                 path.join(this.config.outputPath),
                 this.config.hostname
@@ -242,13 +244,6 @@ class Statico
         if (this.config.processArgs.argv.watch) {
             let watcher = new Watcher(this.config, this, server);
             watcher.watch();
-        }
-
-        // Express?
-        if (this.config.processArgs.argv.express) {
-            let exp = new ExpressRunner();
-            exp.run(this.config.outputPath);
-            return 0;
         }
 
         // Return.
