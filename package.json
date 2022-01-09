@@ -25,6 +25,7 @@
 	],
 	"dependencies": {
         "@webdesigndecal/showdown-footnotes": "*",
+        "body-parser": "*",
         "browser-sync": "*",
         "chokidar": "*",
         "dotenv": "*",

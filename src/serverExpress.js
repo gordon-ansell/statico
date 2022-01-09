@@ -11,6 +11,7 @@ const fs = require('fs');
 const { syslog } = require('gajn-framework');
 const path = require('path');
 const express = require('express');
+const bodyParser = require("body-parser");
 
 /**
  * Statico express server.
@@ -72,9 +73,12 @@ class ServerExpress
 
         this.#server = express();
 
+        this.#server.use(bodyParser.urlencoded({ extended: true }));
+
         this.#server.post('/sl/contact/process', (req, res) => {
-            syslog.inspect(req, 'warning');
+            syslog.inspect(req.body, 'warning');
             res.send('You have mail.')
+            res.sendStatus(200);
         });            
 
         this.#server.use('/', express.static(this.#sitePath));
