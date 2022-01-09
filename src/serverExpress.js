@@ -73,7 +73,7 @@ class ServerExpress
 
         this.#server = express();
 
-        this.#server.use(express.urlencoded());
+        this.#server.use(express.urlencoded({ extended: true }));
 
         this.#server.post('/sl/contact/form', (req, res) => {
             syslog.inspect(req.body, 'warning');
