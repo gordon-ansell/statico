@@ -222,7 +222,7 @@ class Statico
 
         // Serve?
         if (this.config.processArgs.argv.serve) {
-            server = new Server(
+            server = new ServerExpress(
                 path.join(this.config.outputPath),
                 this.config.hostname
             );
