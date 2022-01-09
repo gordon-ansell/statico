@@ -72,6 +72,10 @@ class ServerExpress
 
         this.#server = express();
 
+        app.post('/sl/contact/process', (req, res) => {
+            res.send('You have mail.')
+        });            
+
         this.#server.use('/', express.static(this.#sitePath));
 
         this.#server.listen(this.#port, () => {
@@ -89,7 +93,7 @@ class ServerExpress
     stop()
     {
         if (this.#server) {
-            syslog.notice(`Statico server shutting down.`);
+            syslog.notice(`Statico Express server shutting down.`);
         }
     }
 }
