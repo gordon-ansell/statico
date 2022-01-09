@@ -75,7 +75,7 @@ class ServerExpress
 
         this.#server.use(bodyParser.urlencoded({ extended: true }));
 
-        this.#server.post('/sl/contact/process', (req, res) => {
+        this.#server.post('/sl/contact/form', (req, res) => {
             syslog.inspect(req.body, 'warning');
             res.send('You have mail.')
         });            
