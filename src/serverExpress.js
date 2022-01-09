@@ -91,7 +91,7 @@ class ServerExpress
         if (this.#server) {
             this.#server.close(()=>{
                 syslog.notice(`Statico server shut down.`);
-                delete this.#server;
+                this.#server = null;
             });
         }
     }
