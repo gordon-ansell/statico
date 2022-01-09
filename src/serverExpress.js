@@ -37,7 +37,7 @@ class ServerExpress
 
     /**
      * The server itself.
-     * @member {object}
+     * @member {express}
      */
     #server = null;
 
@@ -48,7 +48,7 @@ class ServerExpress
      * @param   {string}    address     Address to serve from.
      * @param   {int}       port        Port to serve on.
      * 
-     * @return  {Server}
+     * @return  {ServerExpress}
      */
     constructor(sitePath, address, port = 8081)
     {
@@ -60,7 +60,7 @@ class ServerExpress
     /**
      * Start the server.
      * 
-     * @return {object}
+     * @return {express}
      */
     start()
     {
@@ -72,7 +72,7 @@ class ServerExpress
 
         this.#server = express();
 
-        app.post('/sl/contact/process', (req, res) => {
+        this.#server.post('/sl/contact/process', (req, res) => {
             res.send('You have mail.')
         });            
 
