@@ -14,6 +14,7 @@ const pack = require('../package.json');
 const Config = require('./config');
 const StaticoError = require('./staticoError');
 const Server = require('./server');
+const ServerExpress = require('./serverExpress');
 const StaticoTemplateHandlerError = require('./templatehandlers/staticoTemplateHandlerError');
 const TemplatePathUrl = require('./templatePathUrl');
 const TemplateParser = require('./parsers/templateParser');
