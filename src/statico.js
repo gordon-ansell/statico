@@ -21,7 +21,6 @@ const TemplateParser = require('./parsers/templateParser');
 const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
 const Converter = require('./converter');
-const ExpressRunner = require('./serverless/expressRunner');
 
 /**
  * Main worker class.
