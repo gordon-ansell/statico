@@ -73,6 +73,7 @@ class ServerExpress
         this.#server = express();
 
         this.#server.post('/sl/contact/process', (req, res) => {
+            syslog.inspect(req, 'warning');
             res.send('You have mail.')
         });            
 
