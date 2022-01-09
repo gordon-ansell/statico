@@ -110,7 +110,7 @@ class Watcher
         });
 
         process.on('SIGINT', () => {
-            this.server.stop();
+            //this.server.stop();
             ch.close();
             process.exit(0);
         });
