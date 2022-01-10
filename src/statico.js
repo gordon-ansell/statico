@@ -213,6 +213,8 @@ class Statico
         // Process it all.
         await this.process();
 
+        syslog.inspect(this.config.dynamicData, 'warning');
+
         // Serve?
         if (this.config.processArgs.argv.servenode) {
             server = new Server(
@@ -223,10 +225,7 @@ class Statico
 
         // Express?
         } else if (this.config.processArgs.argv.serve) {
-            server = new ServerExpress(
-                path.join(this.config.outputPath),
-                this.config.hostname
-            );
+            server = new ServerExpress(this.config);
             server.start();
 
         // Servesync?
@@ -260,7 +259,7 @@ class Statico
     /**
      * Do some processing.
      * 
-     * @param   {string[]}  files   Files to process.
+     * @param   {string[]}  files       Files to process.
      * 
      * @return  {number}
      */

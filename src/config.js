@@ -120,7 +120,8 @@ class Config
             watching: false,
             inlineCss: {},
             postsInFeed: 20,
-            watcher: {}
+            watcher: {},
+            dynamicData: {}
         };        
     }
 

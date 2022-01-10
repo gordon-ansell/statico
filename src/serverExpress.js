@@ -19,6 +19,11 @@ const bodyParser = require("body-parser");
 class ServerExpress
 {
     /**
+     * Configs.
+     */
+    #config = null;
+
+    /**
      * Site path.
      * @member {string}
      */
@@ -45,16 +50,16 @@ class ServerExpress
     /**
      * Constructor.
      * 
-     * @param   {string}    sitePath    Where to serve from.
-     * @param   {string}    address     Address to serve from.
+     * @param   {Config}    config      Configs.
      * @param   {int}       port        Port to serve on.
      * 
      * @return  {ServerExpress}
      */
-    constructor(sitePath, address, port = 8081)
+    constructor(config, port = 8081)
     {
-        this.#sitePath = sitePath;
-        this.#address = address;
+        this.#config = config;
+        this.#sitePath = path.join(this.config.outputPath);
+        this.#address = this.config.hostname;
         this.#port = port;
     }
 

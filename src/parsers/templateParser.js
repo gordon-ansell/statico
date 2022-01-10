@@ -193,6 +193,10 @@ class TemplateParser extends BaseParser
                 }
             }
         }
+
+        if (tf.data.dynamic) {
+            this.config.dynamicData[tf.data.permalink] = tf.data.dynamic;
+        }
     }
 }
 
