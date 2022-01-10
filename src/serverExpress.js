@@ -55,20 +55,43 @@ class ServerExpress
     #dynamicData = {}
 
     /**
+     * Statico caller instance.
+     * @member {Statico}
+     */
+    #statico = null;
+
+    /**
      * Constructor.
      * 
      * @param   {Config}    config      Configs.
+     * @param   {Statico}   statico     Statico caller instance.    
      * @param   {int}       port        Port to serve on.
      * 
      * @return  {ServerExpress}
      */
-    constructor(config, port = 8081)
+    constructor(config, statico, port = 8081)
     {
         this.#config = config;
         this.#sitePath = path.join(this.#config.outputPath);
         this.#address = this.#config.hostname;
+        this.#statico = statico;
         this.#port = port;
         this.#dynamicData = this.#config.dynamicData;
+    }
+
+    /**
+     * Process dynamic stuff.
+     * 
+     * @param   {string}    dKey    Dynamic key. 
+     * @param   {object}    body    Body of request.
+     * 
+     * @return  {any}
+     */
+    async processDynamic(dKey, body)
+    {
+        let cf = this.dynamicData[dKey];
+        syslog.inspect(cf, 'warning');
+        return body;
     }
 
     /**
@@ -89,9 +112,8 @@ class ServerExpress
         this.#server.use(express.urlencoded({ extended: true }));
 
         for (let key in this.#dynamicData) {
-            this.#server.post(key, (req, res) => {
-                syslog.inspect(req.body, 'warning');
-                res.send(key)
+            this.#server.post(key, async (req, res) => {
+                await res.send(await this.processDynamic(key, req.body));
             });            
         }
 

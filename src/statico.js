@@ -234,6 +234,7 @@ class Statico
             server = new ServerSync(
                 path.join(this.config.outputPath),
                 this.config.hostname,
+                this
             );
             server.start();
         } 
