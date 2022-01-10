@@ -63,9 +63,9 @@ class TemplateFile
 
     /**
      * Passed data.
-     * @member {object}
+     * @member {object|null}
      */
-    passedData = {};
+    passedData = null;
 
     /**
      * Layout data.
@@ -95,7 +95,7 @@ class TemplateFile
      * 
      * @return  {TemplateFile}
      */
-    constructor(filePath, config, mightHaveLayout = true, passedData = {})
+    constructor(filePath, config, mightHaveLayout = true, passedData = null)
     {
         syslog.trace(`In TemplateFile constructor for ${filePath}`, 'TemplateFile');
         if (!filePath) {
@@ -160,7 +160,11 @@ class TemplateFile
         }
 
         // Merge it all.
-        this.data = merge.mergeMany([this.baseData, this.layoutData, this.fileData, this.passedData]);
+        if (this.passedData) {
+            this.data = merge.mergeMany([this.baseData, this.layoutData, this.fileData, this.passedData]);
+        } else {
+            this.data = merge.mergeMany([this.baseData, this.layoutData, this.fileData]);
+        }
         this.data.cfg = this.config;
         this.data.templateFile = this;
 
