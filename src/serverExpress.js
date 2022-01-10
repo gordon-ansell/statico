@@ -12,6 +12,7 @@ const { syslog } = require('gajn-framework');
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
+const { runInThisContext } = require('vm');
 
 /**
  * Statico express server.
@@ -48,6 +49,12 @@ class ServerExpress
     #server = null;
 
     /**
+     * Dynamic data.
+     * @member {object}
+     */
+    #dynamicData = {}
+
+    /**
      * Constructor.
      * 
      * @param   {Config}    config      Configs.
@@ -61,6 +68,7 @@ class ServerExpress
         this.#sitePath = path.join(this.#config.outputPath);
         this.#address = this.#config.hostname;
         this.#port = port;
+        this.#dynamicData = this.config.dynamicData;
     }
 
     /**
@@ -79,6 +87,13 @@ class ServerExpress
         this.#server = express();
 
         this.#server.use(express.urlencoded({ extended: true }));
+
+        for (let key in this.#dynamicData) {
+            this.#server.post(key, (req, res) => {
+                syslog.inspect(req.body, 'warning');
+                res.send(key)
+            });            
+        }
 
         this.#server.post('/sl/contact/form', (req, res) => {
             syslog.inspect(req.body, 'warning');
