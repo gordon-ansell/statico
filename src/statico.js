@@ -213,8 +213,6 @@ class Statico
         // Process it all.
         await this.process();
 
-        syslog.inspect(this.config.dynamicData, 'warning');
-
         // Serve?
         if (this.config.processArgs.argv.servenode) {
             server = new Server(

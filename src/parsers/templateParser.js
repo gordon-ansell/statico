@@ -52,7 +52,7 @@ class TemplateParser extends BaseParser
      * 
      * @return
      */
-    async parse(files, parseName = null, paginate = true, data = {})
+    async parse(files, parseName = null, paginate = true, data = null)
     {
         let pn = parseName || 'NULL';
         this.notProcessed = [];
@@ -103,7 +103,7 @@ class TemplateParser extends BaseParser
      * 
      * @return  {TemplateFile|null}     Template file or null.
      */
-    async _parseTemplateFile(filePath, parseName, paginate = true, mightHaveLayout = true, data = {})
+    async _parseTemplateFile(filePath, parseName, paginate = true, mightHaveLayout = true, data = null)
     {
         let trimmed = filePath.replace(this.config.sitePath, '');
 

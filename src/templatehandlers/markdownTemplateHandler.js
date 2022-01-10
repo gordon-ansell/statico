@@ -198,7 +198,7 @@ class MarkdownTemplateHandler extends TemplateHandler
      * 
      * @param   {TemplateFile}  templateFile    Template file to parse.
      * 
-     * @return
+     * @return  {string}                        Returns the HTML if we're not writing it out.
      */
     async parseThroughLayoutAndWrite(templateFile)
     {
