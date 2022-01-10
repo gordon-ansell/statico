@@ -95,10 +95,12 @@ class ServerExpress
             });            
         }
 
+        /*
         this.#server.post('/sl/contact/form', (req, res) => {
             syslog.inspect(req.body, 'warning');
             res.send('You have mail.')
-        });            
+        });
+        */            
 
         this.#server.use('/', express.static(this.#sitePath));
 
