@@ -70,6 +70,12 @@ class Statico
     isProcessing = false;
 
     /**
+     * File system parser.
+     * @member {FsParser}
+     */
+    fsParser = null;
+
+    /**
      * Late parsers.
      * @member {string[]}
      */
@@ -512,8 +518,8 @@ class Statico
     {
         // Parse the file system.
         let patterns = this.config.fsParserFilters;
-        let fsp = new FsParser(this.#input, this.#input, patterns);
-        let files = await fsp.parse();
+        this.#fsParser = new FsParser(this.#input, this.#input, patterns);
+        let files = await this.#fsParser.parse();
         return files;
     }
 
