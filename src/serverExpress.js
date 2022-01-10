@@ -89,7 +89,7 @@ class ServerExpress
      */
     async processDynamic(dKey, body)
     {
-        let cf = this.dynamicData[dKey];
+        let cf = this.#dynamicData[dKey];
         syslog.inspect(cf, 'warning');
         return body;
     }
