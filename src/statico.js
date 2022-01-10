@@ -518,7 +518,7 @@ class Statico
     {
         // Parse the file system.
         let patterns = this.config.fsParserFilters;
-        this.#fsParser = new FsParser(this.#input, this.#input, patterns);
+        this.fsParser = new FsParser(this.#input, this.#input, patterns);
         let files = await this.#fsParser.parse();
         return files;
     }
