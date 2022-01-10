@@ -68,7 +68,7 @@ class ServerExpress
         this.#sitePath = path.join(this.#config.outputPath);
         this.#address = this.#config.hostname;
         this.#port = port;
-        this.#dynamicData = this.config.dynamicData;
+        this.#dynamicData = this.#config.dynamicData;
     }
 
     /**
