@@ -58,8 +58,8 @@ class ServerExpress
     constructor(config, port = 8081)
     {
         this.#config = config;
-        this.#sitePath = path.join(this.config.outputPath);
-        this.#address = this.config.hostname;
+        this.#sitePath = path.join(this.#config.outputPath);
+        this.#address = this.#config.hostname;
         this.#port = port;
     }
 

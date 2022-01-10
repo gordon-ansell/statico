@@ -48,10 +48,11 @@ class TemplateParser extends BaseParser
      * @param   {string[]}  files       Files to parse.
      * @param   {string}    parseName   Parse name.
      * @param   {boolean}   paginate    Paginate?
+     * @param   {object}    data        Additional data to parse.
      * 
      * @return
      */
-    async parse(files, parseName = null, paginate = true)
+    async parse(files, parseName = null, paginate = true, data = {})
     {
         let pn = parseName || 'NULL';
         this.notProcessed = [];
@@ -67,7 +68,7 @@ class TemplateParser extends BaseParser
             if (this.config.templateHandlers.hasHandlerForExt(ext))  {
                 try {
                     syslog.debug(`Seeing if template for ${trimmed} is parseable (${pn}).`, 'TemplateParser.parse')
-                    let tf = await this._parseTemplateFile(element, parseName, paginate);
+                    let tf = await this._parseTemplateFile(element, parseName, paginate, data);
                     if (null !== tf) {
                         this._addToCollections(tf);
                         syslog.debug(`${trimmed} was indeed parseable (${pn}).`, 'TemplateParser.parse')
@@ -97,10 +98,12 @@ class TemplateParser extends BaseParser
      * 
      * @param   {string}    filePath    Where the file is.
      * @param   {string}    parseName   The parse.  Either a parse name or null to force the parse.
+     * @param   {boolean}   paginate    Paginate?
+     * @param   {object}    data        Additional data to parse.
      * 
      * @return  {TemplateFile|null}     Template file or null.
      */
-    async _parseTemplateFile(filePath, parseName, paginate = true, mightHaveLayout = true)
+    async _parseTemplateFile(filePath, parseName, paginate = true, mightHaveLayout = true, data = {})
     {
         let trimmed = filePath.replace(this.config.sitePath, '');
 
@@ -111,7 +114,7 @@ class TemplateParser extends BaseParser
             syslog.trace(`Reconfirmed we have template handler for ${ext}, processing ${trimmed}.`, 'TemplateParser._parseTemplateFile');
             let tf;
             try {
-                tf = new TemplateFile(filePath, this.config, mightHaveLayout);
+                tf = new TemplateFile(filePath, this.config, mightHaveLayout, data);
             } catch (e) {
                 syslog.error(`Failed to construct template file for: ${trimmed}, ${e.message}`);
             }

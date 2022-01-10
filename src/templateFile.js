@@ -62,6 +62,12 @@ class TemplateFile
     fileData = {};
 
     /**
+     * Passed data.
+     * @member {object}
+     */
+    passedData = {};
+
+    /**
      * Layout data.
      * @member {object}
      */
@@ -85,10 +91,11 @@ class TemplateFile
      * @param   {string}        filePath            Path to the file.
      * @param   {Config}        cfg                 Configs.
      * @param   {boolean}       mightHaveLayout     Might we?
+     * @param   {object}        passedData          Additional data.    
      * 
      * @return  {TemplateFile}
      */
-    constructor(filePath, config, mightHaveLayout = true)
+    constructor(filePath, config, mightHaveLayout = true, passedData = {})
     {
         syslog.trace(`In TemplateFile constructor for ${filePath}`, 'TemplateFile');
         if (!filePath) {
@@ -99,6 +106,7 @@ class TemplateFile
         this.config = config;
         this.baseData = cloneDeep(config.userData);
         this.mightHaveLayout = mightHaveLayout;
+        this.passedData = passedData;
         //this.data.collections = config.collections;
     }
 
@@ -152,7 +160,7 @@ class TemplateFile
         }
 
         // Merge it all.
-        this.data = merge.mergeMany([this.baseData, this.layoutData, this.fileData]);
+        this.data = merge.mergeMany([this.baseData, this.layoutData, this.fileData, this.passedData]);
         this.data.cfg = this.config;
         this.data.templateFile = this;
 
