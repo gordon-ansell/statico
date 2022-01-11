@@ -6,13 +6,11 @@
  */
 'use strict';
 
-const http = require('http');
 const fs = require('fs');
 const { syslog } = require('gajn-framework');
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
-const { runInThisContext } = require('vm');
 
 /**
  * Statico express server.
@@ -29,6 +27,12 @@ class ServerExpress
      * @member {string}
      */
     #sitePath = null;
+
+    /**
+     * Output path.
+     * @member {string}
+     */
+    #outputPath = null;
 
     /**
      * Address.
@@ -72,7 +76,8 @@ class ServerExpress
     constructor(config, statico, port = 8081)
     {
         this.#config = config;
-        this.#sitePath = path.join(this.#config.outputPath);
+        this.#outputPath = path.join(this.#config.outputPath);
+        this.#sitePath = path.join(this.#config.sitePath);
         this.#address = this.#config.hostname;
         this.#statico = statico;
         this.#port = port;
@@ -85,13 +90,30 @@ class ServerExpress
      * @param   {string}    dKey    Dynamic key. 
      * @param   {object}    body    Body of request.
      * 
-     * @return  {any}
+     * @return  {string|false}
      */
     async processDynamic(dKey, body)
     {
+        // Grab dynamic data fields from front matter.
         let cf = this.#dynamicData[dKey];
-        syslog.inspect(cf, 'warning');
-        return body;
+
+        // Find the relevant script.
+        if (!cf.script) {
+            syslog.error(`No dynamic -> script specified for ${dKey}.`);
+            return false;
+        }
+
+        let sp = path.join(this.#sitePath, 'dynamic', 'scripts', cf.script);
+
+        if (!fs.existsSync(sp)) {
+            syslog.error(`No dynamic script found at ${sp}, for ${dKey}.`);
+            return false;
+        }
+
+        let result = sp.call(this.#statico, {body: body});
+
+        return result;
+
     }
 
     /**
@@ -101,9 +123,9 @@ class ServerExpress
      */
     start()
     {
-        syslog.trace("Site path: " + this.#sitePath, 'Server');
+        syslog.trace("Site path: " + this.#outputPath, 'Server');
 
-        syslog.notice(`Attempting to start serving via Express from: ${this.#sitePath}.`);
+        syslog.notice(`Attempting to start serving via Express from: ${this.#outputPath}.`);
         syslog.trace("Address: " + this.#address, 'Server');
         syslog.trace("Port: " + this.#port, 'Server');
 
@@ -113,7 +135,8 @@ class ServerExpress
 
         for (let key in this.#dynamicData) {
             this.#server.post(key, async (req, res) => {
-                await res.send(await this.processDynamic(key, req.body));
+                let result = await this.processDynamic(key, req.body);
+                await res.send(result);
             });            
         }
 
@@ -124,7 +147,7 @@ class ServerExpress
         });
         */            
 
-        this.#server.use('/', express.static(this.#sitePath));
+        this.#server.use('/', express.static(this.#outputPath));
 
         this.#server.listen(this.#port, () => {
             syslog.notice(`Statico Express server running at ${this.#address}.`)
