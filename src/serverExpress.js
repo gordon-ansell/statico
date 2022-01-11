@@ -112,7 +112,7 @@ class ServerExpress
 
         // Call the function.
         let dfunc = require(sp);
-        let result = dfunc.call(this.#config, {body: body});
+        let result = await dfunc.call(this.#statico, this.#config, {body: body});
 
         return result;
 
