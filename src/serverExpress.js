@@ -103,14 +103,14 @@ class ServerExpress
             return false;
         }
 
-        let sp = path.join(this.#sitePath, 'dynamic', 'scripts', cf.script);
+        let sp = path.join(this.#sitePath, '_dynamic', 'scripts', cf.script);
 
         if (!fs.existsSync(sp)) {
             syslog.error(`No dynamic script found at ${sp}, for ${dKey}.`);
             return false;
         }
 
-        let result = sp.call(this.#statico, {body: body});
+        let result = sp.call(this.#config, {body: body});
 
         return result;
 
