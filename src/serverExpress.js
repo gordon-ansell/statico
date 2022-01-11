@@ -110,7 +110,9 @@ class ServerExpress
             return false;
         }
 
-        let result = sp.call(this.#config, {body: body});
+        // Call the function.
+        let dfunc = require(sp);
+        let result = dfunc.call(this.#config, {body: body});
 
         return result;
 
