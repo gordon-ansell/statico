@@ -203,10 +203,11 @@ class NunjucksTemplateHandler extends TemplateHandler
      * Parse through layout and write.
      * 
      * @param   {TemplateFile}  templateFile    Template file to parse.
+     * @param   {boolean}       justReturn      Just return the rendered data?
      * 
-     * @return
+     * @return  {string|null}
      */
-    async parseThroughLayoutAndWrite(templateFile)
+    async parseThroughLayoutAndWrite(templateFile, justReturn = false)
     {
         let fp = templateFile.filePath.replace(this.sitePath, '');
         let rendered;
@@ -223,7 +224,12 @@ class NunjucksTemplateHandler extends TemplateHandler
             rendered = templateFile.data.content_html;
         }
 
-        this.writeFile(beautify(rendered), templateFile.outputPath, fp);
+        if (justReturn) {
+            return rendered;
+        } else {
+            this.writeFile(beautify(rendered), templateFile.outputPath, fp);
+            return null;
+        }
     }
 
     /**

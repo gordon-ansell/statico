@@ -73,7 +73,7 @@ class TemplateParser extends BaseParser
                         this._addToCollections(tf);
                         syslog.debug(`${trimmed} was indeed parseable (${pn}).`, 'TemplateParser.parse')
                     } else {
-                        syslog.debug(`Template file is null: ${trimmed}. This just means it won't be addred to collections here.`, 'TemplateParser.parse');
+                        syslog.debug(`Template file is null: ${trimmed}. This just means it won't be added to collections here.`, 'TemplateParser.parse');
                     }
                 } catch (e) {
                     if (e instanceof StaticoTemplateHandlerError) {
@@ -94,6 +94,55 @@ class TemplateParser extends BaseParser
     }
 
     /**
+     * Parse file and return string output.
+     * 
+     * @param   {string[]}  file        File to parse.
+     * @param   {string}    parseName   Parse name.
+     * @param   {boolean}   paginate    Paginate?
+     * @param   {object}    data        Additional data to parse.
+     * 
+     * @return  {TemplateFile}
+     */
+    async parseAndReturnString(file, parseName = null, paginate = true, data = null)
+    {
+        let trimmed = file.replace(this.config.sitePath, '');
+        let ext = path.extname(file).substr(1);
+
+        if (this.config.templateHandlers.hasHandlerForExt(ext))  {
+            try {
+                syslog.debug(`Seeing if template for ${trimmed} is parseable (${pn}).`, 'TemplateParser.parseAndReturnString')
+                let tf;
+                try {
+                    tf = new TemplateFile(file, this.config, true, data);
+                } catch (e) {
+                    syslog.error(`Failed to construct template file for: ${trimmed}, ${e.message}`);
+                }
+                if (!tf) {
+                    syslog.error(`Failed to create TemplateFile for ${file}`);
+                } else {
+                    await tf.load(parseName, paginate);
+                    await this.config.events.emit('statico.abouttoparsetemplatefile', this.config, tf);
+                    if (null === parseName || parseName === tf.data.parse) {
+                        syslog.trace(`Passing control to template handler for ${ext}, for file ${trimmed}.`, 'TemplateParser.parseAndReturnString')
+                        let handler = this.config.templateHandlers.getHandlerForExt(ext)
+                        await handler.process(tf);
+                        await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
+                        return tf;
+                    }
+                }
+            } catch (e) {
+                if (e instanceof StaticoTemplateHandlerError) {
+                    syslog.error(`Failed to process ${trimmed}: ${e.message}`);
+                } else {
+                    throw e;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Parse a template file.
      * 
      * @param   {string}    filePath    Where the file is.
@@ -108,8 +157,8 @@ class TemplateParser extends BaseParser
         let trimmed = filePath.replace(this.config.sitePath, '');
 
         syslog.trace(`In _parseTemplateFile for ${trimmed}.`, 'TemplateParser._parseTemplateFile')
-        let ext = path.extname(filePath).substr(1);
 
+        let ext = path.extname(filePath).substr(1);
         if (this.config.templateHandlers.hasHandlerForExt(ext))  {
             syslog.trace(`Reconfirmed we have template handler for ${ext}, processing ${trimmed}.`, 'TemplateParser._parseTemplateFile');
             let tf;

@@ -85,6 +85,17 @@ class ServerExpress
     }
 
     /**
+     * Parse dynamic file.
+     * 
+     * @param   {string}    filePath    File to process.
+     */
+    parseDynamic(filePath)
+    {
+        let ext = path.extname(filePath).substr(1);
+
+    }
+
+    /**
      * Process dynamic stuff.
      * 
      * @param   {string}    dKey    Dynamic key. 
@@ -113,6 +124,16 @@ class ServerExpress
         // Call the function.
         let dfunc = require(sp);
         let result = await dfunc.call(this.#statico, this.#config, {body: body});
+
+        // Check results.
+        if (true === result.status && ('views' in dKey) && ('success' in dKey.views)) {
+            let view = dKey.views.success;
+            let viewPath = path.join(this.#sitePath, '_dynamic', 'views', view);
+            if (!fs.existsSync(viewPath)) {
+                syslog.error(`No dynamic success view found at ${viewPath}, for ${dKey}.`);
+                return false;
+            }
+        }
 
         return result;
 
