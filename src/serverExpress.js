@@ -156,12 +156,14 @@ class ServerExpress
 
         this.#server.use(express.urlencoded({ extended: true }));
 
+        /*
         for (let key in this.#dynamicData) {
             this.#server.post(key, async (req, res) => {
                 let result = await this.processDynamic(key, req.body);
                 await res.send(result);
             });            
         }
+        */
 
         /*
         this.#server.post('/sl/contact/form', (req, res) => {
