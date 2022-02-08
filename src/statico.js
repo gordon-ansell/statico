@@ -153,7 +153,7 @@ class Statico
 
         TemplatePathUrl.sitePath = this.config.sitePath;
 
-        this.config.events.emit('statico.init.finished');
+        await this.config.events.emit('statico.init.finished', this.config);
 
         await this.cleanUp();
 

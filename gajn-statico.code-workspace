@@ -26,6 +26,9 @@
         },
         {
             "path": "../statico-plugins/statico-plugin-socialshares"
+        },
+        {
+            "path": "../statico-plugins/statico-plugin-webmentions"
         }
     ]
 }
