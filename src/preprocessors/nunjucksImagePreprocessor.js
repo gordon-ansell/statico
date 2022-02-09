@@ -82,8 +82,8 @@ class NunjucksImagePreprocessor
                     rep += `, alt="${alt}"`;
                 }
                 if (title) {
-                    if ('"' == title[0]) title = title.substr(1);
-                    if ('"' == title[title.length - 1]) title = title.substr(0, title.length - 1);
+                    if ('"' == title[0]) title = title.substring(1);
+                    if ('"' == title[title.length - 1]) title = title.substring(0, title.length - 1);
 
                     if (title.includes('|')) {
                         let sp = title.split('|');
