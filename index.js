@@ -44,8 +44,9 @@ try {
     // Start up statico.
     let statico = new Statico(null, null, logLevel, logContexts, pa);
 
+    let ret = false;
     async () => {
-        let ret = await statico.init();
+        ret = await statico.init();
         if (ret) {
             ret = await statico.run();
         }
