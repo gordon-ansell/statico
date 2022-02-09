@@ -41,6 +41,7 @@ class ProcessArgs
               "serve",
               "servesync",
               "clean",
+              "cleanonly",
               "watch",
               "convert",
               "noimages",
@@ -54,6 +55,7 @@ class ProcessArgs
               watch: false,
               noimages: false,
               clean: false,
+              cleanonly: false,
               servenode: false
             },
             unknown: function (unknownArgument) {
