@@ -161,11 +161,7 @@ class Statico
 
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
-        if (this.config.processArgs.argv.cleanonly) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 
     /**
