@@ -28,6 +28,7 @@
         "body-parser": "*",
         "browser-sync": "*",
         "chokidar": "*",
+        "dateformat": "*",
         "dotenv": "*",
         "express": "*",
 		"gajn-framework": "gordon-ansell/gajn-framework",

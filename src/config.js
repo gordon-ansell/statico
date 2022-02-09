@@ -20,6 +20,7 @@ const HandlerCollection = require('./handlerCollection');
 const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreprocessor');
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
 const { URL } = require('url');
+const dateformat = require('dateformat');
 
 /**
  * Config class.
@@ -772,6 +773,19 @@ class Config
 
         return this;
     }
- }
+
+    /**
+     * Convert an ISO date to the readable format specified here.
+     * 
+     * @param   {string}    dt  Input date.
+     * @return  {string}        Formatted date. 
+     */
+    convertDate(dt)
+    {
+        let dobj = new Date(dt);
+        return dateformat(dobj, this.dispDate) + ', ' + dateformat(dobj, this.dispTime);
+    }
+ 
+}
 
 module.exports = Config;
