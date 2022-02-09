@@ -161,7 +161,11 @@ class Statico
 
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
-        return true;
+        if (this.config.processArgs.argv.cleanonly) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -181,7 +185,7 @@ class Statico
         }
 
         // Clean?
-        if (this.config.processArgs.argv.clean) {
+        if (this.config.processArgs.argv.clean || this.config.processArgs.argv.cleanonly) {
             if (this.config.assetHandlers.image.generatedStorePath && fs.existsSync(this.config.assetHandlers.image.generatedStorePath)) {
                 fs.unlinkSync(this.config.assetHandlers.image.generatedStorePath);
                 syslog.notice('Cleanup requested - deleted generated image store.');
