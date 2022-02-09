@@ -28,7 +28,7 @@
         "body-parser": "*",
         "browser-sync": "*",
         "chokidar": "*",
-        "dateformat": "*",
+        "dateformat": "^2.0.0",
         "dotenv": "*",
         "express": "*",
 		"gajn-framework": "gordon-ansell/gajn-framework",
