@@ -44,21 +44,9 @@ try {
     // Start up statico.
     let statico = new Statico(null, null, logLevel, logContexts, pa);
 
-    let ret = false;
-    async () => {
-        ret = await statico.init();
-        if (ret) {
-            ret = await statico.run();
-        }
-    }
-
-    return ret;
-
-    /*
     return statico.init().then(function() {
         return statico.run();
     });
-    */
 
 } catch (err) {
     syslog.critical(`Critical error. Black hole. Call interplanetary help.`);
