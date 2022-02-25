@@ -174,13 +174,13 @@ class FtpRunner
      */
     async _parseFTPDir(dir, dt, count)
     {
-        debug(`_parseFTPDir: ${dir} %o`, dir);
         let entries = fs.readdirSync(dir);
         this.#ftpFiles[count] = [];
 
         await Promise.all(entries.map(async entry => {
 
             let filePath = path.join(dir, entry);
+            debug(`filePath: %s`, filePath);
             let stats = fs.statSync(filePath);
 
             if (stats.isFile()) {
