@@ -15,7 +15,7 @@ const cloneDeep = require('lodash.clonedeep');
 const TemplatePathUrl = require('./templatePathUrl');
 const Pagination = require('./pagination');
 const debug = require('debug')('Statico:TemplateFile'),
-      debugf = require('debug')('FStatico:TemplateFile');
+      debugf = require('debug')('Full.Statico:TemplateFile');
 
 
 /**

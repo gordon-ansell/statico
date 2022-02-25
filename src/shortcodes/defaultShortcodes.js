@@ -13,7 +13,7 @@ const SimpleImgShortcode = require('./simpleImgShortcode');
 const VideoLinkShortcode = require('./videolinkShortcode');
 const { syslog } = require('gajn-framework');
 const debug = require('debug')('Statico:defaultShortcodes'),
-      debugf = require('debug')('FStatico:defaultShortcodes');
+      debugf = require('debug')('Full.Statico:defaultShortcodes');
 
  
 /**

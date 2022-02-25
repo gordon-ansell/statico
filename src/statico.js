@@ -23,7 +23,7 @@ const Watcher = require('./watcher');
 const Converter = require('./converter');
 const FtpRunner = require('./ftpRunner');
 const debug = require('debug')('Statico'),
-      debugf = require('debug')('FStatico');
+      debugf = require('debug')('Full.Statico');
 
 /**
  * Main worker class.
@@ -229,40 +229,42 @@ class Statico
         // Process it all.
         await this.process();
 
-        // Serve?
-        if (this.config.processArgs.argv.servenode) {
-            server = new Server(
-                path.join(this.config.outputPath),
-                this.config.hostname
-            );
-            server.start();
+        if (!this.config.processArgs.argv.dryrun) {
+            // Serve?
+            if (this.config.processArgs.argv.servenode) {
+                server = new Server(
+                    path.join(this.config.outputPath),
+                    this.config.hostname
+                );
+                server.start();
 
-        // Express?
-        } else if (this.config.processArgs.argv.serve) {
-            server = new ServerExpress(this.config);
-            server.start();
+            // Express?
+            } else if (this.config.processArgs.argv.serve) {
+                server = new ServerExpress(this.config);
+                server.start();
 
-        // Servesync?
-        } else if (this.config.processArgs.argv.servesync) {
-            const ServerSync = require('./serverSync');
-            server = new ServerSync(
-                path.join(this.config.outputPath),
-                this.config.hostname,
-                this
-            );
-            server.start();
-        } 
+            // Servesync?
+            } else if (this.config.processArgs.argv.servesync) {
+                const ServerSync = require('./serverSync');
+                server = new ServerSync(
+                    path.join(this.config.outputPath),
+                    this.config.hostname,
+                    this
+                );
+                server.start();
+            } 
 
-        // Watch?
-        if (this.config.processArgs.argv.watch) {
-            let watcher = new Watcher(this.config, this, server);
-            watcher.watch();
-        }
+            // Watch?
+            if (this.config.processArgs.argv.watch) {
+                let watcher = new Watcher(this.config, this, server);
+                watcher.watch();
+            }
 
-        // FTP?
-        if (this.config.processArgs.argv.ftp) {
-            let ftpRunner = new FtpRunner(this.config);
-            ftpRunner.upload();
+            // FTP?
+            if (this.config.processArgs.argv.ftp) {
+                let ftpRunner = new FtpRunner(this.config);
+                ftpRunner.upload();
+            }
         }
 
         // Return.

@@ -10,7 +10,7 @@ const path = require('path');
 const { syslog } = require('gajn-framework');
 const BaseParser = require('./baseParser');
 const debug = require('debug')('Statico:AssetParser'),
-      debugf = require('debug')('FStatico:AssetParser');
+      debugf = require('debug')('Full.Statico:AssetParser');
 
 /**
  * Asset parser class.

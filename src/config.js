@@ -22,7 +22,7 @@ const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPrep
 const { URL } = require('url');
 const dateformat = require('dateformat');
 const debug = require('debug')('Statico:Config'),
-      debugf = require('debug')('FStatico:Config');
+      debugf = require('debug')('Full.Statico:Config');
 
 
 /**

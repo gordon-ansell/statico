@@ -18,7 +18,7 @@ const fs = require('fs');
 const TemplatePathUrl = require('../templatePathUrl');
 const beautify = require('js-beautify').html;
 const debug = require('debug')('Statico:NunjucksTemplateHandler'),
-      debugf = require('debug')('FStatico:NunjucksTemplateHandler');
+      debugf = require('debug')('Full.Statico:NunjucksTemplateHandler');
 
 class StaticoNunjucksTemplateHandlerError extends StaticoTemplateHandlerError {}
 

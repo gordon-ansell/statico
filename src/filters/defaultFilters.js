@@ -11,7 +11,7 @@ const absurlFilter = require('./absurlFilter');
 const htmlabsurlFilter = require('./htmlabsurlFilter');
 const { syslog } = require('gajn-framework');
 const debug = require('debug')('Statico:defaultFilters'),
-      debugf = require('debug')('FStatico:defaultFilters');
+      debugf = require('debug')('Full.Statico:defaultFilters');
 
 /**
  * Default filters.

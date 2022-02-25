@@ -43,7 +43,8 @@ class ProcessArgs
               "convert",
               "noimages",
               "servenode",
-              "ftp"
+              "ftp",
+              "dryrun"
             ],
             default: {
               serve: false,
@@ -52,7 +53,8 @@ class ProcessArgs
               clean: false,
               cleanonly: false,
               servenode: false,
-              ftp: false
+              ftp: false,
+              dryrun: false
             },
             unknown: function (unknownArgument) {
               throw new StaticoCommandLineError(`Unrecognised argument: '${unknownArgument}'. Use --help to see the list of supported commands.`);

@@ -11,7 +11,8 @@ const { syslog, fsutils } = require('gajn-framework');
 const StaticoError = require('../staticoError');
 const TemplatePathUrl = require('../templatePathUrl');
 const debug = require('debug')('Statico:BaseParser'),
-      debugf = require('debug')('FStatico:BaseParser');
+      debugf = require('debug')('Full.Statico:BaseParser'),
+      debugd = require('debug')('DryRun.Statico:BaseParser');
 
 /**
  * Base parser class.
@@ -53,7 +54,11 @@ class BaseParser
             throw new StaticoError(`Hold on, we're creating a spurious directory: ${path.dirname(base)}`);
         }
         fsutils.mkdirRecurse(path.dirname(op));
-        fsutils.copyFile(filePath, op);
+        if (this.config.processArgs.argv.dryrun) {
+            debugd(`Copy: ${filePath} => ${op}`);
+        } else {
+            fsutils.copyFile(filePath, op);
+        }
 
         debug(`Copied file ${TemplatePathUrl.sh(filePath)} ===> ${TemplatePathUrl.sh(op)}.`);
     }

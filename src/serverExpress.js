@@ -12,7 +12,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
 const debug = require('debug')('Statico:ServerExpress'),
-      debugf = require('debug')('FStatico:ServerExpress');
+      debugf = require('debug')('Full.Statico:ServerExpress');
 
 /**
  * Statico express server.

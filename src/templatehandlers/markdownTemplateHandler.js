@@ -18,7 +18,7 @@ const TemplateFile = require('../templateFile');
 const StaticoTemplateHandlerError = require('./staticoTemplateHandlerError');
 const beautify = require('js-beautify').html;
 const debug = require('debug')('Statico:MarkdownTemplateHandler'),
-      debugf = require('debug')('FStatico:MarkdownTemplateHandler');
+      debugf = require('debug')('Full.Statico:MarkdownTemplateHandler');
 
 
 class StaticoMarkdownTemplateHandlerError extends StaticoTemplateHandlerError {}

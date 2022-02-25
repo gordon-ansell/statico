@@ -11,7 +11,7 @@ const fs = require('fs');
 const { syslog } = require('gajn-framework');
 const path = require('path');
 const debug = require('debug')('Statico:Server'),
-      debugf = require('debug')('FStatico:Server');
+      debugf = require('debug')('Full.Statico:Server');
 
 
 /**

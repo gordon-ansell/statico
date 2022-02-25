@@ -14,7 +14,7 @@ const StaticoTemplateHandlerError = require('../templatehandlers/staticoTemplate
 const CollectionDateSorted = require('../collectionDateSorted');
 const BaseParser = require('./baseParser');
 const debug = require('debug')('Statico:TemplateParser'),
-      debugf = require('debug')('FStatico:TemplateParser');
+      debugf = require('debug')('Full.Statico:TemplateParser');
 
 
 /**
