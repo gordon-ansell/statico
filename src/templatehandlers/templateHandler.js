@@ -79,7 +79,7 @@ class TemplateHandler
     writeFile(buffer, ofn, fp)
     {
         if (this.config.processArgs.argv.dryrun) {
-            debugd(`Write: %s`, ofn);
+            debugd(`Write: %s`, ofn.replace(this.config.sitePath, ''));
         } else {
             fsutils.mkdirRecurse(path.dirname(ofn));
             fs.writeFileSync(ofn, buffer);
