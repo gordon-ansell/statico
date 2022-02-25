@@ -27,6 +27,12 @@ class FtpRunner
     cfg = null;
 
     /**
+     * Storage for files to upload.
+     * @member {string[]}
+     */
+    #ftpFiles = [];
+
+    /**
      * Constructor.
      * 
      * @param   {object}    config  Configs.
