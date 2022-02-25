@@ -45,7 +45,7 @@ class FtpRunner
                 throw new StaticoFtpError(`No ${item} environment variable specified.`);
             }
             let sp = item.split('_');
-            this.cfg[sp[1].toLowerCase()] = process.end[item];
+            this.cfg[sp[1].toLowerCase()] = process.env[item];
         }
         debug("%O", this.cfg);
     }
