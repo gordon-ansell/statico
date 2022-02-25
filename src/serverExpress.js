@@ -11,6 +11,8 @@ const { syslog } = require('gajn-framework');
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
+const debug = require('debug')('Statico:ServerExpress'),
+      debugf = require('debug')('FStatico:ServerExpress');
 
 /**
  * Statico express server.
@@ -146,11 +148,11 @@ class ServerExpress
      */
     start()
     {
-        syslog.trace("Site path: " + this.#outputPath, 'Server');
+        debug("Site path: " + this.#outputPath);
 
         syslog.notice(`Attempting to start serving via Express from: ${this.#outputPath}.`);
-        syslog.trace("Address: " + this.#address, 'Server');
-        syslog.trace("Port: " + this.#port, 'Server');
+        debug("Address: " + this.#address);
+        debug("Port: " + this.#port);
 
         this.#server = express();
 

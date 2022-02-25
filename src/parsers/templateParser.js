@@ -13,6 +13,9 @@ const StaticoError = require('../staticoError');
 const StaticoTemplateHandlerError = require('../templatehandlers/staticoTemplateHandlerError');
 const CollectionDateSorted = require('../collectionDateSorted');
 const BaseParser = require('./baseParser');
+const debug = require('debug')('Statico:TemplateParser'),
+      debugf = require('debug')('FStatico:TemplateParser');
+
 
 /**
  * Exceptions.
@@ -67,13 +70,13 @@ class TemplateParser extends BaseParser
             let ext = path.extname(element).substr(1);
             if (this.config.templateHandlers.hasHandlerForExt(ext))  {
                 try {
-                    syslog.debug(`Seeing if template for ${trimmed} is parseable (${pn}).`, 'TemplateParser.parse')
+                    debug(`Seeing if template for ${trimmed} is parseable (${pn}).`)
                     let tf = await this._parseTemplateFile(element, parseName, paginate, data);
                     if (null !== tf) {
                         this._addToCollections(tf);
-                        syslog.debug(`${trimmed} was indeed parseable (${pn}).`, 'TemplateParser.parse')
+                        debug(`${trimmed} was indeed parseable (${pn}).`)
                     } else {
-                        syslog.debug(`Template file is null: ${trimmed}. This just means it won't be added to collections here.`, 'TemplateParser.parse');
+                        debug(`Template file is null: ${trimmed}. This just means it won't be added to collections here.`);
                     }
                 } catch (e) {
                     if (e instanceof StaticoTemplateHandlerError) {
@@ -110,7 +113,7 @@ class TemplateParser extends BaseParser
 
         if (this.config.templateHandlers.hasHandlerForExt(ext))  {
             try {
-                syslog.debug(`Seeing if template for ${trimmed} is parseable (${pn}).`, 'TemplateParser.parseAndReturnString')
+                debug(`Seeing if template for ${trimmed} is parseable (${pn}).`);
                 let tf;
                 try {
                     tf = new TemplateFile(file, this.config, true, data);
@@ -123,7 +126,7 @@ class TemplateParser extends BaseParser
                     await tf.load(parseName, paginate);
                     await this.config.events.emit('statico.abouttoparsetemplatefile', this.config, tf);
                     if (null === parseName || parseName === tf.data.parse) {
-                        syslog.trace(`Passing control to template handler for ${ext}, for file ${trimmed}.`, 'TemplateParser.parseAndReturnString')
+                        debug(`Passing control to template handler for ${ext}, for file ${trimmed}.`);
                         let handler = this.config.templateHandlers.getHandlerForExt(ext)
                         await handler.process(tf);
                         await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
@@ -156,11 +159,11 @@ class TemplateParser extends BaseParser
     {
         let trimmed = filePath.replace(this.config.sitePath, '');
 
-        syslog.trace(`In _parseTemplateFile for ${trimmed}.`, 'TemplateParser._parseTemplateFile')
+        debug(`In _parseTemplateFile for ${trimmed}.`);
 
         let ext = path.extname(filePath).substr(1);
         if (this.config.templateHandlers.hasHandlerForExt(ext))  {
-            syslog.trace(`Reconfirmed we have template handler for ${ext}, processing ${trimmed}.`, 'TemplateParser._parseTemplateFile');
+            debug(`Reconfirmed we have template handler for ${ext}, processing ${trimmed}.`);
             let tf;
             try {
                 tf = new TemplateFile(filePath, this.config, mightHaveLayout, data);
@@ -173,7 +176,7 @@ class TemplateParser extends BaseParser
             await tf.load(parseName, paginate);
             await this.config.events.emit('statico.abouttoparsetemplatefile', this.config, tf);
             if (null === parseName || parseName === tf.data.parse) {
-                syslog.trace(`Passing control to template handler for ${ext}, for file ${trimmed}.`, 'TemplateParser._parseTemplateFile')
+                debug(`Passing control to template handler for ${ext}, for file ${trimmed}.`)
                 let handler = this.config.templateHandlers.getHandlerForExt(ext)
                 await handler.process(tf);
                 await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);

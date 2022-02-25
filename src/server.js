@@ -10,6 +10,8 @@ const http = require('http');
 const fs = require('fs');
 const { syslog } = require('gajn-framework');
 const path = require('path');
+const debug = require('debug')('Statico:Server'),
+      debugf = require('debug')('FStatico:Server');
 
 
 /**
@@ -68,22 +70,22 @@ class Server
         let address = this.#address;
         let port = this.#port;
 
-        syslog.trace("Site path: " + sitePath, 'Server');
+        debug("Site path: " + sitePath);
 
         syslog.notice("Attempting to start serving from: " + sitePath);
-        syslog.trace("Address: " + address, 'Server');
-        syslog.trace("Port: " + port, 'Server');
+        debug("Address: " + address);
+        debug("Port: " + port);
 
         this.#server = http.createServer(function (request, response) {
         
             let filePath = sitePath + request.url;
-            syslog.trace("Request URL: " + request.url, 'Server');
-            syslog.trace("Raw file path: " + filePath, 'Server');
+            debug("Request URL: " + request.url);
+            debug("Raw file path: " + filePath);
 
             if (fs.lstatSync(filePath).isDirectory()) {
                 filePath = path.join(filePath, 'index.html');
             }
-            syslog.trace("File path modified: " + filePath, 'Server');
+            debug("File path modified: " + filePath);
 
             /*
             if (filePath == (sitePath + '/')) {
@@ -140,7 +142,7 @@ class Server
 
             let dispType = dispTypes[extname] || '';
 
-            syslog.debug("Serving up: " + request.url + "\n => " + filePath + "\n => as " + contentType, 'Server');
+            debug("Serving up: " + request.url + "\n => " + filePath + "\n => as " + contentType);
 
             fs.readFile(filePath, function(error, content) {
                 if (error) {

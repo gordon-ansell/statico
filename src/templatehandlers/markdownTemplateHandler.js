@@ -17,6 +17,9 @@ const striptags = require("striptags");
 const TemplateFile = require('../templateFile');
 const StaticoTemplateHandlerError = require('./staticoTemplateHandlerError');
 const beautify = require('js-beautify').html;
+const debug = require('debug')('Statico:MarkdownTemplateHandler'),
+      debugf = require('debug')('FStatico:MarkdownTemplateHandler');
+
 
 class StaticoMarkdownTemplateHandlerError extends StaticoTemplateHandlerError {}
 
@@ -74,7 +77,7 @@ class MarkdownTemplateHandler extends TemplateHandler
     async process(templateFile)
     {
         let fp = templateFile.filePath.replace(this.sitePath, '');
-        syslog.trace(`Markdown template handler is processing file: ${fp}`, 'TemplateHandler:Markdown');
+        debug(`Markdown template handler is processing file: ${fp}`);
 
         // Save for RSS.
         let rss = this.config.rssBuildSeparateContent || false;

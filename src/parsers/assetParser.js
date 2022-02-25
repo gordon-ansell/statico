@@ -9,6 +9,8 @@
 const path = require('path');
 const { syslog } = require('gajn-framework');
 const BaseParser = require('./baseParser');
+const debug = require('debug')('Statico:AssetParser'),
+      debugf = require('debug')('FStatico:AssetParser');
 
 /**
  * Asset parser class.
@@ -72,7 +74,7 @@ class AssetParser extends BaseParser
             let ext = path.extname(element).substr(1);
             if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
                 try {
-                    syslog.debug(`About to parse asset ${trimmed}.`, 'Statico.run')
+                    debug(`About to parse asset ${trimmed}.`)
                     let process = true;
                     if (!skip) {
                         this.config.events.emit('statico.preparseassetfile', trimmed);

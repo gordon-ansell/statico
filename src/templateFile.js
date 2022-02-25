@@ -14,6 +14,9 @@ const path = require('path');
 const cloneDeep = require('lodash.clonedeep');
 const TemplatePathUrl = require('./templatePathUrl');
 const Pagination = require('./pagination');
+const debug = require('debug')('Statico:TemplateFile'),
+      debugf = require('debug')('FStatico:TemplateFile');
+
 
 /**
  * Exceptions.
@@ -97,7 +100,7 @@ class TemplateFile
      */
     constructor(filePath, config, mightHaveLayout = true, passedData = null)
     {
-        syslog.trace(`In TemplateFile constructor for ${filePath}`, 'TemplateFile');
+        debug(`In TemplateFile constructor for ${filePath}`);
         if (!filePath) {
             throw new StaticoTemplateFileError(`No filePath passed to TemplateFile constructor.`);
         }
@@ -298,7 +301,7 @@ class TemplateFile
             } 
             ret.layoutPath = layoutPath;
         } else {
-            syslog.trace(`No layout found for ${this.filePath}. Probably layout = false in frontmatter.`, 'statico.TemplateFile');
+            debug(`No layout found for ${this.filePath}. Probably layout = false in frontmatter.`);
         }
 
         return ret;

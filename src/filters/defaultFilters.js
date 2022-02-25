@@ -10,6 +10,8 @@ const slugifyFilter = require('./slugifyFilter');
 const absurlFilter = require('./absurlFilter');
 const htmlabsurlFilter = require('./htmlabsurlFilter');
 const { syslog } = require('gajn-framework');
+const debug = require('debug')('Statico:defaultFilters'),
+      debugf = require('debug')('FStatico:defaultFilters');
 
 /**
  * Default filters.
@@ -18,12 +20,12 @@ const { syslog } = require('gajn-framework');
 module.exports = function(config) {
    
     config.addNunjucksFilter('slugify', slugifyFilter);
-    syslog.debug(`Added filter to Nunjucks: slugify`);
+    debug(`Added filter to Nunjucks: slugify`);
 
     config.addNunjucksFilter('absurl', absurlFilter);
-    syslog.debug(`Added filter to Nunjucks: absurl`);
+    debug(`Added filter to Nunjucks: absurl`);
 
     config.addNunjucksFilter('htmlabsurl', htmlabsurlFilter);
-    syslog.debug(`Added filter to Nunjucks: htmlabsurl`);
+    debug(`Added filter to Nunjucks: htmlabsurl`);
 
 }

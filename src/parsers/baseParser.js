@@ -10,6 +10,8 @@ const path = require('path');
 const { syslog, fsutils } = require('gajn-framework');
 const StaticoError = require('../staticoError');
 const TemplatePathUrl = require('../templatePathUrl');
+const debug = require('debug')('Statico:BaseParser'),
+      debugf = require('debug')('FStatico:BaseParser');
 
 /**
  * Base parser class.
@@ -53,7 +55,7 @@ class BaseParser
         fsutils.mkdirRecurse(path.dirname(op));
         fsutils.copyFile(filePath, op);
 
-        syslog.debug(`Copied file ${TemplatePathUrl.sh(filePath)} ===> ${TemplatePathUrl.sh(op)}.`);
+        debug(`Copied file ${TemplatePathUrl.sh(filePath)} ===> ${TemplatePathUrl.sh(op)}.`);
     }
  
 

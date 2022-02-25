@@ -21,6 +21,9 @@ const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreproce
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
 const { URL } = require('url');
 const dateformat = require('dateformat');
+const debug = require('debug')('Statico:Config'),
+      debugf = require('debug')('FStatico:Config');
+
 
 /**
  * Config class.
@@ -561,7 +564,7 @@ class Config
         } else {
             throw new StaticoError(`Config file at ${filePath} is of the wrong type.`);
         }
-        syslog.debug(`Loaded config file '${filePath}'.`, 'Config');
+        debug(`Loaded config file '${filePath}'.`);
         return newConfig;
     }
 

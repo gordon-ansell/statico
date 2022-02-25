@@ -10,6 +10,8 @@ const path = require("path");
 const fs = require('fs');
 const { fsutils, syslog } = require('gajn-framework');
 const TemplatePathUrl = require('../templatePathUrl');
+const debug = require('debug')('Statico:TemplateHandler'),
+      debugf = require('debug')('FStatico:TemplateHandler');
 
 /**
  * Base template handler.
@@ -78,7 +80,7 @@ class TemplateHandler
         fsutils.mkdirRecurse(path.dirname(ofn));
         fs.writeFileSync(ofn, buffer);
         let op = TemplatePathUrl.sh(ofn);
-        //syslog.debug(`Wrote ${fp} ===> ${op}.`, 'TemplateHandler:Base');
+        //debug(`Wrote ${fp} ===> ${op}.`);
         syslog.info(`Wrote ${fp} ===> ${op}.`);
     }
 }

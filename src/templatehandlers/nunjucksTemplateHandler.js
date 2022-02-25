@@ -17,6 +17,8 @@ const path = require('path');
 const fs = require('fs');
 const TemplatePathUrl = require('../templatePathUrl');
 const beautify = require('js-beautify').html;
+const debug = require('debug')('Statico:NunjucksTemplateHandler'),
+      debugf = require('debug')('FStatico:NunjucksTemplateHandler');
 
 class StaticoNunjucksTemplateHandlerError extends StaticoTemplateHandlerError {}
 
@@ -40,7 +42,7 @@ class NunjucksTemplateHandler extends TemplateHandler
      */
     constructor(config)
     {
-        syslog.debug('Constructing NunjucksTemplateHandler', 'TemplateHandler:Nunjucks');
+        debug('Constructing NunjucksTemplateHandler');
         super(config);
         let loader;
         try {
@@ -169,7 +171,7 @@ class NunjucksTemplateHandler extends TemplateHandler
     async process(templateFile)
     {
         let fp = templateFile.filePath.replace(this.sitePath, '');
-        syslog.trace(`Nunjucks template handler is processing file: ${fp}`, 'TemplateHandler:Nunjucks');
+        debug(`Nunjucks template handler is processing file: ${fp}`);
 
         if (templateFile.data.content) {
             templateFile.data.content_html = this.renderString(templateFile.data.content, templateFile.data);

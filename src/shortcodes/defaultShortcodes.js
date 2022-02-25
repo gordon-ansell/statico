@@ -12,6 +12,9 @@ const ImagesIncludeShortcode = require('./imagesincludeShortcode');
 const SimpleImgShortcode = require('./simpleImgShortcode');
 const VideoLinkShortcode = require('./videolinkShortcode');
 const { syslog } = require('gajn-framework');
+const debug = require('debug')('Statico:defaultShortcodes'),
+      debugf = require('debug')('FStatico:defaultShortcodes');
+
  
 /**
  * Default shortcodes.
@@ -20,17 +23,17 @@ const { syslog } = require('gajn-framework');
 module.exports = function(config) {
 
     config.addNunjucksShortcode('link', LinkShortcode);
-    syslog.debug(`Added shortcode to Nunjucks: link`);
+    debug(`Added shortcode to Nunjucks: link`);
 
     config.addNunjucksShortcode('img', ImgShortcode);
-    syslog.debug(`Added shortcode to Nunjucks: img`);
+    debug(`Added shortcode to Nunjucks: img`);
 
     config.addNunjucksShortcode('imagesinclude', ImagesIncludeShortcode);
-    syslog.debug(`Added shortcode to Nunjucks: imagesinclude`);
+    debug(`Added shortcode to Nunjucks: imagesinclude`);
 
     config.addNunjucksShortcode('simpleimg', SimpleImgShortcode);
-    syslog.debug(`Added shortcode to Nunjucks: simpleimg`);
+    debug(`Added shortcode to Nunjucks: simpleimg`);
 
     config.addNunjucksShortcode('videolink', VideoLinkShortcode);
-    syslog.debug(`Added shortcode to Nunjucks: videolink`);
+    debug(`Added shortcode to Nunjucks: videolink`);
 }
