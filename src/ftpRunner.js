@@ -176,6 +176,7 @@ class FtpRunner
     {
         let entries = fs.readdirSync(dir);
         this.#ftpFiles[count] = [];
+        let t = dt.getTime();
 
         await Promise.all(entries.map(async entry => {
 
@@ -185,7 +186,7 @@ class FtpRunner
 
             if (stats.isFile()) {
                 if (!entry.startsWith('.')) {
-                    if (stats.mtimeMs > dt.getTime()) {
+                    if (stats.mtimeMs > t) {
                         this.#ftpFiles[count].push(filePath);
                     }
                 }
