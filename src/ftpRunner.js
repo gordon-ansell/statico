@@ -108,6 +108,7 @@ class FtpRunner
 
         // Start the loop.
         let count = 0;
+        this.#ftpFiles[count] = [];
         for (let dir of this.cfg.sources) {
             syslog.info(`FTP is reading directory: ${dir}`);
             await this._parseFTPDir(dir, now, count);
@@ -184,7 +185,6 @@ class FtpRunner
     async _parseFTPDir(dir, dt, count)
     {
         let entries = fs.readdirSync(dir);
-        this.#ftpFiles[count] = [];
         let t = dt.getTime();
 
         await Promise.all(entries.map(async entry => {
