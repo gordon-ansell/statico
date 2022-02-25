@@ -152,6 +152,8 @@ class FtpRunner
             return 0;
         }
 
+        debug(`FTP files: %O`, this.#ftpFiles);
+
         for (let count in this.#ftpFiles) {
             let files = this.#ftpFiles[count];
             let destDir = this.cfg.dests[count];
