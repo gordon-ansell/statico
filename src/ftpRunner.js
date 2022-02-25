@@ -63,7 +63,7 @@ class FtpRunner
      */
     async upload()
     {
-        if (('live' in this.cg) && true === this.cfg.live) {
+        if (('live' in this.cfg) && true === this.cfg.live) {
             syslog.notice("Will attempt to FTP the necessary files.");
         } else {
             syslog.notice("FTP running in test mode.")
@@ -150,7 +150,7 @@ class FtpRunner
             let destDir = this.cfg.dests[count];
             for (let file of files) {
                 let destFile = path.join(destDir, path.basename(file));
-                if (!('live' in this.cfg) || false === this.cfg.live) {
+                if (!this.cfg.live) {
                     syslog.notice(`${file} ==> ${destFile}`);
                 } else {
                     try {
