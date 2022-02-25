@@ -158,7 +158,7 @@ class Statico
 
         await this.cleanUp();
 
-        //debugf("Config after init: %O", this.config);
+        debugf("Config after init: %O", this.config);
 
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
