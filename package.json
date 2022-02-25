@@ -29,6 +29,7 @@
         "browser-sync": "*",
         "chokidar": "*",
         "dateformat": "^2.0.0",
+        "debug": "*",
         "dotenv": "*",
         "express": "*",
 		"gajn-framework": "gordon-ansell/gajn-framework",
