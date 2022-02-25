@@ -389,7 +389,7 @@ class Statico
 
         // Finish up.
         syslog.notice(`Statico processing completed in ${(Date.now() - this.#startTime) / 1000} seconds.`);
-        syslog.notice(`Processed ${this.#parsedCounts.templates} and ${this.#parsedCounts.assets} assets.`);
+        syslog.notice(`Processed ${this.#parsedCounts.templates} templates and ${this.#parsedCounts.assets} assets.`);
         syslog.notice('-'.repeat(50));
 
         this.isProcessing = false;
