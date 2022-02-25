@@ -89,6 +89,7 @@ module.exports = function(configData) {
         },
         ftp: {
             live: false,
+            ignoreHours: false,
             verbose: false,
             hours: 24,
             sources: [
