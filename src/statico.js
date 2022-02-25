@@ -21,7 +21,8 @@ const TemplateParser = require('./parsers/templateParser');
 const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
 const Converter = require('./converter');
-const debug = require('debug')('statico');
+const debug = require('debug')('statico'),
+      debugf = require('debug')('statico-full');
 
 /**
  * Main worker class.
@@ -157,7 +158,7 @@ class Statico
 
         await this.cleanUp();
 
-        debug("Config after init: %O", this.config);
+        debugf("Config after init: %O", this.config);
 
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
