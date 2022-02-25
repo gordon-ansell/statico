@@ -22,7 +22,7 @@ const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
 const Converter = require('./converter');
 const FtpRunner = require('./ftpRunner');
-const { performance, PerformanceObserver } = require('perf_hooks');
+//const { performance, PerformanceObserver } = require('perf_hooks');
 const debug = require('debug')('Statico'),
       debugf = require('debug')('Full.Statico');
 
@@ -83,15 +83,15 @@ class Statico
      * Late parsers.
      * @member {string[]}
      */
-    #lateParsers = [];
+    //#lateParsers = [];
 
     /**
      * Parsed counts.
      * @member {object}
      */
     #parsedCounts = {
-        total: 0,
-        copied: 0
+        assets: 0,
+        templates: 0,
     };
 
     /**
@@ -346,7 +346,7 @@ class Statico
         
         // Assets parse.
         let assetParser = new AssetParser(this.config);
-        await assetParser.parse(assets, !doimages);
+        this.#parsedCounts.assets += await assetParser.parse(assets, !doimages);
 
         // Copy the generated images.
         await this.copyGeneratedImages();
@@ -356,7 +356,7 @@ class Statico
 
         // Early parse.
         syslog.notice(`Running early parse.`);
-        await templateParser.parse(others, 'early');
+        this.#parsedCounts.templates += await templateParser.parse(others, 'early');
         let lateParsers = templateParser.notProcessed;
 
         // Sort taxonomies.
@@ -364,7 +364,7 @@ class Statico
 
         // Late parse.
         syslog.notice(`Running late parse.`);
-        await templateParser.parse(lateParsers, 'late');
+        this.#parsedCounts.templates += await templateParser.parse(lateParsers, 'late');
         let lastParsers = templateParser.notProcessed;
 
         // Process taxonomies.
@@ -373,7 +373,7 @@ class Statico
 
         // Last parse.
         syslog.notice(`Running last parse.`);
-        await templateParser.parse(lastParsers, 'last');
+        this.#parsedCounts.templates += await templateParser.parse(lastParsers, 'last');
 
         // Now push everything through their layouts.
         syslog.notice(`Parsing everything through layouts - early.`)
@@ -389,6 +389,7 @@ class Statico
 
         // Finish up.
         syslog.notice(`Statico processing completed in ${(Date.now() - this.#startTime) / 1000} seconds.`);
+        syslog.notice(`Processed ${this.#parsedCounts.templates} and ${this.#parsedCounts.assets} assets.`);
         syslog.notice('-'.repeat(50));
 
         this.isProcessing = false;

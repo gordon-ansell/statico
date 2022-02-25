@@ -61,7 +61,7 @@ class AssetParser extends BaseParser
      * @param   {string[]}  files       Files to parse.
      * @param   {boolean}   skip        Skip actual processing.
      * 
-     * @return
+     * @return  {number}
      */
     async parse(files, skip = false)
     {
@@ -103,6 +103,7 @@ class AssetParser extends BaseParser
             this.config.assetCacheHandler.saveMap();
         }
         if (!this.config.processArgs.argv.silent) await syslog.endProgress();
+        return count;
     }
 
 }

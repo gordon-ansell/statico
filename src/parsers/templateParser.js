@@ -53,7 +53,7 @@ class TemplateParser extends BaseParser
      * @param   {boolean}   paginate    Paginate?
      * @param   {object}    data        Additional data to parse.
      * 
-     * @return
+     * @return  {number}
      */
     async parse(files, parseName = null, paginate = true, data = null)
     {
@@ -93,6 +93,8 @@ class TemplateParser extends BaseParser
         }));
 
         if (!this.config.processArgs.argv.silent) syslog.endProgress();
+
+        return count;
 
     }
 
