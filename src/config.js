@@ -542,7 +542,7 @@ class Config
         this.mode = this.runMode;
 
         // Mode related stuff.
-        if (this.modes && this.modes[mode]) {
+        if (this.modes && this.modes[this.mode]) {
 
             // Hostname.
             if (this.modes[this.mode]['hostname']) {
