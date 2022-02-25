@@ -42,7 +42,8 @@ class ProcessArgs
               "watch",
               "convert",
               "noimages",
-              "servenode"
+              "servenode",
+              "ftp"
             ],
             default: {
               serve: false,
@@ -50,7 +51,8 @@ class ProcessArgs
               noimages: false,
               clean: false,
               cleanonly: false,
-              servenode: false
+              servenode: false,
+              ftp: false
             },
             unknown: function (unknownArgument) {
               throw new StaticoCommandLineError(`Unrecognised argument: '${unknownArgument}'. Use --help to see the list of supported commands.`);

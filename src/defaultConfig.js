@@ -86,6 +86,19 @@ module.exports = function(configData) {
                 path.join(configData.sitePath, 'package.*'),
                 /(^|[\/\\])\../,
             ]
+        },
+        ftp: {
+            live: false,
+            verbose: false,
+            hours: 24,
+            sources: [
+                "/Users/gordonansell/Documents/Code/js/gordon-ansell/gordonansell.com/_posts",
+                "/Users/gordonansell/Documents/Code/js/gordon-ansell/gordonansell.com/assets/posts"
+            ],
+            dests: [
+                "/sitegen/gordonansell.com/_posts",
+                "/sitegen/gordonansell.com/assets/posts",
+            ]            
         }
     }
 }

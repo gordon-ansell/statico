@@ -21,6 +21,7 @@ const TemplateParser = require('./parsers/templateParser');
 const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
 const Converter = require('./converter');
+const FtpRunner = require('./ftpRunner');
 const debug = require('debug')('Statico'),
       debugf = require('debug')('FStatico');
 
@@ -256,6 +257,12 @@ class Statico
         if (this.config.processArgs.argv.watch) {
             let watcher = new Watcher(this.config, this, server);
             watcher.watch();
+        }
+
+        // FTP?
+        if (this.config.processArgs.argv.ftp) {
+            let ftpRunner = new FtpRunner(this.config);
+            ftpRunner.upload();
         }
 
         // Return.
