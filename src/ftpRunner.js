@@ -153,15 +153,13 @@ class FtpRunner
             return 0;
         }
 
-        debug(`FTP files: %O`, this.#ftpFiles);
-
         for (let count in this.#ftpFiles) {
             let files = this.#ftpFiles[count];
             let destDir = this.cfg.dests[count];
             for (let file of files) {
                 let destFile = path.join(destDir, file.replace(this.config.outputPath, ''));
                 if (!this.cfg.live) {
-                    syslog.notice(`${file} ==> ${destFile}`);
+                    syslog.notice(`${file} \n==> ${destFile}`);
                 } else {
                     try {
                         syslog.info(`Uploading ${file} to ${destFile}`);
