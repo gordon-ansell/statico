@@ -34,7 +34,7 @@ class FtpRunner
      */
     constructor(config)
     {
-        if (!(ftp in config)) {
+        if (!('ftp' in config)) {
             throw new StaticoFtpError(`No FTP configs found.`);
         }
         this.cfg = config.ftp;
