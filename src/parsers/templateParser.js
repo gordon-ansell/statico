@@ -63,7 +63,7 @@ class TemplateParser extends BaseParser
 
         let totalFiles = files.length;
         let count = 0;
-        syslog.printProgress(0);
+        if (!this.config.processArgs.argv.silent) syslog.printProgress(0);
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
@@ -89,10 +89,10 @@ class TemplateParser extends BaseParser
                 this._copyFile(element);
             }
             count++;
-            syslog.printProgress((count/totalFiles) * 100);
+            if (!this.config.processArgs.argv.silent) syslog.printProgress((count/totalFiles) * 100);
         }));
 
-        syslog.endProgress();
+        if (!this.config.processArgs.argv.silent) syslog.endProgress();
 
     }
 

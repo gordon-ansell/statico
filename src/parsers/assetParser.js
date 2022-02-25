@@ -67,7 +67,7 @@ class AssetParser extends BaseParser
     {
         let totalItems = files.length;
         let count = 0;
-        await syslog.printProgress(0);
+        if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
@@ -96,13 +96,13 @@ class AssetParser extends BaseParser
             }
             this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
             count++;
-            await syslog.printProgress((count / totalItems) * 100);
+            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
         }));
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
         }
-        await syslog.endProgress();
+        if (!this.config.processArgs.argv.silent) await syslog.endProgress();
     }
 
 }

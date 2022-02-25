@@ -392,15 +392,15 @@ class Statico
 
             let totalItems = this.config.toParseThroughLayout[parseName].length;
             let count = 0;
-            syslog.printProgress(0);
+            if (!this.config.processArgs.argv.silent) syslog.printProgress(0);
 
             await Promise.all(this.config.toParseThroughLayout[parseName].map(async templateFile => {
                 this.config.templateHandlers.getHandlerForExt(templateFile.ext).parseThroughLayoutAndWrite(templateFile);
                 count++;
-                syslog.printProgress((count/totalItems) * 100);
+                if (!this.config.processArgs.argv.silent) syslog.printProgress((count/totalItems) * 100);
             }));    
 
-            syslog.endProgress();
+            if (!this.config.processArgs.argv.silent) syslog.endProgress();
         }
 
         this.config.toParseThroughLayout[parseName] = []; 
@@ -473,7 +473,7 @@ class Statico
 
                 let totalItems = entries.length;
                 let count = 0;
-                syslog.printProgress(0, taxType);
+                if (!this.config.processArgs.argv.silent) syslog.printProgress(0, taxType);
             
                 await Promise.all(entries.map(async taxName => {
 
@@ -510,11 +510,11 @@ class Statico
                     opFiles.push(ofn);
 
                     count++;
-                    syslog.printProgress((count / totalItems) * 100, taxType);
+                    if (!this.config.processArgs.argv.silent) syslog.printProgress((count / totalItems) * 100, taxType);
 
                 }));
 
-                syslog.endProgress;
+                if (!this.config.processArgs.argv.silent) syslog.endProgress;
             }
 
         }));
@@ -553,7 +553,11 @@ class Statico
             let from = path.join(this.config.sitePath, this.config.assetHandlers.image.outputDir);
             let to = path.join(this.config.outputPath, this.config.assetHandlers.image.outputDir);
             syslog.info(`Copying generated images ${from} => ${to}`);
-            await fsutils.copyDirAsyncProgress(from, to);
+            if (this.config.processArgs.argv.silent) {
+                await fsutils.copyDirAsync(from, to);
+            } else {
+                await fsutils.copyDirAsyncProgress(from, to);
+            }
         }
     }
 
