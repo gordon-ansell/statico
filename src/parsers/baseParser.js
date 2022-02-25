@@ -55,7 +55,7 @@ class BaseParser
         }
         fsutils.mkdirRecurse(path.dirname(op));
         if (this.config.processArgs.argv.dryrun) {
-            debugd(`Copy: ${filePath} => ${op}`);
+            debugd(`Copy: ${filePath.replace(this.config.sitePath, '')} => ${op.replace(this.config.sitePath, '')}`);
         } else {
             fsutils.copyFile(filePath, op);
         }

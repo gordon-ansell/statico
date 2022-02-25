@@ -85,7 +85,7 @@ class TemplateHandler
             fs.writeFileSync(ofn, buffer);
         }
         let op = TemplatePathUrl.sh(ofn);
-         syslog.info(`Wrote ${fp} ===> ${op}.`);
+         syslog.info(`Wrote ${fp.replace(this.config.sitePath, '')} ===> ${op.replace(this.config.sitePath, '')}.`);
     }
 }
 
