@@ -92,12 +92,10 @@ module.exports = function(configData) {
             verbose: false,
             hours: 24,
             sources: [
-                "/Users/gordonansell/Documents/Code/js/gordon-ansell/gordonansell.com/_posts",
-                "/Users/gordonansell/Documents/Code/js/gordon-ansell/gordonansell.com/assets/posts"
+                "/Users/gordonansell/Dev/gordonansell.com/_site"
             ],
             dests: [
-                "/sitegen/gordonansell.com/_posts",
-                "/sitegen/gordonansell.com/assets/posts",
+                "/public_html"
             ]            
         }
     }
