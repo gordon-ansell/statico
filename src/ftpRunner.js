@@ -180,7 +180,7 @@ class FtpRunner
         await Promise.all(entries.map(async entry => {
 
             let filePath = path.join(dir, entry);
-            debug(`filePath: %s`, filePath);
+            debug(`filePath: %s, %d`, filePath, dt.getTime());
             let stats = fs.statSync(filePath);
 
             if (stats.isFile()) {
