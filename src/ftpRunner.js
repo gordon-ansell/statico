@@ -174,6 +174,7 @@ class FtpRunner
      */
     async _parseFTPDir(dir, dt, count)
     {
+        debug(`_parseFTPDir: ${dir} %o`, dir);
         let entries = fs.readdirSync(dir);
         this.#ftpFiles[count] = [];
 
