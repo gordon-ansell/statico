@@ -35,9 +35,6 @@ class ProcessArgs
               "level",
             ],
             boolean: [
-              "dev",
-              "staging",
-              "prod",
               "serve",
               "servesync",
               "clean",
@@ -48,9 +45,6 @@ class ProcessArgs
               "servenode"
             ],
             default: {
-              dev: false,
-              staging: false,
-              prod: false,
               serve: false,
               watch: false,
               noimages: false,

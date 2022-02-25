@@ -40,9 +40,10 @@ try {
     // .env
     let logLevel = process.env.LOG_LEVEL || 'notice';
     let logContexts = process.env.LOG_CONTEXTS || [];
+    let runMode = process.env.STATICO_MODE || 'dev';
 
     // Start up statico.
-    let statico = new Statico(null, null, logLevel, logContexts, pa);
+    let statico = new Statico(null, null, logLevel, logContexts, pa, runMode);
 
     return statico.init().then(function() {
         return statico.run();

@@ -93,6 +93,12 @@ class Statico
     };
 
     /**
+     * Run mode.
+     * @member {string}
+     */
+    #runMode = 'dev';
+
+    /**
      * Constructor.
      * 
      * @param   {string}        input       Input directory.
@@ -100,13 +106,15 @@ class Statico
      * @param   {string}        level       Logging level.
      * @param   {string[]}      contexts    Debug contexts.
      * @param   {ProcessArgs}   args        Command line arguments.
+     * @param   {string}        runMode     Run mode.
      * 
      * @return  {Statico}
      */
-    constructor(input, output, level = 'notice', contexts, args)
+    constructor(input, output, level = 'notice', contexts, args, runMode)
     {
         this.#initStartTime = Date.now();
 
+        this.#runMode = runMode; 
         this.#processArgs = args;
 
         syslog.setLevel(level);
@@ -139,7 +147,7 @@ class Statico
     async init()
     {
         // Set up the configs.
-        this.config = new Config(this.#input, this.#output, this.#processArgs);
+        this.config = new Config(this.#input, this.#output, this.#processArgs, this.#runMode);
 
         this.config.loadSiteConfig();
         this.config.mergeBaseConfigs();

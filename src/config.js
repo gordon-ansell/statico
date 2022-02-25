@@ -61,15 +61,22 @@ class Config
     processArgs = null;
 
     /**
+     * Run mode.
+     * @member {string}
+     */
+    runMode = null;
+
+    /**
      * Constructor.
      * 
      * @param   {string}        sitePath        Path to the site.
      * @param   {string}        outputPath      Path to output location.
      * @param   {ProcessArgs}   args            Process arguments.
+     * @param   {string}        runMode         Mode we're running in (from STATICO_MODE in env).
      * 
      * @return  {Config}
      */
-    constructor(sitePath, outputPath, args)
+    constructor(sitePath, outputPath, args, runMode)
     {
         // Save the site path.
         this.sitePath = sitePath;
@@ -79,6 +86,9 @@ class Config
 
         // Save the process args.
         this.processArgs = args;
+
+        // Save the run mode.
+        this.runMode = runMode;
 
         // Create a new empty data container.
         this.reset();
@@ -110,7 +120,7 @@ class Config
             assetHandlers: new HandlerCollection(),
             layoutDir: undefined,
             hostname: os.hostname(),
-            mode: 'dev',
+            mode: this.runMode,
             assetsDir: 'assets',
             assetsPath: null,
             cacheDir: '_cache',
@@ -511,12 +521,15 @@ class Config
     collateProcessArgs()
     {
         // Mode from .env?
-        let mode = 'dev';
+        //let mode = this.runMode;
+        /*
         if (process.env.MODE) {
             mode = process.env.MODE;
         }
+        */
 
         // Establish the mode.
+        /*
         if (this.processArgs.argv.dev) {
             mode = 'dev';
         } else if (this.processArgs.argv.staging) {
@@ -524,8 +537,9 @@ class Config
         } else if (this.processArgs.argv.prod) {
             mode = 'prod';
         }
+        */
 
-        this.mode = mode;
+        this.mode = this.runMode;
 
         // Mode related stuff.
         if (this.modes && this.modes[mode]) {
