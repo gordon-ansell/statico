@@ -39,6 +39,9 @@ try {
 
     // .env
     let logLevel = process.env.LOG_LEVEL || 'notice';
+    if (pa.argv.silent) {
+        logLevel = 'silent';
+    }
     let logContexts = process.env.LOG_CONTEXTS || [];
     let runMode = process.env.STATICO_MODE || 'dev';
 

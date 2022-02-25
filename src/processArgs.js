@@ -32,7 +32,7 @@ class ProcessArgs
             string: [
               "input",
               "output",
-              "level",
+              "level"
             ],
             boolean: [
               "serve",
@@ -44,7 +44,8 @@ class ProcessArgs
               "noimages",
               "servenode",
               "ftp",
-              "dryrun"
+              "dryrun",
+              "silent"
             ],
             default: {
               serve: false,
@@ -54,7 +55,8 @@ class ProcessArgs
               cleanonly: false,
               servenode: false,
               ftp: false,
-              dryrun: false
+              dryrun: false,
+              silent: false
             },
             unknown: function (unknownArgument) {
               throw new StaticoCommandLineError(`Unrecognised argument: '${unknownArgument}'. Use --help to see the list of supported commands.`);
