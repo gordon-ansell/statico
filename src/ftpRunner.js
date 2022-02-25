@@ -191,7 +191,7 @@ class FtpRunner
                     }
                 }
             } else if (stats.isDirectory()) {
-                await this._parseFTPDir(filePath);
+                await this._parseFTPDir(filePath, dt, count);
             }
 
         }));
