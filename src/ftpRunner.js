@@ -11,6 +11,7 @@ const StaticoError = require('./staticoError');
 const path = require('path');
 const matter = require('gray-matter');
 const fs = require('fs');
+const debug = require("debug")('Statico:FtpRunner');
 
 class StaticoFtpError extends StaticoError {};
 
@@ -39,11 +40,14 @@ class FtpRunner
         }
         this.cfg = config.ftp;
 
-        for (let item of ['FTP_HOST', 'FTP_PORT', 'FTP_USR', 'FTP_PASS']) {
+        for (let item of ['FTP_HOST', 'FTP_PORT', 'FTP_USER', 'FTP_PASS']) {
             if (!process.env[item]) {
                 throw new StaticoFtpError(`No ${item} environment variable specified.`);
             }
+            let sp = item.split('_');
+            this.cfg[sp[1].toLowerCase()] = process.end[item];
         }
+        debug("%O", this.cfg);
     }
 
     /**
