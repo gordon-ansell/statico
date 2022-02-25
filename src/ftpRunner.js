@@ -21,6 +21,12 @@ class StaticoFtpError extends StaticoError {};
 class FtpRunner
 {
     /**
+     * Full config.
+     * @member {object}
+     */
+    config = null;
+
+    /**
      * Relevant configs.
      * @member {object}
      */
@@ -44,6 +50,7 @@ class FtpRunner
         if (!('ftp' in config)) {
             throw new StaticoFtpError(`No FTP configs found.`);
         }
+        this.config = config;
         this.cfg = config.ftp;
 
         for (let item of ['FTP_HOST', 'FTP_PORT', 'FTP_USER', 'FTP_PASS']) {
@@ -149,7 +156,7 @@ class FtpRunner
             let files = this.#ftpFiles[count];
             let destDir = this.cfg.dests[count];
             for (let file of files) {
-                let destFile = path.join(destDir, path.basename(file));
+                let destFile = path.join(destDir, file.replace(this.config.outputDir, ''));
                 if (!this.cfg.live) {
                     syslog.notice(`${file} ==> ${destFile}`);
                 } else {
