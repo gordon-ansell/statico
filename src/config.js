@@ -545,9 +545,9 @@ class Config
         if (this.modes && this.modes[mode]) {
 
             // Hostname.
-            if (this.modes[mode]['hostname']) {
-                let hostname = this.modes[mode]['hostname'];
-                if (this.modes[mode]['ssl']) {
+            if (this.modes[this.mode]['hostname']) {
+                let hostname = this.modes[this.mode]['hostname'];
+                if (this.modes[this.mode]['ssl']) {
                     hostname = 'https://' + hostname;
                 } else {
                     hostname = 'http://' + hostname;
