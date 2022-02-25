@@ -114,13 +114,15 @@ class Statico
      */
     constructor(input, output, level = 'notice', contexts, args, runMode)
     {
+        /*
         const perfObserver = new PerformanceObserver((items) => {
             items.getEntries().forEach((entry) => {
-                syslog.notice(`Performance: ${entry.name} start: ${entry.startTime} duration: ${entry.duration}`);
+                syslog.notice(`Performance: "${entry.name}" start: ${entry.startTime} duration: ${entry.duration}`);
             });
         });
         perfObserver.observe({ entryTypes: ["measure"], buffer: true })
         performance.mark("Constructing Statico - Start");
+        */
 
         this.#initStartTime = Date.now();
 
@@ -148,8 +150,8 @@ class Statico
         syslog.info(`Input directory: ${this.#input}.`);
         syslog.info(`Output directory: ${this.#output}.`);
 
-        performance.mark("Constructing Statico - End");
-        performance.measure("Constructing Statico", "Constructing Statico - Start", "Constructing Statico - End");    
+        //performance.mark("Constructing Statico - End");
+        //performance.measure("Constructing Statico", "Constructing Statico - Start", "Constructing Statico - End");    
     }
 
     /**
