@@ -149,7 +149,7 @@ class FtpRunner
             let files = this.#ftpFiles[count];
             let destDir = this.cfg.dests[count];
             for (let file of files) {
-                let destFile = path.join(destDir, path.basename(file));
+                let destFile = path.join(destDir, path.dirname(file), path.basename(file));
                 if (!this.cfg.live) {
                     syslog.notice(`${file} ==> ${destFile}`);
                 } else {
