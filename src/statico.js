@@ -116,7 +116,7 @@ class Statico
     {
         const perfObserver = new PerformanceObserver((items) => {
             items.getEntries().forEach((entry) => {
-                syslog.notice(entry);
+                syslog.inspect(entry, 'notice');
             });
         });
         perfObserver.observe({ entryTypes: ["measure"], buffer: true })
