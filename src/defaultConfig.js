@@ -92,7 +92,7 @@ module.exports = function(configData) {
             verbose: false,
             hours: 24,
             sources: [
-                "/Users/gordonansell/Dev/gordonansell.com/_site"
+                configData.outputPath
             ],
             dests: [
                 "/public_html"
