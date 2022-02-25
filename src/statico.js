@@ -22,6 +22,7 @@ const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
 const Converter = require('./converter');
 const FtpRunner = require('./ftpRunner');
+const { performance, PerformanceObserver } = require('perf_hooks');
 const debug = require('debug')('Statico'),
       debugf = require('debug')('Full.Statico');
 
@@ -113,6 +114,14 @@ class Statico
      */
     constructor(input, output, level = 'notice', contexts, args, runMode)
     {
+        const perfObserver = new PerformanceObserver((items) => {
+            items.getEntries().forEach((entry) => {
+                console.log(entry);
+            });
+        });
+        perfObserver.observe({ entryTypes: ["measure"], buffer: true })
+        performance.mark("Constructing Statico - Start");
+
         this.#initStartTime = Date.now();
 
         this.#runMode = runMode; 
@@ -138,6 +147,9 @@ class Statico
         syslog.notice(`Statico version ${pack.version} started.`);
         syslog.info(`Input directory: ${this.#input}.`);
         syslog.info(`Output directory: ${this.#output}.`);
+
+        performance.mark("Constructing Statico - End");
+        performance.measure("Constructing Statico", "Constructing Statico - Start", "Constructing Statico - End");    
     }
 
     /**
