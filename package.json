@@ -1,6 +1,6 @@
 {
 	"name": "gajn-statico",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Static Site Generator.",
 	"homepage": "https://gordonansell.com/statico",
 	"license": "MIT",
