@@ -183,6 +183,12 @@ class Statico
 
         debugf("Config after init: %O", this.config);
 
+        if (this.config.processArgs.argv.dryrun) {
+            syslog.notice("DRYRUN")
+        } else {
+            syslog.inspect(this.config.processArgs.argv);
+        }
+
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
         return true;
