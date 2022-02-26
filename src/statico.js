@@ -244,6 +244,7 @@ class Statico
         await this.process();
 
         if (!this.config.processArgs.argv.dryrun) {
+
             // Serve?
             if (this.config.processArgs.argv.servenode) {
                 server = new Server(
@@ -253,7 +254,7 @@ class Statico
                 server.start();
 
             // Express?
-            } else if (this.config.processArgs.argv.serve) {
+            } else if (this.config.processArgs.argv.serve || this.config.processArgs.argv.watch) {
                 server = new ServerExpress(this.config);
                 server.start();
 

@@ -93,7 +93,7 @@ class ServerExpress
      */
     parseDynamic(filePath)
     {
-        let ext = path.extname(filePath).substr(1);
+        let ext = path.extname(filePath).substring(1);
 
     }
 
