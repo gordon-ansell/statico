@@ -153,6 +153,8 @@ class Statico
      */
     async init()
     {
+        Benchmarks.getInstance().markStart('statico-init', 'Initialising Statico');
+
         // Set up the configs.
         this.config = new Config(this.#input, this.#output, this.#processArgs, this.#runMode);
 
@@ -177,6 +179,8 @@ class Statico
 
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
+        Benchmarks.getInstance().markEnd('statico-init');
+        Benchmarks.getInstance().measure('statico-init');    
         return true;
     }
 

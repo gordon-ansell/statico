@@ -10,7 +10,7 @@ const { syslog, FsParser, fsutils, string } = require('js-framework');
 const { performance, PerformanceObserver } = require('perf_hooks');
 const debug = require('debug')('Statico'),
       debugf = require('debug')('Full.Statico'),
-      debugp = require('debug')('Nemchmark.Statico');
+      debugp = require('debug')('Benchmark.Statico');
 
 /**
  * Benchmarks support.
@@ -51,7 +51,7 @@ class Benchmarks
         // Create the performance observer.
         this.po = new PerformanceObserver((items) => {
             items.getEntries().forEach((entry) => {
-                syslog.notice(`Benchmarks: "${entry.name}" start: ${entry.startTime} duration: ${entry.duration}`);
+                debugp(`Benchmarks: "${entry.name}" start: ${entry.startTime} duration: ${entry.duration}`);
             });
         });
         this.po.observe(options)
