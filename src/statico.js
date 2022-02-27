@@ -228,6 +228,8 @@ class Statico
      */
     async run()
     {
+        Benchmarks.getInstance().markStart('statico-run', 'Running Statico');
+
         if (this.config.processArgs.argv.convert) {
             let conv = new Converter('/Users/gordonansell/Dev/gordonansell.com/_conv', this.config);
             await conv.convert();
@@ -238,6 +240,10 @@ class Statico
 
         // Process it all.
         await this.process();
+
+        Benchmarks.getInstance().markEnd('statico-run');
+        Benchmarks.getInstance().measure('statico-run');    
+
 
         if (!this.config.processArgs.argv.dryrun) {
 
@@ -299,6 +305,8 @@ class Statico
      */
     async process(files)
     {            
+        Benchmarks.getInstance().markStart('statico-process', 'Statico Main Processing Loop');
+
         this.isProcessing = true;
 
         syslog.notice('-'.repeat(50));
@@ -391,6 +399,8 @@ class Statico
 
         this.isProcessing = false;
 
+        Benchmarks.getInstance().markEnd('statico-process');
+        Benchmarks.getInstance().measure('statico-process');    
     }
 
     /**

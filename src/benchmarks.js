@@ -49,10 +49,11 @@ class Benchmarks
         }
 
         // Create the performance observer.
-        this.po = new PerformanceObserver((items) => {
+        this.po = new PerformanceObserver((items, observer) => {
             items.getEntries().forEach((entry) => {
                 debugp(`Benchmarks: "${entry.name}" start: ${entry.startTime} duration: ${entry.duration}`);
             });
+            observer.disconnect();
         });
         this.po.observe(options)
     }
