@@ -1,5 +1,5 @@
 {
-	"name": "gajn-statico",
+	"name": "statico",
 	"version": "0.1.0",
 	"description": "Static Site Generator.",
 	"homepage": "https://gordonansell.com/statico",
@@ -8,7 +8,7 @@
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/gordon-ansell/gajn-statico"
+		"url": "git+https://github.com/gordon-ansell/statico"
 	},
 	"authors": [
 		{
@@ -24,7 +24,7 @@
         "@webdesigndecal/showdown-footnotes": "*",
         "browser-sync": "*",
         "chokidar": "*",
-		"gajn-framework": "../framework",
+		"js-framework": "../framework",
 		"gray-matter": "*",
         "js-beautify": "*",
 		"lodash.clonedeep": "*",
