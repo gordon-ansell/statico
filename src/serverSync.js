@@ -63,7 +63,7 @@ class ServerSync
      */
     start()
     {
-        this.#server = require("browser-sync").create();
+        //this.#server = require("browser-sync").create();
 
         let host = this.#address.replace('http://', '').replace('https://', '');
         if (host.includes(':')) {

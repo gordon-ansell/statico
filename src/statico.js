@@ -263,6 +263,7 @@ class Statico
                 server.start();
 
             // Servesync?
+            /*
             } else if (this.config.processArgs.argv.servesync) {
                 const ServerSync = require('./serverSync');
                 server = new ServerSync(
@@ -271,6 +272,7 @@ class Statico
                     this
                 );
                 server.start();
+                */
             } 
 
             // Watch?

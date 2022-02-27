@@ -42,7 +42,6 @@
         "@webdesigndecal/showdown-footnotes": "*",
         "basic-ftp": "*",
         "body-parser": "*",
-        "browser-sync": "*",
         "chokidar": "*",
         "dateformat": "^2.0.0",
         "debug": "*",
