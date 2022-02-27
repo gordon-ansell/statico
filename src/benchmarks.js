@@ -96,7 +96,7 @@ class Benchmarks
      * 
      * @return  {void}
      */
-    markStart(tag)
+    markEnd(tag)
     {
         performance.mark(`${tag}-end`);
     }
