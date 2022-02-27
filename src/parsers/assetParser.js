@@ -103,6 +103,7 @@ class AssetParser extends BaseParser
             this.config.assetCacheHandler.saveMap();
         }
         if (!this.config.processArgs.argv.silent) await syslog.endProgress();
+
         return count;
     }
 

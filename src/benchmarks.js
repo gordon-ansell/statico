@@ -93,13 +93,17 @@ class Benchmarks
     /**
      * Mark end.
      * 
-     * @param   {string}    tag     Tag.   
+     * @param   {string}    tag         Tag.   
+     * @param   {boolean}   autoMeasure Measure after this?
      * 
      * @return  {void}
      */
-    markEnd(tag)
+    markEnd(tag, autoMeasure = true)
     {
         performance.mark(`${tag}-end`);
+        if (autoMeasure) {
+            this.measure(tag);
+        }
     }
 
     /**

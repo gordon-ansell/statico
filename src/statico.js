@@ -115,6 +115,7 @@ class Statico
     constructor(input, output, level = 'notice', contexts, args, runMode)
     {
         Benchmarks.getInstance().markStart('statico-constructor', 'Constructing Statico');
+        Benchmarks.getInstance().markStart('statico-entire', 'Statico Entire Run');
 
         this.#initStartTime = Date.now();
 
@@ -143,7 +144,6 @@ class Statico
         syslog.info(`Output directory: ${this.#output}.`);
 
         Benchmarks.getInstance().markEnd('statico-constructor');
-        Benchmarks.getInstance().measure('statico-constructor');    
     }
 
     /**
@@ -180,7 +180,6 @@ class Statico
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
         Benchmarks.getInstance().markEnd('statico-init');
-        Benchmarks.getInstance().measure('statico-init');    
         return true;
     }
 
@@ -190,6 +189,8 @@ class Statico
      */
     async cleanUp()
     {
+        Benchmarks.getInstance().markStart('statico-cleanup', 'Statico Cleanup Before Running');
+
         // Clean the output directory.
         if (fsutils.deleteFolderRecursive(this.config.outputPath)) {
             syslog.notice("Cleaned output directory.")
@@ -219,6 +220,7 @@ class Statico
             }            
         }
 
+        Benchmarks.getInstance().markEnd('statico-cleanup');
     }
 
     /**
@@ -242,8 +244,8 @@ class Statico
         await this.process();
 
         Benchmarks.getInstance().markEnd('statico-run');
-        Benchmarks.getInstance().measure('statico-run');    
 
+        Benchmarks.getInstance().markEnd('statico-entire');
 
         if (!this.config.processArgs.argv.dryrun) {
 
@@ -340,6 +342,7 @@ class Statico
         }
 
         // Tell user.
+        Benchmarks.getInstance().markStart('asset-parser', 'Asset Parser');
         syslog.notice('Processing assets.');
 
         // Images?
@@ -352,41 +355,61 @@ class Statico
         // Assets parse.
         let assetParser = new AssetParser(this.config);
         this.#parsedCounts.assets += await assetParser.parse(assets, !doimages);
+        Benchmarks.getInstance().markEnd('asset-parser');
 
         // Copy the generated images.
+        Benchmarks.getInstance().markStart('copy-generated-images', 'Copying Generated Images');
         await this.copyGeneratedImages();
+        Benchmarks.getInstance().markEnd('copy-generated-images');
+
 
         // Create the template parser.
+        Benchmarks.getInstance().markStart('template-parser-early', 'Template Parser (Early)');
         let templateParser = new TemplateParser(this.config);
 
         // Early parse.
         syslog.notice(`Running early parse.`);
         this.#parsedCounts.templates += await templateParser.parse(others, 'early');
         let lateParsers = templateParser.notProcessed;
+        Benchmarks.getInstance().markEnd('template-parser-early');
 
         // Sort taxonomies.
         await this._sortTaxonomies();
 
         // Late parse.
+        Benchmarks.getInstance().markStart('template-parser-late', 'Template Parser (Late)');
         syslog.notice(`Running late parse.`);
         this.#parsedCounts.templates += await templateParser.parse(lateParsers, 'late');
         let lastParsers = templateParser.notProcessed;
+        Benchmarks.getInstance().markEnd('template-parser-late');
 
         // Process taxonomies.
+        Benchmarks.getInstance().markStart('taxonomies', 'Taxonomy Processing');
         syslog.notice(`Processing taxonomies.`);
         await this._processTaxonomies();
+        Benchmarks.getInstance().markEnd('taxonomies');
 
         // Last parse.
+        Benchmarks.getInstance().markStart('template-parser-last', 'Template Parser (Last)');
         syslog.notice(`Running last parse.`);
         this.#parsedCounts.templates += await templateParser.parse(lastParsers, 'last');
+        Benchmarks.getInstance().markEnd('template-parser-last');
 
         // Now push everything through their layouts.
+        Benchmarks.getInstance().markStart('layout-parser-early', 'Layout Parser (Early)');
         syslog.notice(`Parsing everything through layouts - early.`)
         await this.parseThroughLayoutAndWrite('early');
+        Benchmarks.getInstance().markEnd('layout-parser-early');
+
+        Benchmarks.getInstance().markStart('layout-parser-late', 'Layout Parser (Late)');
         syslog.notice(`Parsing everything through layouts - late.`)
         await this.parseThroughLayoutAndWrite('late');
+        Benchmarks.getInstance().markEnd('layout-parser-late');
+
+        Benchmarks.getInstance().markStart('layout-parser-last', 'Layout Parser (Last)');
         syslog.notice(`Parsing everything through layouts - last.`)
         await this.parseThroughLayoutAndWrite('last');
+        Benchmarks.getInstance().markEnd('layout-parser-last');
 
         //syslog.inspect(this.config.schema, "warning");
 
@@ -400,7 +423,6 @@ class Statico
         this.isProcessing = false;
 
         Benchmarks.getInstance().markEnd('statico-process');
-        Benchmarks.getInstance().measure('statico-process');    
     }
 
     /**
