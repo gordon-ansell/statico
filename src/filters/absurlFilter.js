@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const syslog = require('gajn-framework/src/logger/syslog');
+const syslog = require('js-framework/src/logger/syslog');
 const { URL } = require('url');
 
 /**

@@ -8,7 +8,7 @@
 
 const http = require('http');
 const fs = require('fs');
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const path = require('path');
 const chokidar = require('chokidar');
 

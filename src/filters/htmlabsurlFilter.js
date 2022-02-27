@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, string } = require('gajn-framework');
+const { syslog, string } = require('js-framework');
 const absurl = require('./absurlFilter');
 
 /**

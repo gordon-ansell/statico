@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const StaticoError = require('./staticoError');
 const Collection = require('./collection');
 

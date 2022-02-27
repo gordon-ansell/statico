@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const { syslog, fsutils } = require('gajn-framework');
+const { syslog, fsutils } = require('js-framework');
 const StaticoError = require('../staticoError');
 const TemplatePathUrl = require('../templatePathUrl');
 const debug = require('debug')('Statico:BaseParser'),

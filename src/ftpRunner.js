@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, fsutils, string } = require('gajn-framework');
+const { syslog, fsutils, string } = require('js-framework');
 const StaticoError = require('./staticoError');
 const path = require('path');
 const fs = require('fs');

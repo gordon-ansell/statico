@@ -12,7 +12,7 @@ const TemplateHandler = require('./templateHandler');
 const showdown = require('showdown');
 const footnotes = require('@webdesigndecal/showdown-footnotes');
 
-const { syslog, string } = require('gajn-framework');
+const { syslog, string } = require('js-framework');
 const striptags = require("striptags");
 const TemplateFile = require('../templateFile');
 const StaticoTemplateHandlerError = require('./staticoTemplateHandlerError');

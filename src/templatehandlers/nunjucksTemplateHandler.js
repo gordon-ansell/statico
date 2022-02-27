@@ -8,11 +8,11 @@
 
 const TemplateHandler = require('./templateHandler');
 const nunjucks = require('nunjucks');
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const StaticoTemplateHandlerError = require('./staticoTemplateHandlerError');
 const striptags = require("striptags");
 const TemplateFile = require('../templateFile');
-const { fsutils } = require('gajn-framework');
+const { fsutils } = require('js-framework');
 const path = require('path');
 const fs = require('fs');
 const TemplatePathUrl = require('../templatePathUrl');

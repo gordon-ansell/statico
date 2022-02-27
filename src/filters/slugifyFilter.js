@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { string } = require('gajn-framework');
+const { string } = require('js-framework');
 
 /**
  * Slugify filter.

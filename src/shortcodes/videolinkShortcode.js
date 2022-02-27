@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, NunjucksShortcode, MultiDate } = require("gajn-framework");
+const { syslog, NunjucksShortcode, MultiDate } = require("js-framework");
 
 /**
  * Video link shortcode class.

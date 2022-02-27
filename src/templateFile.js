@@ -7,7 +7,7 @@
 'use strict';
 
 const fs = require('fs');
-const { syslog, MultiDate, merge } = require('gajn-framework');
+const { syslog, MultiDate, merge } = require('js-framework');
 const matter = require('gray-matter');
 const StaticoError = require('./staticoError');
 const path = require('path');

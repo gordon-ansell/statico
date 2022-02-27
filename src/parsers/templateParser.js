@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const TemplateFile = require('../templateFile');
 const StaticoError = require('../staticoError');
 const StaticoTemplateHandlerError = require('../templatehandlers/staticoTemplateHandlerError');

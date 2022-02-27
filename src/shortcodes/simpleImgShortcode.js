@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, NunjucksShortcode, ImageHtml, merge } = require("gajn-framework");
+const { syslog, NunjucksShortcode, ImageHtml, merge } = require("js-framework");
 
 /**
  * SimpleImg shortcode class.

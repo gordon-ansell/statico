@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { GAError } = require("gajn-framework");
+const { GAError } = require("js-framework");
 
 /**
  * Base statico error.

@@ -8,7 +8,7 @@
 
 const path = require("path");
 const fs = require('fs');
-const { fsutils, syslog } = require('gajn-framework');
+const { fsutils, syslog } = require('js-framework');
 const TemplatePathUrl = require('../templatePathUrl');
 const debug = require('debug')('Statico:TemplateHandler'),
       debugf = require('debug')('Full.Statico:TemplateHandler'),

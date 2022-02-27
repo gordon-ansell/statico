@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { NunjucksShortcode } = require('gajn-framework');
+const { NunjucksShortcode } = require('js-framework');
 
 /**
  * Link shortcode class.

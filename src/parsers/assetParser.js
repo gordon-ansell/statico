@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const BaseParser = require('./baseParser');
 const debug = require('debug')('Statico:AssetParser'),
       debugf = require('debug')('Full.Statico:AssetParser');

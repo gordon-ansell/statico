@@ -7,7 +7,7 @@
 'use strict';
 
 const fs = require('fs');
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");

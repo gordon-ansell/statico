@@ -9,7 +9,7 @@
 const slugifyFilter = require('./slugifyFilter');
 const absurlFilter = require('./absurlFilter');
 const htmlabsurlFilter = require('./htmlabsurlFilter');
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const debug = require('debug')('Statico:defaultFilters'),
       debugf = require('debug')('Full.Statico:defaultFilters');
 

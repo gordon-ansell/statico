@@ -7,7 +7,7 @@
  */
 'use strict';
 
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const ProcessArgs = require('./src/processArgs');
 const Statico = require('./src/statico');
 require('dotenv').config();

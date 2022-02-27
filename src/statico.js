@@ -8,7 +8,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const { syslog, FsParser, fsutils, string } = require('gajn-framework');
+const { syslog, FsParser, fsutils, string } = require('js-framework');
 const matter = require('gray-matter');
 const pack = require('../package.json');
 const Config = require('./config');

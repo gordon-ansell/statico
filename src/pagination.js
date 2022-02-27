@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, merge, fsutils } = require('gajn-framework');
+const { syslog, merge, fsutils } = require('js-framework');
 const lodashget = require('lodash.get');
 const path = require('path');
 const fs = require('fs');

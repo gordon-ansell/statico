@@ -6,10 +6,10 @@
  */
 'use strict';
 
-const { syslog } = require('gajn-framework');
+const { syslog } = require('js-framework');
 const StaticoError = require('./staticoError');
 const path = require('path');
-const { pathUtils } = require('gajn-framework');
+const { pathUtils } = require('js-framework');
 
 /**
  * Exceptions.
