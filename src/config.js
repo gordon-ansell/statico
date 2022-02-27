@@ -802,6 +802,41 @@ class Config
         let dobj = new Date(dt);
         return dateformat(dobj, this.dispDate) + ', ' + dateformat(dobj, this.dispTime);
     }
+
+    /**
+     * Count taxonomies in a post.
+     * 
+     * @param   {templateFile}  post        Post to count in.
+     * @param   {string}        taxType     Taxonomy to count.
+     * 
+     * @return  {number}
+     */
+    taxcount(post, taxType)
+    {
+        if (!post.data[taxType]) {
+            return 0;
+        }
+
+        let items = post.data[taxType];
+
+        if (0 === items.length) {
+            return 0;
+        }
+
+        if (!Array.isArray(items)) {
+            if ("string" == typeof items) {
+                if (items.includes(',')) {
+                    items = items.split(',');
+                } else {
+                    items = [items];
+                }
+            } else {
+                items = [items];
+            }
+        }
+
+        return items.length;
+    }
  
 }
 

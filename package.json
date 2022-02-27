@@ -23,6 +23,21 @@
 	"files": [
 		"src/"
 	],
+    "keywords": [
+        "static-site-generator",
+        "ssg",
+        "website",
+        "blog",
+        "templates",
+        "generator",
+        "framework",
+        "statico",
+        "html",
+        "markdown",
+        "nunjucks",
+        "node",
+        "javascript"
+    ],
 	"dependencies": {
         "@webdesigndecal/showdown-footnotes": "*",
         "basic-ftp": "*",
