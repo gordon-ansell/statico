@@ -229,11 +229,13 @@ class Statico
      */
     async run()
     {
+        /*
         if (this.config.processArgs.argv.convert) {
             let conv = new Converter('/Users/gordonansell/Dev/gordonansell.com/_conv', this.config);
             await conv.convert();
             return 0;
         }
+        */
 
         let server;
 
@@ -290,7 +292,7 @@ class Statico
      */
     reset()
     {
-
+        this.#parsedCounts = { assets: 0, templates: 0 };
     }
     
     /**
@@ -303,6 +305,8 @@ class Statico
     async process(files)
     {            
         Benchmarks.getInstance().markStart('statico-process', 'Statico Main Processing Loop');
+
+        this.reset();
 
         this.isProcessing = true;
 
