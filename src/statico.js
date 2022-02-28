@@ -202,15 +202,18 @@ class Statico
 
         // Clean?
         if (this.config.processArgs.argv.clean || this.config.processArgs.argv.cleanonly) {
-            if (this.config.assetHandlers.image.generatedStorePath && fs.existsSync(this.config.assetHandlers.image.generatedStorePath)) {
-                fs.unlinkSync(this.config.assetHandlers.image.generatedStorePath);
-                syslog.notice('Cleanup requested - deleted generated image store.');
-            }
-            if (this.config.assetHandlers.image.outputDir) {
-                let od = path.join(this.config.sitePath, this.config.assetHandlers.image.outputDir);
-                if (fs.existsSync(od)) {
-                    fsutils.deleteFolderRecursive(od);
-                    syslog.notice('Cleanup requested - deleted generated image directory.');
+            if (this.assetHandlers.image) {
+                // Move this into the image plugin via an event.
+                if (this.config.assetHandlers.image.generatedStorePath && fs.existsSync(this.config.assetHandlers.image.generatedStorePath)) {
+                    fs.unlinkSync(this.config.assetHandlers.image.generatedStorePath);
+                    syslog.notice('Cleanup requested - deleted generated image store.');
+                }
+                if (this.config.assetHandlers.image.outputDir) {
+                    let od = path.join(this.config.sitePath, this.config.assetHandlers.image.outputDir);
+                    if (fs.existsSync(od)) {
+                        fsutils.deleteFolderRecursive(od);
+                        syslog.notice('Cleanup requested - deleted generated image directory.');
+                    }
                 }
             }
             if (this.config.assetCacheFile && fs.existsSync(this.config.assetCacheFile)) {
