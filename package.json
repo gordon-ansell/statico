@@ -39,7 +39,6 @@
         "javascript"
     ],
 	"dependencies": {
-        "@webdesigndecal/showdown-footnotes": "*",
         "basic-ftp": "*",
         "body-parser": "*",
         "chokidar": "*",
