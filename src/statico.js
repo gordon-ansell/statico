@@ -202,7 +202,7 @@ class Statico
 
         // Clean?
         if (this.config.processArgs.argv.clean || this.config.processArgs.argv.cleanonly) {
-            if (this.assetHandlers.image) {
+            if (this.config.assetHandlers.image) {
                 // Move this into the image plugin via an event.
                 if (this.config.assetHandlers.image.generatedStorePath && fs.existsSync(this.config.assetHandlers.image.generatedStorePath)) {
                     fs.unlinkSync(this.config.assetHandlers.image.generatedStorePath);
