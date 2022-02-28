@@ -115,7 +115,6 @@ class Statico
     constructor(input, output, level = 'notice', contexts, args, runMode)
     {
         Benchmarks.getInstance().markStart('statico-constructor', 'Constructing Statico');
-        Benchmarks.getInstance().markStart('statico-entire', 'Statico Entire Run');
 
         this.#initStartTime = Date.now();
 
@@ -230,8 +229,6 @@ class Statico
      */
     async run()
     {
-        Benchmarks.getInstance().markStart('statico-run', 'Running Statico');
-
         if (this.config.processArgs.argv.convert) {
             let conv = new Converter('/Users/gordonansell/Dev/gordonansell.com/_conv', this.config);
             await conv.convert();
@@ -242,10 +239,6 @@ class Statico
 
         // Process it all.
         await this.process();
-
-        Benchmarks.getInstance().markEnd('statico-run');
-
-        Benchmarks.getInstance().markEnd('statico-entire');
 
         if (!this.config.processArgs.argv.dryrun) {
 
@@ -424,7 +417,7 @@ class Statico
 
         this.isProcessing = false;
 
-        Benchmarks.getInstance().markEnd('statico-process');
+        Benchmarks.getInstance().markEnd('statico-process', true, true);
     }
 
     /**

@@ -95,14 +95,18 @@ class Benchmarks
      * 
      * @param   {string}    tag         Tag.   
      * @param   {boolean}   autoMeasure Measure after this?
+     * @param   {boolean}   clearTags   Clear tags after this?
      * 
      * @return  {void}
      */
-    markEnd(tag, autoMeasure = true)
+    markEnd(tag, autoMeasure = true, clearTags = false)
     {
         performance.mark(`${tag}-end`);
         if (autoMeasure) {
             this.measure(tag);
+        }
+        if (clearTags) {
+            this.clearTags();
         }
     }
 
@@ -116,6 +120,16 @@ class Benchmarks
     measure(tag)
     {
         performance.measure(`${this.tags[tag]}`, `${tag}-start`, `${tag}-end`);
+    }
+
+    /**
+     * Clear all the tags.
+     * 
+     * @return  {void}
+     */
+    clearTags()
+    {
+        this.tags = [];
     }
 
 
