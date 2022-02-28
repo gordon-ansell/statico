@@ -10,7 +10,8 @@ const TemplateHandler = require('./templateHandler');
 //const MarkdownIt = require('markdown-it');
 
 const showdown = require('showdown');
-const footnotes = require('@webdesigndecal/showdown-footnotes');
+//const footnotes = require('@webdesigndecal/showdown-footnotes');
+const footnotes = require('./showdownFootnotes');
 
 const { syslog, string } = require('js-framework');
 const striptags = require("striptags");
@@ -54,8 +55,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         let opts = this.config.templateHandlers.getHandlerField('markdown', 'engineOptions', false) || {};
 
         try {
-            //this.#engine = new showdown.Converter({ extensions: [footnotes] });
-            this.#engine = new showdown.Converter();
+            this.#engine = new showdown.Converter({ extensions: [footnotes] });
             this.#engine.setOption('strikethrough', true);
             this.#engine.setOption('tables', true);
             //this.#engine = new MarkdownIt(opts);
