@@ -54,7 +54,8 @@ class MarkdownTemplateHandler extends TemplateHandler
         let opts = this.config.templateHandlers.getHandlerField('markdown', 'engineOptions', false) || {};
 
         try {
-            this.#engine = new showdown.Converter({ extensions: [footnotes] });
+            //this.#engine = new showdown.Converter({ extensions: [footnotes] });
+            this.#engine = new showdown.Converter();
             this.#engine.setOption('strikethrough', true);
             this.#engine.setOption('tables', true);
             //this.#engine = new MarkdownIt(opts);
