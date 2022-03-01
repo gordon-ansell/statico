@@ -37,9 +37,11 @@ class SimpleImgShortcode extends NunjucksShortcode
             lazyload: this.config.lazyload
         }
 
-        let imgHtml = new ImageHtml(opts, this.config.hostname);
+        //let imgHtml = new ImageHtml(opts, this.config.hostname);
+        let imgHtml = new ComplexImage(this.config.lazyload, this.config.figureClass, this.config.sitePath, this.config.hostname);
         let ret = '';
-        ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
+        //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
+        ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
 
         let imgs = imgHtml.metaIds;
         if (imgs.length > 0) {
