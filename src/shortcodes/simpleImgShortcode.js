@@ -48,11 +48,13 @@ class SimpleImgShortcode extends NunjucksShortcode
             if (!this.config.imagesSaved) {
                 this.config.imagesSaved = {};
             }
-            if (this.config.imagesSaved[context.ctx.permalink]) {
-                this.config.imagesSaved[context.ctx.permalink] = 
-                    merge.merge(this.config.imagesSaved[context.ctx.permalink], imgs);
-            } else {
-                this.config.imagesSaved[context.ctx.permalink] = imgs;
+            if (!this.config.imagesSaved[context.ctx.permalink]) {
+                this.config.imagesSaved[context.ctx.permalink] = [];
+            }
+            for (let item of imgs) {
+                if (!this.config.imagesSaved[context.ctx.permalink].includes(item)) {
+                    this.config.imagesSaved[context.ctx.permalink].push(item);
+                }
             }
         }
 
