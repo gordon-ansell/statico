@@ -39,7 +39,7 @@ class ImgShortcode extends NunjucksShortcode
 
         let ret = '';
         //let imgHtml = new ImageHtml(opts, this.config.hostname);
-        let imgHtml = new ComplexImage(this.config.lazyload, this.config.figureClass, this.config.sitePath, this.config.hostname);
+        let imgHtml = new ComplexImage(this.config.lazyload, (this.config.figureClass || 'respimg'), this.config.sitePath, this.config.hostname);
 
         //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
         ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
