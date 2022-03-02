@@ -75,7 +75,7 @@ class AssetParser extends BaseParser
         }
         return Promise.all(proms);
     }
-    
+
     /**
      * Single parse.
      * 
@@ -102,7 +102,7 @@ class AssetParser extends BaseParser
                 }
                 if (process) {
                     let handler = this.config.assetHandlers.getHandlerForExt(ext);
-                    await handler.process(element, skip);
+                    handler.process(element, skip);
                     syslog.info(`Handled asset: ${trimmed}.`);
                 }
                 debug(`Parsed asset ${trimmed}.`)
