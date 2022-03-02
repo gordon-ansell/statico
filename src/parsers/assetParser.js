@@ -55,6 +55,14 @@ class AssetParser extends BaseParser
         return false;
     }
 
+    /**
+     * Progress tracking promise cludge.
+     * 
+     * @param   {Promise[]}     proms           Promises.
+     * @param   {callback}      progress_cb     Callback funtion.
+     * 
+     * @return 
+     */
     allProgress(proms, progress_cb) 
     {
         let d = 0;
@@ -67,6 +75,7 @@ class AssetParser extends BaseParser
         }
         return Promise.all(proms);
     }
+    
     /**
      * Single parse.
      * 
