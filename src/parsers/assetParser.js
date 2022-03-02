@@ -64,6 +64,8 @@ class AssetParser extends BaseParser
      */
     async singleParse(element, skip = false)
     {
+        return new Promise(() => {
+
         let trimmed = element.replace(this.config.sitePath, '');
         let ext = path.extname(element).substring(1);
         if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
@@ -89,6 +91,8 @@ class AssetParser extends BaseParser
             }
         }
         this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
+
+        });
     }
 
     /**
@@ -112,12 +116,21 @@ class AssetParser extends BaseParser
             if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
         }));
         */
-        
-        await Promise.all(files.map(async element => {
-            await this.singleParse(element, skip).then(async () => {
+
+       const promises = files.map(element => {
+            this.singleParse(element, skip).then(async () => {
                 count++;
                 if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
             });
+       });
+
+       await Promise.all(promises);
+        
+        //await Promise.all(files.map(async element => {
+        //    await this.singleParse(element, skip).then(async () => {
+        //        count++;
+        //        if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
+        //    });
             /*
             let trimmed = element.replace(this.config.sitePath, '');
             let ext = path.extname(element).substring(1);
@@ -145,7 +158,7 @@ class AssetParser extends BaseParser
             }
             this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
             */
-        }));
+        //}));
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
