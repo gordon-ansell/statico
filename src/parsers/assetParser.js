@@ -64,7 +64,7 @@ class AssetParser extends BaseParser
      */
     async singleParse(element, skip = false)
     {
-        return new Promise(async () => {
+        return new Promise(() => {
 
         let trimmed = element.replace(this.config.sitePath, '');
         let ext = path.extname(element).substring(1);
@@ -83,7 +83,7 @@ class AssetParser extends BaseParser
                 }
                 if (process) {
                     let handler = this.config.assetHandlers.getHandlerForExt(ext);
-                    await handler.process(element, skip);
+                    handler.process(element, skip);
                     syslog.info(`Handled asset: ${trimmed}.`);
                 }
             } catch (e) {
