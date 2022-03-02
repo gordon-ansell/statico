@@ -125,7 +125,7 @@ class AssetParser extends BaseParser
        */
         
         await Promise.all(files.map(async element => {
-            await this.singleParse(element, skip).then(async () => {
+            this.singleParse(element, skip).then(async () => {
                 count++;
                 if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
             });
