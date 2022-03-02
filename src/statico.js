@@ -356,7 +356,13 @@ class Statico
         
         // Assets parse.
         let assetParser = new AssetParser(this.config);
-        this.#parsedCounts.assets += await assetParser.parse(assets, !doimages);
+        let chunk = 25;
+        let count = 1;
+        for (i = 0,j = assets.length; i < j; i += chunk) {
+            let temporary = array.slice(i, i + chunk);
+            this.#parsedCounts.assets += await assetParser.parse(temporary, !doimages);
+            count++;
+        }
         Benchmarks.getInstance().markEnd('asset-parser');
 
         // Copy the generated images.
