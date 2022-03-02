@@ -139,6 +139,7 @@ class AssetParser extends BaseParser
         await this.allProgress(files.map(async element => {
             await this.singleParse(element, skip);
         }), (p) => {
+                console.log(`% Done = ${p.toFixed(2)}`);
                 count++;
                 if (!this.config.processArgs.argv.silent) syslog.printProgress(p);
 
