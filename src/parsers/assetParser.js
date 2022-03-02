@@ -64,7 +64,7 @@ class AssetParser extends BaseParser
      */
     async singleParse(element, skip = false)
     {
-        return new Promise(() => {
+        return new Promise(async () => {
 
         let trimmed = element.replace(this.config.sitePath, '');
         let ext = path.extname(element).substring(1);
