@@ -116,25 +116,6 @@ class AssetParser extends BaseParser
         let totalItems = files.length;
         let count = 0;
         if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
-
-        /*
-        await Promise.all(files.map(async element => {
-            await this.singleParse(element);
-            count++;
-            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
-        }));
-        */
-
-       /*
-       const promises = files.map(async element => {
-            this.singleParse(element, skip).then(() => {
-                count++;
-                if (!this.config.processArgs.argv.silent) syslog.printProgress((count / totalItems) * 100);
-            });
-       });
-
-       await Promise.all(promises);
-       */
         
         await this.allProgress(files.map(async element => {
             await this.singleParse(element, skip);
@@ -143,34 +124,7 @@ class AssetParser extends BaseParser
                 count++;
                 if (!this.config.processArgs.argv.silent) syslog.printProgress(p);
 
-        } );
-            /*
-            let trimmed = element.replace(this.config.sitePath, '');
-            let ext = path.extname(element).substring(1);
-            if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
-                try {
-                    debug(`About to parse asset ${trimmed}.`)
-                    let process = true;
-                    if (!skip) {
-                        this.config.events.emit('statico.preparseassetfile', trimmed);
-                        process = false;
-                        if (this.config.processArgs.argv.clean || this.config.doNotCacheAssetExts.includes(ext)) {
-                            process = true;
-                        } else if (this.config.cacheAssets) {
-                            process = this.config.assetCacheHandler.check(trimmed);
-                        }
-                    }
-                    if (process) {
-                        let handler = this.config.assetHandlers.getHandlerForExt(ext);
-                        await handler.process(element, skip);
-                        syslog.info(`Handled asset: ${trimmed}.`);
-                    }
-                } catch (e) {
-                    syslog.error(`Failed to process asset ${trimmed}: ${e.message}`);
-                }
-            }
-            this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
-            */
+        });
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
