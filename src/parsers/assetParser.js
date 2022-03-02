@@ -97,7 +97,7 @@ class AssetParser extends BaseParser
             this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
             count++;
         }).then(() => {
-            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
+            if (!this.config.processArgs.argv.silent) syslog.printProgress((count / totalItems) * 100);
         });
 
         await Promise.all(tasks);
