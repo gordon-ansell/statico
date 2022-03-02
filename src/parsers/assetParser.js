@@ -96,6 +96,7 @@ class AssetParser extends BaseParser
                     await handler.process(element, skip);
                     syslog.info(`Handled asset: ${trimmed}.`);
                 }
+                debug(`Parsed asset ${trimmed}.`)
             } catch (e) {
                 syslog.error(`Failed to process asset ${trimmed}: ${e.message}`);
             }
