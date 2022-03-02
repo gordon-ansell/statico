@@ -78,6 +78,7 @@ class AssetParser extends BaseParser
         }
 
         await Promise.all(files.map(async element => {
+            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
             let trimmed = element.replace(this.config.sitePath, '');
             let ext = path.extname(element).substring(1);
             if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
@@ -104,8 +105,6 @@ class AssetParser extends BaseParser
             }
             this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
             count++;
-            await delay(0);
-            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
         }));
 
         if (this.config.cacheAssets) {
