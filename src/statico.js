@@ -358,6 +358,7 @@ class Statico
         let assetParser = new AssetParser(this.config);
         let chunk = 25;
         let count = 1;
+        let i = 0;
         for (i = 0,j = assets.length; i < j; i += chunk) {
             let temporary = array.slice(i, i + chunk);
             this.#parsedCounts.assets += await assetParser.parse(temporary, !doimages);
