@@ -69,16 +69,7 @@ class AssetParser extends BaseParser
         let count = 0;
         if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
 
-        function delay(ms=0,foo=null) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve((foo && foo()));
-                }, ms); // 5 sekund
-            });
-        }
-
-        await Promise.all(files.map(async element => {
-            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
+        const tasks = files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
             let ext = path.extname(element).substring(1);
             if (this.config.assetHandlers.hasHandlerForExt(ext) && !this.isAssetFiltered(trimmed))  {
@@ -105,7 +96,11 @@ class AssetParser extends BaseParser
             }
             this._copyFile(element); // ALWAYS COPY THE ASSET REGARDLESS, this allows simpleimg etc. to work at any time.
             count++;
-        }));
+        }).then(() => {
+            if (!this.config.processArgs.argv.silent) await syslog.printProgress((count / totalItems) * 100);
+        });
+
+        await Promise.all(tasks);
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
