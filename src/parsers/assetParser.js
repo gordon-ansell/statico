@@ -69,7 +69,7 @@ class AssetParser extends BaseParser
         let count = 0;
         if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
 
-        function delay(ms=0000,foo=null) {
+        function delay(ms=0,foo=null) {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     resolve((foo && foo()));
