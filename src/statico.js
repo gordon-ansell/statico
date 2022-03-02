@@ -360,11 +360,14 @@ class Statico
         let count = 1;
         let i = 0;
         let j = 0;
+        if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
         for (i = 0,j = assets.length; i < j; i += chunk) {
             let temporary = assets.slice(i, i + chunk);
             this.#parsedCounts.assets += await assetParser.parse(temporary, !doimages);
             count++;
+            if (!this.config.processArgs.argv.silent) await syslog.printProgress((i / assets.length) * 100);
         }
+        if (!this.config.processArgs.argv.silent) await syslog.endProgress();
         Benchmarks.getInstance().markEnd('asset-parser');
 
         // Copy the generated images.

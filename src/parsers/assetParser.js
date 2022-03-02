@@ -125,22 +125,21 @@ class AssetParser extends BaseParser
     {
         let totalItems = files.length;
         let count = 0;
-        if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
+        //if (!this.config.processArgs.argv.silent) await syslog.printProgress(0);
         
         await this.allProgress(files.map(async element => {
             await this.singleParse(element, skip);
         }), async (p) => {
                 //console.log(`% Done = ${p.toFixed(2)}`);
                 count++;
-                if (!this.config.processArgs.argv.silent) await syslog.printProgress(p);
+                //if (!this.config.processArgs.argv.silent) await syslog.printProgress(p);
 
         });
 
         if (this.config.cacheAssets) {
             this.config.assetCacheHandler.saveMap();
         }
-        if (!this.config.processArgs.argv.silent) await syslog.endProgress();
-
+        // if (!this.config.processArgs.argv.silent) await syslog.endProgress();
         return count;
     }
 
