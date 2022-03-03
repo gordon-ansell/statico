@@ -23,8 +23,6 @@ const Watcher = require('./watcher');
 const Converter = require('./converter');
 const FtpRunner = require('./ftpRunner');
 const Benchmarks = require('./benchmarks');
-const SchemaObject = require('./schema/schemaObject');
-const { sitePath } = require('./templatePathUrl');
 const debug = require('debug')('Statico'),
       debugf = require('debug')('Full.Statico');
 
@@ -425,21 +423,6 @@ class Statico
         syslog.notice(`Parsing everything through layouts - last.`)
         await this.parseThroughLayoutAndWrite('last');
         Benchmarks.getInstance().markEnd('layout-parser-last');
-
-        // Schema.
-        let schema = this.config.schema;
-        let schemaWebsite = new SchemaObject('WebSite', null, 'website');
-        if (schema.website) {
-            if (schema.website._from && 'site' === schema.website._from) {
-                if (this.config.site.title) {
-                    schemaWebsite.setAttrib('name', this.config.site.title);
-                }
-                if (this.config.site.description) {
-                    schemaWebsite.setAttrib('description', this.config.site.description);
-                }
-            }
-        }
-        syslog.inspect(schemaWebsite.resolve(), "error");
 
         //syslog.inspect(this.config.schema, "warning");
 
