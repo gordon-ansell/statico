@@ -29,7 +29,7 @@ class ImgShortcode extends NunjucksShortcode
 
         let imgSpec = {};
 
-        debug(`Args passed into imgShortcode.render: %O`,args);
+        debug(`kwArgs passed into imgShortcode.render: %O`,kwargs);
 
         for (let arg in kwargs) {
             if (!arg.startsWith('__')) {
