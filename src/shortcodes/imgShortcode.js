@@ -31,11 +31,23 @@ class ImgShortcode extends NunjucksShortcode
 
         debug(`kwArgs passed into imgShortcode.render: %O`,kwargs);
 
+        let sp = kwargs.split('|');
+        for (let item of sp) {
+            if (item.includes('=')) {
+                let sp1 = item.split('=');
+                imgSpec[sp1[0].trim()] = imgSpec[sp1[1].trim()];
+            } else {
+                imgSpec[sp] = true;
+            }
+        }
+
+        /*
         for (let arg in kwargs) {
             if (!arg.startsWith('__')) {
                 imgSpec[arg] = kwargs[arg];
             }
         }
+        */
         debug(`Image spec extracted = %O`,imgSpec);
 
         let opts = {
