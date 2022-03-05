@@ -36,6 +36,9 @@ class ImgShortcode extends NunjucksShortcode
 
         for (let argnum of [1,2]) {
             let argdata = args[argnum];
+            if (null === argdata) {
+                continue;
+            }
             if("object" === typeof(argdata)) {
                 for (let key in argdata) {
                     imgSpec[key] = argdata[key];
