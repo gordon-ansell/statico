@@ -32,6 +32,31 @@ class ImgShortcode extends NunjucksShortcode
         debug(`args passed into imgShortcode.render: %O`,args);
         debug(`kwArgs passed into imgShortcode.render: %O`,kwargs);
 
+        let url = args[0];
+
+        for (let argnum of [1,2]) {
+            let argdata = args[argnum];
+            if("object" === typeof(argdata)) {
+                for (let key in argdata) {
+                    imgSpec[key] = argdata[key];
+                }
+            } else if ("string" === typeof(argdata)) {
+                let sp = argdata.trim().split('|');
+                for (let subdata of sp) {
+                    if (-1 !== subdata.indexOf('=')) {
+                        let ds = subdata.split('=');
+                        if (!ds[0].trim().startsWith('__')) {
+                            imgSpec[ds[0].trim()] = ds[1].trim();
+                        }
+                    } else {
+                        if (!subdata.trim().startsWith('__')) {
+                            imgSpec[subdata.trim()] = true;
+                        }
+                    }
+                }
+            }
+        } 
+
         /*
         let sp = kwargs.split('|');
         for (let item of sp) {
@@ -44,12 +69,13 @@ class ImgShortcode extends NunjucksShortcode
         }
         */
 
-        
+        /*
         for (let arg in kwargs) {
             if (!arg.startsWith('__')) {
                 imgSpec[arg] = kwargs[arg];
             }
         }
+        */
         
         debug(`Image spec extracted = %O`,imgSpec);
 
