@@ -7,6 +7,8 @@
 'use strict';
 
 const { syslog, NunjucksShortcode, ImageHtml, merge, ComplexImage } = require("js-framework");
+const debug = require('debug')('Statico.shortcodes.ImgShortcode'),
+      debugf = require('debug')('Full.Statico.shortcodes.ImgShortcode');
 
 /**
  * Img shortcode class.
@@ -25,7 +27,9 @@ class ImgShortcode extends NunjucksShortcode
     {
         let kwargs = args[1] || {};
 
-        let imgSpec = {} 
+        let imgSpec = {};
+
+        debug(`Args passed into imgSgortcode.render: %O`,args);
 
         for (let arg in kwargs) {
             if (!arg.startsWith('__')) {
