@@ -31,6 +31,7 @@ class ImgShortcode extends NunjucksShortcode
 
         debug(`kwArgs passed into imgShortcode.render: %O`,kwargs);
 
+        /*
         let sp = kwargs.split('|');
         for (let item of sp) {
             if (item.includes('=')) {
@@ -40,14 +41,15 @@ class ImgShortcode extends NunjucksShortcode
                 imgSpec[sp] = true;
             }
         }
+        */
 
-        /*
+        
         for (let arg in kwargs) {
             if (!arg.startsWith('__')) {
                 imgSpec[arg] = kwargs[arg];
             }
         }
-        */
+        
         debug(`Image spec extracted = %O`,imgSpec);
 
         let opts = {
