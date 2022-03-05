@@ -66,11 +66,10 @@ module.exports = function(configData) {
         dateFields: ['date'],
         dispDate: "dS mmmm yyyy",
         dispTime: "HH:MM",
-        taxonomyTypes: ['cats', 'tags'],
+        taxonomyTypes: ['tags'],
         collectionSpec: {
             tags: true,
-            type: true,
-            cats: true
+            type: true
         },
         frontMatterOptions: {excerpt: false},
         paginationDefaults: {
