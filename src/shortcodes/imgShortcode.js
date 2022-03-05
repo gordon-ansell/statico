@@ -29,13 +29,14 @@ class ImgShortcode extends NunjucksShortcode
 
         let imgSpec = {};
 
-        debug(`Args passed into imgSgortcode.render: %O`,args);
+        debug(`Args passed into imgShortcode.render: %O`,args);
 
         for (let arg in kwargs) {
             if (!arg.startsWith('__')) {
                 imgSpec[arg] = kwargs[arg];
             }
         }
+        debug(`Image spec extracted = %O`,imgSpec);
 
         let opts = {
             lazyload: this.config.lazyload
