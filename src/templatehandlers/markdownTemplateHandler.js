@@ -195,7 +195,9 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
 
-        debug(`For page: ${templateFile.data.permalink}: %O`, this.config.imageInfoStore.getByPage(templateFile.data.permalink));
+        let tmp = this.config.imageInfoStore.getSpecificByPage(templateFile.data.permalink, 'jpeg', 1280);
+        debug("Specific for %s: %O", templateFile.data.permalink, tmp);
+        //debug(`For page: ${templateFile.data.permalink}: %O`, this.config.imageInfoStore.getByPage(templateFile.data.permalink));
 
     }
 
