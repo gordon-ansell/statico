@@ -6,7 +6,8 @@
  */
 'use strict';
 
-const { syslog, NunjucksShortcode, ImageHtml, merge, ComplexImage } = require("js-framework");
+const { NunjucksShortcode, ComplexImage } = require("js-framework");
+const path = require('path');
 
 /**
  * SimpleImg shortcode class.
