@@ -10,6 +10,7 @@ const LinkShortcode = require('./linkShortcode');
 const ImgShortcode = require('./imgShortcode');
 const ImagesIncludeShortcode = require('./imagesincludeShortcode');
 const SimpleImgShortcode = require('./simpleImgShortcode');
+const ImgSpecificShortcode = require('./imgSpecificShortcode');
 const VideoLinkShortcode = require('./videolinkShortcode');
 const { syslog } = require('js-framework');
 const debug = require('debug')('Statico:defaultShortcodes'),
@@ -33,6 +34,9 @@ module.exports = function(config) {
 
     config.addNunjucksShortcode('simpleimg', SimpleImgShortcode);
     debug(`Added shortcode to Nunjucks: simpleimg`);
+
+    config.addNunjucksShortcode('imgspecific', ImgSpecificShortcode);
+    debug(`Added shortcode to Nunjucks: imgspecific`);
 
     config.addNunjucksShortcode('videolink', VideoLinkShortcode);
     debug(`Added shortcode to Nunjucks: videolink`);
