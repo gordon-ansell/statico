@@ -159,7 +159,7 @@ class ImageInfoStore
     addByPage(page, src)
     {
         //debug(`Adding by page ${page}: %s`, src);
-        if (!this.store.byPage.page) {
+        if (!this.store.byPage[page]) {
             this.store.byPage[page] = [];
         }
         this.store.byPage[page].push(src);
