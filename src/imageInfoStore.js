@@ -223,7 +223,7 @@ class ImageInfoStore
         let saved = null;
         let savedDiff = 999999;
 
-        let forPage = thie.getByPage(page);
+        let forPage = this.getByPage(page);
         debug(`For page ${page}: %O`, forPage)
 
         for (let pi of this.getByPage(page)) {
