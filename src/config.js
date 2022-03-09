@@ -21,6 +21,7 @@ const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreproce
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
 const { URL } = require('url');
 const dateformat = require('dateformat');
+const ImageInfoStore = require('./imageInfoStore');
 const debug = require('debug')('Statico:Config'),
       debugf = require('debug')('Full.Statico:Config');
 
@@ -135,7 +136,8 @@ class Config
             inlineCss: {},
             postsInFeed: 20,
             watcher: {},
-            dynamicData: {}
+            dynamicData: {},
+            imageInfoStore: new ImageInfoStore(this)
         };        
     }
 

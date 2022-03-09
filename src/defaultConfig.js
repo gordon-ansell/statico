@@ -50,6 +50,7 @@ module.exports = function(configData) {
         layoutProcessor: 'nunjucks',
         indexName: 'index',
         outputSuffix: '.html',
+        imageExts: ['jpg', 'jpeg', 'png', 'webp'],
         assetExts: ['jpg', 'jpeg', 'png', 'webp', 'scss'],
         //parse: 'early',
         modes: {
