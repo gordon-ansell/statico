@@ -216,14 +216,15 @@ class ImageInfoStore
     getSpecificByPage(page, type, size)
     {
         if (!this.hasByPage(page)) {
-            debug(`No images for page ${page}.`)
             return null;
         }
 
-        debug(`There are images for page ${page}.`)
 
         let saved = null;
         let savedDiff = 999999;
+
+        let forPage = thie.getByPage(page);
+        debug(`For page ${page}: %O`, forPage)
 
         for (let pi of this.getByPage(page)) {
             let tmp = this.getSpecificBySrc(pi, type, size);
