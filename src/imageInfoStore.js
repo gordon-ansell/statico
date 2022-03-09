@@ -216,8 +216,11 @@ class ImageInfoStore
     getSpecificByPage(page, type, size)
     {
         if (!this.hasByPage(page)) {
+            debug(`No images for page ${page}.`)
             return null;
         }
+
+        debug(`There are images for page ${page}.`)
 
         let saved = null;
         let savedDiff = 999999;
