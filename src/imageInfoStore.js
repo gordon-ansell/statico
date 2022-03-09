@@ -229,7 +229,7 @@ class ImageInfoStore
         for (let item of forPage) {
             for (let t in item) {
                 if (t === type) {
-                    for (let file of forPage[t].files) {
+                    for (let file of item[t].files) {
                         if (file.width === size) {
                             return file;
                         } else {
