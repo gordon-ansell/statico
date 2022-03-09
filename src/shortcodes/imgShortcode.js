@@ -82,7 +82,7 @@ class ImgShortcode extends NunjucksShortcode
         }
         */
         
-        debug(`Image spec extracted = %O`,imgSpec);
+        //debug(`Image spec extracted = %O`,imgSpec);
 
         let opts = {
             lazyload: this.config.lazyload
@@ -94,7 +94,7 @@ class ImgShortcode extends NunjucksShortcode
             this.config.hostname);
 
         let is = imageSize(path.join(this.config.sitePath, url));
-        debug("%O", is);
+        debug("is %O", is);
 
         //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
         ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
