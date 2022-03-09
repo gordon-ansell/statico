@@ -93,8 +93,20 @@ class ImgShortcode extends NunjucksShortcode
         let imgHtml = new ComplexImage(this.config.lazyload, this.config.figureClass, this.config.sitePath, 
             this.config.hostname);
 
-        let is = imageSize(path.join(this.config.sitePath, url));
-        debug("is %O", is);
+        let fullp = path.join(this.config.sitePath, url);
+        let ext = path.extname(fullp).substring(1);
+        let is = imageSize(fullp);
+        let spec = {
+            file: url,
+            width: is.width,
+            height: is.height,
+            mime: "image/" + ext.replace('jpg', 'jpeg')
+        };
+        let generated = {};
+        generated[ext] = {files:[spec]};
+        debug("is %O", generated);
+        this.config.imageInfoStore.addBySrcAndPage(url, context.ctx.permalink, generated);
+
 
         //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
         ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
