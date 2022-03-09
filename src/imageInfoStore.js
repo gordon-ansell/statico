@@ -226,7 +226,27 @@ class ImageInfoStore
         let forPage = this.getByPage(page);
         debug(`For page ${page}: %O`, forPage)
 
-        for (let pi of this.getByPage(page)) {
+        for (let item of forPage) {
+            for (let t in item) {
+                if (t === type) {
+                    for (let file of forPage[t].files) {
+                        if (file.width === size) {
+                            return file;
+                        } else {
+                            if (Math.abs(file.width - savedDiff) < Math.abs(size - savedDiff)) {
+                                saved = file;
+                                savedDiff = Math.abs(file.width - savedDiff);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return saved;
+
+        /*
+        for (let pi of forPage) {
             let tmp = this.getSpecificBySrc(pi, type, size);
             if (null !== tmp) {
                 if (tmp.width === size) {
@@ -241,6 +261,7 @@ class ImageInfoStore
         }
 
         return saved;
+        */
     }
 }
 
