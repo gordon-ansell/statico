@@ -234,6 +234,7 @@ class ImageInfoStore
                             return file;
                         } else {
                             if (Math.abs(file.width - savedDiff) < Math.abs(size - savedDiff)) {
+                                debug(`${Math.abs(file.width - savedDiff)} < ${Math.abs(size - savedDiff)}`)
                                 saved = file;
                                 savedDiff = Math.abs(file.width - savedDiff);
                             }
