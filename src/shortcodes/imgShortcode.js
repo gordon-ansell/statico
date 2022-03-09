@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, NunjucksShortcode, ImageHtml, merge, ComplexImage } = require("js-framework");
+const { NunjucksShortcode, ComplexImage } = require("js-framework");
 const imageSize = require("image-size");
 const debug = require('debug')('Statico.shortcodes.ImgShortcode'),
       debugf = require('debug')('Full.Statico.shortcodes.ImgShortcode');
