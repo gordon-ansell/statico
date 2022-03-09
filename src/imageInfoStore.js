@@ -186,7 +186,7 @@ class ImageInfoStore
      * 
      * @return  {object}
      */
-    getByPage(page, mustExist = true)
+    getByPage(page, mustExist = false)
     {
         if (!this.hasByPage(page)) {
             if (mustExist) {
