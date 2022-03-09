@@ -45,6 +45,7 @@
         "debug": "*",
         "dotenv": "*",
         "express": "*",
+        "image-size": "*",
 		"js-framework": "gordon-ansell/js-framework",
 		"gray-matter": "*",
         "js-beautify": "*",
