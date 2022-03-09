@@ -81,7 +81,7 @@ class ImageInfoStore
      */
     hasBySrc(src)
     {
-        return Object.keys(this.store.bySrc.includes(src));
+        return Object.keys(this.store.bySrc).includes(src);
     }
 
     /**
@@ -175,7 +175,7 @@ class ImageInfoStore
      */
     hasByPage(page)
     {
-        return Object.keys(this.store.byPage.includes(page));
+        return Object.keys(this.store.byPage).includes(page);
     }
 
     /**
