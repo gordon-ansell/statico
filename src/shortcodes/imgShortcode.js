@@ -8,6 +8,7 @@
 
 const { NunjucksShortcode, ComplexImage } = require("js-framework");
 const imageSize = require("image-size");
+const path = require('path');
 const debug = require('debug')('Statico.shortcodes.ImgShortcode'),
       debugf = require('debug')('Full.Statico.shortcodes.ImgShortcode');
 
@@ -92,7 +93,7 @@ class ImgShortcode extends NunjucksShortcode
         let imgHtml = new ComplexImage(this.config.lazyload, this.config.figureClass, this.config.sitePath, 
             this.config.hostname);
 
-        let is = imageSize(url);
+        let is = imageSize(path.join(this.config.sitePath, url));
         debug("%O", is);
 
         //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
