@@ -67,7 +67,7 @@ class ImageInfoStore
      */
     addBySrc(src, info)
     {
-        debug(`Adding by src ${src}: %O`, info);
+        //debug(`Adding by src ${src}: %O`, info);
         this.store.bySrc[src] = info;
         return this;
     }
@@ -158,7 +158,7 @@ class ImageInfoStore
      */
     addByPage(page, src)
     {
-        debug(`Adding by page ${page}: %s`, src);
+        //debug(`Adding by page ${page}: %s`, src);
         if (!this.store.byPage.page) {
             this.store.byPage[page] = [];
         }
