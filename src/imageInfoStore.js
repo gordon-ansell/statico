@@ -219,7 +219,6 @@ class ImageInfoStore
             return null;
         }
 
-
         let saved = null;
         let savedDiff = 999999;
 
@@ -234,7 +233,7 @@ class ImageInfoStore
                             return file;
                         } else {
                             debug(`Checking ${Math.abs(file.width - savedDiff)} < ${Math.abs(size - savedDiff)}`)
-                            if (Math.abs(file.width - savedDiff) > Math.abs(size - savedDiff)) {
+                            if (Math.abs(file.width - savedDiff) < Math.abs(size - savedDiff)) {
                                 saved = file;
                                 savedDiff = Math.abs(file.width - savedDiff);
                             }
