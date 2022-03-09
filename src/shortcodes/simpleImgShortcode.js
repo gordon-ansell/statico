@@ -8,6 +8,7 @@
 
 const { NunjucksShortcode, ComplexImage } = require("js-framework");
 const path = require('path');
+const imageSize = require("image-size");
 
 /**
  * SimpleImg shortcode class.
