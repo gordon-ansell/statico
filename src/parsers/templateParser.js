@@ -67,7 +67,7 @@ class TemplateParser extends BaseParser
 
         await Promise.all(files.map(async element => {
             let trimmed = element.replace(this.config.sitePath, '');
-            let ext = path.extname(element).substr(1);
+            let ext = path.extname(element).substring(1);
             if (this.config.templateHandlers.hasHandlerForExt(ext))  {
                 try {
                     debug(`Seeing if template for ${trimmed} is parseable (${pn}).`)
