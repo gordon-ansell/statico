@@ -104,7 +104,6 @@ class ImgShortcode extends NunjucksShortcode
         };
         let generated = {};
         generated[ext] = {files:[spec]};
-        debug("is %O", generated);
         this.config.imageInfoStore.addBySrcAndPage(url, context.ctx.permalink, generated);
 
 

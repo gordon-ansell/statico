@@ -73,6 +73,19 @@ class SimpleImgShortcode extends NunjucksShortcode
         //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
         ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
 
+        let fullp = path.join(this.config.sitePath, url);
+        let ext = path.extname(fullp).substring(1);
+        let is = imageSize(fullp);
+        let spec = {
+            file: url,
+            width: is.width,
+            height: is.height,
+            mime: "image/" + ext.replace('jpg', 'jpeg')
+        };
+        let generated = {};
+        generated[ext] = {files:[spec]};
+        this.config.imageInfoStore.addBySrcAndPage(url, context.ctx.permalink, generated);
+
         let imgs = imgHtml.metaIds;
         if (imgs.length > 0) {
             if (!this.config.imagesSaved) {
