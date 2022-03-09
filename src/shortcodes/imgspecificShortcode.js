@@ -7,6 +7,8 @@
 'use strict';
 
 const { syslog, NunjucksShortcode, MultiDate } = require("js-framework");
+const debug = require('debug')('Statico.shortcodes.ImgSpecificShortcode'),
+      debugf = require('debug')('Full.Statico.shortcodes.ImgSpecificShortcode');
 
 /**
  * Specific image shortcode class.
@@ -36,6 +38,8 @@ class ImgSpecificShortcode extends NunjucksShortcode
         }
 
         let ret = this.config.imageInfoStore.getSpecificByPage(context.ctx.permalink, type, size);
+
+        debug(`Image specific shortcode for ${context.ctx.permalink} returns: %O`, ret);
 
         return ret;
     }
