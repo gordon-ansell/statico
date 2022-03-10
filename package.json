@@ -45,6 +45,7 @@
         "debug": "*",
         "dotenv": "*",
         "express": "*",
+        "statico-plugin-schemahelpers": "gordon-ansell/statico-plugin-schemahelpers",
         "image-size": "*",
 		"js-framework": "gordon-ansell/js-framework",
 		"gray-matter": "*",

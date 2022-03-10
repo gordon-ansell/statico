@@ -22,6 +22,7 @@ const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPrep
 const { URL } = require('url');
 const dateformat = require('dateformat');
 const ImageInfoStore = require('./imageInfoStore');
+const { Schema } = require('statico-plugin-schemahelpers');
 const debug = require('debug')('Statico:Config'),
       debugf = require('debug')('Full.Statico:Config');
 
@@ -137,7 +138,8 @@ class Config
             postsInFeed: 20,
             watcher: {},
             dynamicData: {},
-            imageInfoStore: new ImageInfoStore(this)
+            imageInfoStore: new ImageInfoStore(this),
+            schema: new Schema(this)
         };        
     }
 
