@@ -139,7 +139,7 @@ class Config
             watcher: {},
             dynamicData: {},
             imageInfoStore: new ImageInfoStore(this),
-            schema: new Schema(this)
+            schema: {}
         };        
     }
 
