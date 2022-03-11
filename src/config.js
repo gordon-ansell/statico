@@ -22,7 +22,6 @@ const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPrep
 const { URL } = require('url');
 const dateformat = require('dateformat');
 const ImageInfoStore = require('./imageInfoStore');
-const Schema = require('statico-plugin-schemahelpers/src/schema/schema');
 const debug = require('debug')('Statico:Config'),
       debugf = require('debug')('Full.Statico:Config');
 
