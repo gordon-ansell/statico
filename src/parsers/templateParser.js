@@ -185,7 +185,7 @@ class TemplateParser extends BaseParser
                 if (!this.config.schema[tf.data.permalink]) {
                     this.config.schema[tf.data.permalink] = new Schema(this.config);
                 }
-                this.config.schema[tf.data.permalink].addCtx(tf.data);
+                this.config.schema[tf.data.permalink].setCtx(tf.data);
                 await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
                 return tf;
             } else {
