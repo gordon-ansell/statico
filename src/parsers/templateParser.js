@@ -163,7 +163,7 @@ class TemplateParser extends BaseParser
 
         debug(`In _parseTemplateFile for ${trimmed}.`);
 
-        let ext = path.extname(filePath).substr(1);
+        let ext = path.extname(filePath).substring(1);
         if (this.config.templateHandlers.hasHandlerForExt(ext))  {
             debug(`Reconfirmed we have template handler for ${ext}, processing ${trimmed}.`);
             let tf;
@@ -181,6 +181,7 @@ class TemplateParser extends BaseParser
                 debug(`Passing control to template handler for ${ext}, for file ${trimmed}.`)
                 let handler = this.config.templateHandlers.getHandlerForExt(ext)
                 await handler.process(tf);
+                this.config.schema[tf.data,permalink].addCtx(tf.data);
                 await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
                 return tf;
             } else {
