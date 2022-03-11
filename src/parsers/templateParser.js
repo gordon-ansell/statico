@@ -181,7 +181,7 @@ class TemplateParser extends BaseParser
                 debug(`Passing control to template handler for ${ext}, for file ${trimmed}.`)
                 let handler = this.config.templateHandlers.getHandlerForExt(ext)
                 await handler.process(tf);
-                this.config.schema[tf.data,permalink].addCtx(tf.data);
+                this.config.schema[tf.data.permalink].addCtx(tf.data);
                 await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
                 return tf;
             } else {
