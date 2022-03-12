@@ -356,7 +356,7 @@ class Statico
         
         // Assets parse.
         let assetParser = new AssetParser(this.config);
-        let chunk = 25;
+        let chunk = 10;
         let count = 1;
         let i = 0;
         let j = 0;
