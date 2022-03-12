@@ -355,6 +355,9 @@ class Statico
         }
         
         // Assets parse.
+        if (this.config.processArgs.argv.clean) {
+            syslog.warning(`Clean asset rebuild selected - prepare to wait a while if you have a lot of images.`);
+        }
         let assetParser = new AssetParser(this.config);
         let chunk = (this.config.processArgs.argv.clean) ? 10 : 50;
         let count = 1;
