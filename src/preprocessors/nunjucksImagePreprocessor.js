@@ -10,6 +10,8 @@ const path = require('path');
 const { syslog, string, pathUtils } = require('js-framework');
 const StaticoError = require('../staticoError');
 const TemplatePathUrl = require('../templatePathUrl');
+const debug = require('debug')('Statico.preprocessors.NunjucksImagePreprocessor');
+
 
 class StaticoPreprocessorError extends StaticoError {}
 
@@ -48,6 +50,7 @@ class NunjucksImagePreprocessor
      */
     async preprocessString(content, permalink, filePath, rss = false)
     {
+        debug(`Preprocessing images for ${permalink}`);
         let ret = content;
         const regex = /!\[([^\]]*)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g;
         let m;
