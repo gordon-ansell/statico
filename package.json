@@ -1,6 +1,6 @@
 {
 	"name": "statico",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "Static Site Generator.",
 	"homepage": "https://gordonansell.com/statico",
 	"license": "MIT",
