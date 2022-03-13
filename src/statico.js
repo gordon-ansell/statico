@@ -190,9 +190,11 @@ class Statico
     {
         Benchmarks.getInstance().markStart('statico-cleanup', 'Statico Cleanup Before Running');
 
-        // Clean the output directory.
-        if (fsutils.deleteFolderRecursive(this.config.outputPath)) {
-            syslog.notice("Cleaned output directory.")
+        if (!this.config.processArgs.argv.incremental) {
+            // Clean the output directory.
+            if (fsutils.deleteFolderRecursive(this.config.outputPath)) {
+                syslog.notice("Cleaned output directory.")
+            }
         }
 
         // Clean the tmp directory.
@@ -342,6 +344,11 @@ class Statico
                 others.push(file);
             }
         }
+
+        // Filter non-asset files if we're building incrementally.
+        //if (this.config.processArgs.argv.incremental) {
+            syslog.inspect(others, "error");
+        //}
 
         // Tell user.
         Benchmarks.getInstance().markStart('asset-parser', 'Asset Parser');

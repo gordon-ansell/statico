@@ -45,7 +45,8 @@ class ProcessArgs
               "servenode",
               "ftp",
               "dryrun",
-              "silent"
+              "silent",
+              "incremental"
             ],
             default: {
               serve: false,
@@ -56,7 +57,8 @@ class ProcessArgs
               servenode: false,
               ftp: false,
               dryrun: false,
-              silent: false
+              silent: false,
+              incremental: false
             },
             unknown: function (unknownArgument) {
               throw new StaticoCommandLineError(`Unrecognised argument: '${unknownArgument}'. Use --help to see the list of supported commands.`);
