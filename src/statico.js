@@ -353,7 +353,7 @@ class Statico
             others.filter(file => {
                 let s = fs.statSync(file);
                 let d1 = this.#startTime - 3600000;
-                return s.mtimeMs > d1;
+                return s.mtimeMs < d1;
             });
             let l2 = others.length;
             syslog.notice(`Filtered out ${l1 - l2} files for incremental build. ${l2} template files left to process.`);
