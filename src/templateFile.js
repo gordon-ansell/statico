@@ -105,7 +105,7 @@ class TemplateFile
             throw new StaticoTemplateFileError(`No filePath passed to TemplateFile constructor.`);
         }
         this.filePath = filePath;
-        this.ext = path.extname(filePath).substr(1);
+        this.ext = path.extname(filePath).substring(1);
         this.config = config;
         this.baseData = cloneDeep(config.userData);
         this.mightHaveLayout = mightHaveLayout;

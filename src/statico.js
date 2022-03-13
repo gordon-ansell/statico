@@ -347,14 +347,15 @@ class Statico
         }
 
         // Filter non-asset files if we're building incrementally.
+        let incremental = null;
         if (this.config.processArgs.argv.incremental) {
             let l1 = others.length;
-            others = others.filter(file => {
+            incremental = others.filter(file => {
                 let s = fs.statSync(file);
                 let d1 = this.#startTime - 3600000;
                 return s.mtimeMs > d1;
             });
-            let l2 = others.length;
+            let l2 = incremental.length;
             syslog.notice(`Filtered out ${l1 - l2} files for incremental build. ${l2} template files left to process.`);
         }
 
@@ -429,17 +430,17 @@ class Statico
         // Now push everything through their layouts.
         Benchmarks.getInstance().markStart('layout-parser-early', 'Layout Parser (Early)');
         syslog.notice(`Parsing everything through layouts - early.`)
-        await this.parseThroughLayoutAndWrite('early');
+        await this.parseThroughLayoutAndWrite('early', incremental);
         Benchmarks.getInstance().markEnd('layout-parser-early');
 
         Benchmarks.getInstance().markStart('layout-parser-late', 'Layout Parser (Late)');
         syslog.notice(`Parsing everything through layouts - late.`)
-        await this.parseThroughLayoutAndWrite('late');
+        await this.parseThroughLayoutAndWrite('late', incremental);
         Benchmarks.getInstance().markEnd('layout-parser-late');
 
         Benchmarks.getInstance().markStart('layout-parser-last', 'Layout Parser (Last)');
         syslog.notice(`Parsing everything through layouts - last.`)
-        await this.parseThroughLayoutAndWrite('last');
+        await this.parseThroughLayoutAndWrite('last', incremental);
         Benchmarks.getInstance().markEnd('layout-parser-last');
 
         //syslog.inspect(this.config.schema, "warning");
@@ -460,7 +461,7 @@ class Statico
      * Push everything through their layouts.
      * 
      */
-    async parseThroughLayoutAndWrite(parseName)
+    async parseThroughLayoutAndWrite(parseName, incremental)
     {
         syslog.info(`Parse through layouts - ${parseName}.`);
         if (this.config.toParseThroughLayout[parseName] && this.config.toParseThroughLayout[parseName].length > 0) {
@@ -470,7 +471,15 @@ class Statico
             if (!this.config.processArgs.argv.silent) syslog.printProgress(0);
 
             await Promise.all(this.config.toParseThroughLayout[parseName].map(async templateFile => {
-                this.config.templateHandlers.getHandlerForExt(templateFile.ext).parseThroughLayoutAndWrite(templateFile);
+                let go = false;
+                if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
+                    go = true;
+                }
+                if (go) {
+                    this.config.templateHandlers.getHandlerForExt(templateFile.ext).parseThroughLayoutAndWrite(templateFile);
+                } else {
+                    syslog.warning(`Skipping ${templateFile.filePath}`)
+                }
                 count++;
                 if (!this.config.processArgs.argv.silent) syslog.printProgress((count/totalItems) * 100);
             }));    
