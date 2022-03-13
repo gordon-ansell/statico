@@ -350,7 +350,7 @@ class Statico
         // Filter non-asset files if we're building incrementally.
         if (this.config.processArgs.argv.incremental) {
             let l1 = others.length;
-            others.filter(file => {
+            others = others.filter(file => {
                 let s = fs.statSync(file);
                 let d1 = this.#startTime - 3600000;
                 return s.mtimeMs > d1;
