@@ -319,6 +319,8 @@ class Statico
 
         this.#startTime = Date.now();
 
+        syslog.inspect(this.#startTime, "error");
+
         if (!files) {
             // Parse the file system.
             syslog.notice('Parsing filesystem.');
