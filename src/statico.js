@@ -478,7 +478,7 @@ class Statico
                 if (go) {
                     this.config.templateHandlers.getHandlerForExt(templateFile.ext).parseThroughLayoutAndWrite(templateFile);
                 } else {
-                    syslog.warning(`Skipping ${templateFile.filePath}`)
+                    syslog.info(`Skipping ${templateFile.filePath} for incremental build.`);
                 }
                 count++;
                 if (!this.config.processArgs.argv.silent) syslog.printProgress((count/totalItems) * 100);
