@@ -76,6 +76,7 @@ module.exports = function(configData) {
         paginationDefaults: {
             size: 10,
         },
+        incrementalTolerance: 3600,
         watcher: {
             ignores: [
                 path.join(configData.sitePath, 'node_modules'),

@@ -352,7 +352,7 @@ class Statico
             let l1 = others.length;
             incremental = others.filter(file => {
                 let s = fs.statSync(file);
-                let d1 = this.#startTime - 3600000;
+                let d1 = this.#startTime - (this.config.incrementalTolerance * 1000);
                 return s.mtimeMs > d1;
             });
             let l2 = incremental.length;
