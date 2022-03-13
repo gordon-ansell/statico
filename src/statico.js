@@ -319,8 +319,6 @@ class Statico
 
         this.#startTime = Date.now();
 
-        syslog.inspect(this.#startTime, "error");
-
         if (!files) {
             // Parse the file system.
             syslog.notice('Parsing filesystem.');
@@ -349,6 +347,7 @@ class Statico
 
         // Filter non-asset files if we're building incrementally.
         if (this.config.processArgs.argv.incremental) {
+            /*
             let l1 = others.length;
             others = others.filter(file => {
                 let s = fs.statSync(file);
@@ -357,6 +356,7 @@ class Statico
             });
             let l2 = others.length;
             syslog.notice(`Filtered out ${l1 - l2} files for incremental build. ${l2} template files left to process.`);
+            */
         }
 
         // Tell user.
