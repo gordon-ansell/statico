@@ -195,12 +195,13 @@ class Statico
             if (fsutils.deleteFolderRecursive(this.config.outputPath)) {
                 syslog.notice("Cleaned output directory.")
             }
+
+            // Clean the tmp directory.
+            if (fsutils.deleteFolderRecursive(path.join(this.config.sitePath, this.config.tempDir))) {
+                syslog.notice("Cleaned temp directory.")
+            }
         }
 
-        // Clean the tmp directory.
-        if (fsutils.deleteFolderRecursive(path.join(this.config.sitePath, this.config.tempDir))) {
-            syslog.notice("Cleaned temp directory.")
-        }
 
         // Clean?
         if (this.config.processArgs.argv.clean || this.config.processArgs.argv.cleanonly) {
@@ -347,7 +348,6 @@ class Statico
 
         // Filter non-asset files if we're building incrementally.
         if (this.config.processArgs.argv.incremental) {
-            /*
             let l1 = others.length;
             others = others.filter(file => {
                 let s = fs.statSync(file);
@@ -356,7 +356,6 @@ class Statico
             });
             let l2 = others.length;
             syslog.notice(`Filtered out ${l1 - l2} files for incremental build. ${l2} template files left to process.`);
-            */
         }
 
         // Tell user.
