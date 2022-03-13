@@ -9,6 +9,7 @@
 const { syslog, fsutils, string } = require('js-framework');
 const StaticoError = require('./staticoError');
 const debug = require("debug")('Statico:ImageInfoStore');
+const debugf = require("debug")('Full.Statico:ImageInfoStore');
 
 class StaticoImageInfoStoreError extends StaticoError {};
 
@@ -223,7 +224,7 @@ class ImageInfoStore
         let savedDiff = 999999;
 
         let forPage = this.getByPage(page);
-        debug(`For page ${page}: %O`, forPage)
+        debugf(`For page ${page}: %O`, forPage)
 
         for (let item of forPage) {
             for (let t in item) {
