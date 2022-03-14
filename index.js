@@ -48,7 +48,7 @@ try {
     // Start up statico.
     let statico = new Statico(null, null, logLevel, logContexts, pa, runMode);
 
-    return statico.init().then(function() {
+    statico.init().then(function() {
         return statico.run();
     });
 
