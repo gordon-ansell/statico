@@ -115,6 +115,7 @@ class MarkdownTemplateHandler extends TemplateHandler
             if (compile.content) {
                 templateFile.data.content_html = this.parseThroughTemplate(templateFile.data.content, templateFile.data);
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content_html);
+                templateFile.data.content = templateFile.data.content_html;
             } else {
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content);
             }
