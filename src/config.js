@@ -21,6 +21,7 @@ const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreproce
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
 const { URL } = require('url');
 const dateformat = require('dateformat');
+const { SchemaMap } = require('js-schema');
 const ImageInfoStore = require('./imageInfoStore');
 const debug = require('debug')('Statico:Config'),
       debugf = require('debug')('Full.Statico:Config');
@@ -138,7 +139,8 @@ class Config
             watcher: {},
             dynamicData: {},
             imageInfoStore: new ImageInfoStore(this),
-            schema: {}
+            schema: {},
+            schema1: new SchemaMap()
         };        
     }
 

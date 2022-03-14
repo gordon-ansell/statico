@@ -37,7 +37,7 @@
             "path": "../../statico-blog-eg"
         },
         {
-            "path": "../statico-plugins/statico-plugin-schema"
+            "path": "../schema"
         }
     ]
 }
