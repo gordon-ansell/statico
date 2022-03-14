@@ -47,7 +47,6 @@
         "express": "*",
         "image-size": "*",
 		"js-framework": "gordon-ansell/js-framework",
-        "js-schema": "*",
 		"gray-matter": "*",
         "js-beautify": "*",
 		"lodash.clonedeep": "*",
