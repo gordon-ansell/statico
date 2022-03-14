@@ -109,7 +109,6 @@ class MarkdownTemplateHandler extends TemplateHandler
                 compile[fld] = f.indexOf('{{') || f.indexOf('{%') || f.indexOf('{#');
             }
         }
-        compile.content = false;
 
         // Parse the data.
         if (templateFile.data.content) {
