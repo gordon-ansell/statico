@@ -729,6 +729,7 @@ class Schema
         }
  
         let obj = new SchemaObject('Review', {}, id);
+        let sch = SchemaCreator.create('Review', id);
 
         for (let idx of Object.keys(reviewFields)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
@@ -741,21 +742,32 @@ class Schema
                         worstRating: 0
                     }
                     obj.setAttrib('reviewRating', r);
+                    sch.reviewRating(SchemaCreator.create('Rating', null, {
+                        ratingValue: reviewFields[idx],
+                        bestRating: 5,
+                        worstRating: 0
+                    }));
                 } else {
                     obj.setAttrib(idx, reviewFields[idx]);
+                    sch.addProp(idx, reviewFields[idx]);
                 }
 
             }
         }
 
         obj.setAttrib('mainEntityOfPage', this.ref('article'));
+        sch.mainEntityOfPage(SchemaBase.ref('article'));
 
         let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
         obj.setAttrib('author', this.ref(author));
+        sch.author(SchemaBase.ref(author));
 
 
         obj.setAttrib('itemReviewed', this.ref(pid));
+        sch.itemReviewed(SchemaBase.ref(pid));
+
         this.items[id] = obj;
+        this.graph.set(id, sch);
     }
 
     /**
