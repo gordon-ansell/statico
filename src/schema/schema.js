@@ -463,34 +463,42 @@ class Schema
 
 
             let obj = new SchemaObject(type, {}, 'webpage');
+            let sch = SchemaCreator.create(type, 'webpage');
 
             if (this.ctx.title) {
                 obj.setAttrib('name', this.ctx.title);
+                sch.addProp('name', this.ctx.title);
             }
 
             for (let item of ['headline', 'description']) {
                 if (this.ctx[item]) {
                     obj.setAttrib(item, this.ctx[item]);
+                    sch.addProp(item, this.ctx[item]);
                 }
             }
 
             if (this.ctx.permalink) {
                 obj.setAttrib('url', this.qualify(this.ctx.permalink));
+                sch.addProp('url', this.qualify(this.ctx.permalink));
             }
 
             if (!obj.hasAttrib('headline') && this.ctx.title) {
                 obj.setAttrib('headline', this.ctx.title)
+                sch.addProp('headline', this.ctx.title)
             }
 
             if (this.ctx._date) {
                 obj.setAttrib('datePublished', this.ctx._date.iso);
+                sch.addProp('datePublished', this.ctx._date.iso);
             }
 
             if (this.ctx._modified) {
                 obj.setAttrib('dateModified', this.ctx._modified.iso);
+                sch.addProp('dateModified', this.ctx._modified.iso);
             }
 
             obj.setAttrib('isPartOf', this.ref('website'));
+            sch.addProp('isPartOf', this.ref('website'));
 
             if (this.raw.breadcrumb) {
                 let itemListElement = [];
@@ -508,18 +516,22 @@ class Schema
                 }
                 this.items['breadcrumb'] = new SchemaObject('BreadcrumbList', {itemListElement: itemListElement}, 'breadcrumb');
                 obj.setAttrib('breadcrumb', this.ref('breadcrumb'));
+                obj.addProp('breadcrumb', this.ref('breadcrumb'));
             }
 
             if (this.ctx.permalink) {
                 let action = {"@type": "ReadAction", target: this.qualify(this.ctx.permalink)};
                 obj.setAttrib('potentialAction', action);
+                sch.addProp('potentialAction', SchemaCreator('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
             if (this.imageIds.length > 0) {
                 obj.setAttrib('image', this.getImageIds());
+                sch.addProp('image', this.getImageIds());
             }
 
             this.items['webpage'] = obj;
+            this.graph.set('webpage', sch);
         }
     }
 
