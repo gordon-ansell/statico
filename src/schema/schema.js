@@ -322,18 +322,18 @@ class Schema
             let id = 'author-' + string.slugify(key);
             let obj = new SchemaObject('Person', {}, id);
 
-            let sch = SchemaCreator.create('Person', id);
+            //let sch = SchemaCreator.create('Person', id);
 
             let stink = authors[key];
             for (let f in stink) {
                 if ('image' === f) {
                     let ids = this.createGlobalImageObject(stink['image']);
-                    let refs = [];
+                    //let refs = [];
                     for (let id of ids) {
                         obj.appendArrayAttrib('image', this.ref(id));
-                        refs.push(SchemaBase.ref(id));
+                        //refs.push(SchemaBase.ref(id));
                     }
-                    sch.addProp('image', refs);
+                    //sch.addProp('image', refs);
                 } else if ('url' === f) { 
                     obj.setAttrib('url', this.qualify(stink[f]));
                     //sch.addProp('url', this.qualify(stink[f]));
@@ -343,7 +343,7 @@ class Schema
                 }
             }
             this.items[id] = obj;
-            this.graph.set(id, sch);
+            //this.graph.set(id, sch);
         }
     }
 
