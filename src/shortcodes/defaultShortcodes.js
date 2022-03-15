@@ -8,7 +8,6 @@
 
 const LinkShortcode = require('./linkShortcode');
 const ImgShortcode = require('./imgShortcode');
-const ImagesIncludeShortcode = require('./imagesincludeShortcode');
 const SimpleImgShortcode = require('./simpleImgShortcode');
 const ImgSpecificShortcode = require('./imgspecificShortcode');
 const VideoLinkShortcode = require('./videolinkShortcode');
@@ -30,9 +29,6 @@ module.exports = function(config) {
 
     config.addNunjucksShortcode('img', ImgShortcode);
     debug(`Added shortcode to Nunjucks: img`);
-
-    config.addNunjucksShortcode('imagesinclude', ImagesIncludeShortcode);
-    debug(`Added shortcode to Nunjucks: imagesinclude`);
 
     config.addNunjucksShortcode('simpleimg', SimpleImgShortcode);
     debug(`Added shortcode to Nunjucks: simpleimg`);
