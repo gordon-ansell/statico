@@ -213,7 +213,7 @@ class Schema
      */
     qualify(path)
     {
-        return new URL(path, this.config.hostname);
+        return new URL(path, this.config.hostname).toString();
     }
 
     /**
@@ -238,7 +238,7 @@ class Schema
                     obj.setAttrib('representativeOfPage', true);
 
                     let sch = SchemaCreator.create('ImageObject', mdid);
-                    sch.addProp('contentUrl', f.file);
+                    sch.addProp('contentUrl', this.qualify(f.file));
                     sch.addProp('url', this.qualify(f.file));
                     sch.addProp('width', f.width);
                     sch.addProp('height', f.height);
