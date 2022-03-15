@@ -10,7 +10,7 @@ const path = require('path');
 const SchemaObject = require('./schemaObject');
 const { URL } = require('url');
 const { MD5, string } = require('js-framework');
-const { SchemaGraph, SchemaCreator, SchemaBase } = require('js-schema');
+const { SchemaGraph, SchemaCreator } = require('js-schema');
 const debug = require('debug')('Framework:schema.Schema'),
       debugf = require('debug')('Full.Framework:schema.Schema');
 
@@ -326,6 +326,7 @@ class Schema
 
             let stink = authors[key];
             for (let f in stink) {
+                console.log('====================> ' + f);
                 if ('image' === f) {
                     let ids = this.createGlobalImageObject(stink['image']);
                     //let refs = [];
