@@ -16,6 +16,7 @@ const MarkdownTemplateHandler = require('./templatehandlers/markdownTemplateHand
 const NunjucksTemplateHandler = require('./templatehandlers/nunjucksTemplateHandler');
 const defaultFilters = require('./filters/defaultFilters')
 const defaultShortcodes = require('./shortcodes/defaultShortcodes')
+const defaultSchemaShortcodes = require('./shortcodes/defaultSchemaShortcodes')
 const HandlerCollection = require('./handlerCollection');
 const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreprocessor');
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
@@ -383,6 +384,16 @@ class Config
     loadDefaultShortcodes()
     {
         defaultShortcodes.call(this, this);
+    }
+
+    /**
+     * Add the default schema shortcodes.
+     * 
+     * @return  {Config}
+     */
+    loadDefaultSchemaShortcodes()
+    {
+        defaultSchemaShortcodes.call(this, this);
     }
 
     /**
