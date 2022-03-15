@@ -339,7 +339,7 @@ class Schema
                     sch.addProp('url', this.qualify(stink[f]));
                 } else {
                     obj.setAttrib(f, stink[f]);
-                    sch.addProp(f, stink[f]);
+                    //sch.addProp(f, stink[f]);
                 }
             }
             this.items[id] = obj;
