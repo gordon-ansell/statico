@@ -298,8 +298,8 @@ class Schema
             obj.setAttrib('url', this.qualify(src));
 
             let sch = SchemaCreator.create('ImageObject', 'image-' + mdid);
-            sch.addProp('contentUrl', this.qualify(f.file));
-            sch.addProp('url', this.qualify(f.file));
+            sch.addProp('contentUrl', this.qualify(src));
+            sch.addProp('url', this.qualify(src));
             this.graph.set('image-' + mdid, sch);
 
             this.items[mdid] = obj;
@@ -322,29 +322,28 @@ class Schema
             let id = 'author-' + string.slugify(key);
             let obj = new SchemaObject('Person', {}, id);
 
-            //let sch = SchemaCreator.create('Person', id);
+            let sch = SchemaCreator.create('Person', id);
 
             let stink = authors[key];
             for (let f in stink) {
-                console.log('====================> ' + f);
                 if ('image' === f) {
                     let ids = this.createGlobalImageObject(stink['image']);
-                    //let refs = [];
+                    let refs = [];
                     for (let id of ids) {
                         obj.appendArrayAttrib('image', this.ref(id));
-                        //refs.push(SchemaBase.ref(id));
+                        refs.push(SchemaBase.ref(id));
                     }
-                    //sch.addProp('image', refs);
+                    sch.addProp('image', refs);
                 } else if ('url' === f) { 
                     obj.setAttrib('url', this.qualify(stink[f]));
-                    //sch.addProp('url', this.qualify(stink[f]));
+                    sch.addProp('url', this.qualify(stink[f]));
                 } else {
                     obj.setAttrib(f, stink[f]);
-                    //sch.addProp(f, stink[f]);
+                    sch.addProp(f, stink[f]);
                 }
             }
             this.items[id] = obj;
-            //this.graph.set(id, sch);
+            this.graph.set(id, sch);
         }
     }
 
