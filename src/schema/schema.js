@@ -10,7 +10,7 @@ const path = require('path');
 const SchemaObject = require('./schemaObject');
 const { URL } = require('url');
 const { MD5, string } = require('js-framework');
-const { SchemaGraph, SchemaCreator } = require('js-schema');
+const { SchemaGraph, SchemaCreator, SchemaBase } = require('js-schema');
 const debug = require('debug')('Framework:schema.Schema'),
       debugf = require('debug')('Full.Framework:schema.Schema');
 
