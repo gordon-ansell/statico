@@ -331,7 +331,7 @@ class Schema
                     let refs = [];
                     for (let id of ids) {
                         obj.appendArrayAttrib('image', this.ref(id));
-                        refs.push(SchemaBase.ref(id));
+                        refs.push(SchemaBase.ref('image-' + id));
                     }
                     sch.addProp('image', refs);
                 } else if ('url' === f) { 
@@ -372,19 +372,26 @@ class Schema
     _renderPublisher(publisher, page)
     {
         let obj = new SchemaObject('Organization', {}, 'publisher');
+        let sch = SchemaCreator.create('Organization', 'publisher');
         for (let key of Object.keys(publisher)) {
             if ('image' === key || 'logo' === key) {
                 let ids = this.createGlobalImageObject(publisher[key]);
+                let refs = [];
                 for (let id of ids) {
                     obj.appendArrayAttrib(key, this.ref(id));
+                    refs.push(SchemaBase.ref('image-' + id));
                 }
+                sch.addProp(key, refs);
             } else if ('url' === key) { 
                 obj.setAttrib('url', this.qualify(publisher[key]));
+                sch.addProp('url', this.qualify(publisher[key]));
             } else {
                 obj.setAttrib(key, publisher[key]);
+                sch.addProp(key, publisher[key]);
             }
         }
         this.items['publisher'] = obj;
+        this.graph.set('publisher', sch);
     }
 
     /**
