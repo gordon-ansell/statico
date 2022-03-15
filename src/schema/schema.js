@@ -649,16 +649,20 @@ class Schema
     {
         let id = 'product-' + string.slugify(productFields.name);
         let obj = new SchemaObject(productFields.type, {}, id);
+        let sch = SchemaCreator.create(productFields.type, id);
 
         for (let idx of Object.keys(productFields)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
 
                 if ('brand' === idx) {
                     obj.setAttrib(idx, {'@type': "Organization", name: productFields[idx]});
+                    sch.brand(SchemaCreator.create('Organization', null, {name: productFields[idx]}));
                 } else if ('operatingSystem' === idx) {
                     obj.setAttrib(idx, productFields[idx]);
+                    sch.operatingSystem(productFields[idx]);
                 } else {
                     obj.setAttrib(idx, productFields[idx]);
+                    sch.addProp(idx, productFields[idx]);
                 }
             }
         }
@@ -672,15 +676,24 @@ class Schema
                 ratingCount: 1
             };
             obj.setAttrib('aggregateRating', ar);
+            sch.aggregateRating(SchemaCreator.create('AggregateRating', null, {
+                ratingValue: rating,
+                bestRating: 5,
+                worstRating: 0,
+                ratingCount: 1
+            }));
         }
 
         obj.setAttrib('review', this.ref(reviewId));
+        sch.review(this.ref(reviewId));
 
         if (this.imageIds.length > 0) {
             obj.setAttrib('image', this.getImageIds());
+            sch.image(this.getImageIds());
         }
 
         this.items[id] = obj;
+        this.graph.set(id, sch);
 
         return id;
     }
