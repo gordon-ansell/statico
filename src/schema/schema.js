@@ -10,7 +10,7 @@ const path = require('path');
 const SchemaObject = require('./schemaObject');
 const { URL } = require('url');
 const { MD5, string } = require('js-framework');
-const { SchemaGraph, SchemaCreator } = require('js-schema');
+const { SchemaGraph, SchemaCreator, SchemaBase } = require('js-schema');
 const debug = require('debug')('Framework:schema.Schema'),
       debugf = require('debug')('Full.Framework:schema.Schema');
 
@@ -321,20 +321,29 @@ class Schema
         for (let key of Object.keys(authors)) {
             let id = 'author-' + string.slugify(key);
             let obj = new SchemaObject('Person', {}, id);
+
+            let sch = SchemaCreator.create('Person', id);
+
             let stink = authors[key];
             for (let f in stink) {
                 if ('image' === f) {
                     let ids = this.createGlobalImageObject(stink['image']);
+                    let refs = [];
                     for (let id of ids) {
                         obj.appendArrayAttrib('image', this.ref(id));
+                        refs.push(SchemaBase.ref(id));
                     }
+                    sch.setProp('image', refs);
                 } else if ('url' === f) { 
                     obj.setAttrib('url', this.qualify(stink[f]));
+                    sch.setProp('url', this.qualify(stink[f]));
                 } else {
                     obj.setAttrib(f, stink[f]);
+                    sch.setProp(f, stink[f]);
                 }
             }
             this.items[id] = obj;
+            this.graph.set(id, sch);
         }
     }
 
