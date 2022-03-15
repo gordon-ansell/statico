@@ -166,6 +166,7 @@ class Statico
         this.config.events.emit('statico.init.postbaseconfig');
         this.config.loadDefaultFilters();
         this.config.loadDefaultShortcodes();
+        this.config.loadDefaultSchemaShortcodes();
         this.config.addBuiltInTemplateHandlers();
 
         TemplatePathUrl.sitePath = this.config.sitePath;

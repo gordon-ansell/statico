@@ -6,10 +6,9 @@
  */
 'use strict';
 
-const { NunjucksShortcode, GAError, syslog, duration } = require('js-framework');
-const Schema = require('../schema');
+const { NunjucksShortcode, GAError, syslog } = require('js-framework');
+const Schema = require('../../schema/schema');
 
-class StaticReviewShortcodeError extends GAError {};
 
 /**
  * Review shortcode class.
