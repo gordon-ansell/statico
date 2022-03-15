@@ -590,20 +590,25 @@ class Schema
             }
 
             obj.setAttrib('mainEntityOfPage', this.ref('webpage'));
+            sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
             let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
             obj.setAttrib('author', this.ref(author));
+            sch.author(SchemaBase.ref(author));
 
             if (this.ctx.tags) {
                 obj.setAttrib('keywords', this.ctx.tags);
+                sch.keywords(this.ctx.tags);
             }
 
             if (this.ctx.wordcount) {
                 obj.setAttrib('wordcount', this.ctx.wordcount);
+                sch.wordCount(this.ctx.wordcount);
             }
 
             if (this.ctx.excerpt_text) {
                 obj.setAttrib('backstory', this.ctx.excerpt_text);
+                sch.backstory(this.ctx.excerpt_text);
             }
 
             if (this.raw.citation) {
@@ -613,13 +618,18 @@ class Schema
                     url: this.raw.citation.url
                 };
                 obj.setAttrib('citation', c);
+                if (this.graph.has('citation')) {
+                    sch.citation(SchemaBase.ref('citation'));
+                }
             }
 
             if (this.imageIds.length > 0) {
                 obj.setAttrib('image', this.getImageIds());
+                sch.image(this.getImageIds());
             }
 
             this.items['article'] = obj;
+            this.graph.set('article', sch);
         }
     }
 
