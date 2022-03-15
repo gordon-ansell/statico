@@ -7,6 +7,7 @@
 'use strict';
 
 const { NunjucksShortcode, GAError } = require('js-framework');
+const Schema = require('../../schema/schema');
 const debug = require('debug')('Statico.shortcodes.SchemaRenderShortcode'),
       debugf = require('debug')('Full.Statico.shortcodes.SchemaRenderShortcode');
 
