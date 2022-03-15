@@ -407,6 +407,7 @@ class Schema
             let site = this.config.site;
             
             let obj = new SchemaObject('WebSite', {}, 'website');
+            let sch = SchemaCreator.create('WebSite', 'website');
 
             if (site.authors) {
                 this._renderAuthors(site.authors, page); 
@@ -414,12 +415,17 @@ class Schema
             if (site.publisher) {
                 this._renderPublisher(site.publisher, page);
                 obj.setAttrib('publisher', this.ref('publisher'));
+                sch.addProp('publisher', SchemaBase.ref('publisher'));
             }
             
             if (site.title) obj.setAttrib('name', site.title);
+            if (site.title) sch.addProp('name', site.title);
             if (site.description) obj.setAttrib('description', site.description);
+            if (site.description) sch.addProp('description', site.description);
             obj.setAttrib('url', this.config.hostname);
+            sch.addProp('url', this.config.hostname);
             this.items['website'] = obj;
+            this.graph.set('website', sch);
         }
     }
 
