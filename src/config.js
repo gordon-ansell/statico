@@ -138,8 +138,7 @@ class Config
             watcher: {},
             dynamicData: {},
             imageInfoStore: new ImageInfoStore(this),
-            schema: {},
-            schema1: {},
+            schema: {}
         };        
     }
 
