@@ -522,7 +522,7 @@ class Schema
             if (this.ctx.permalink) {
                 let action = {"@type": "ReadAction", target: this.qualify(this.ctx.permalink)};
                 obj.setAttrib('potentialAction', action);
-                sch.addProp('potentialAction', SchemaCreator('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
+                sch.addProp('potentialAction', SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
             if (this.imageIds.length > 0) {
