@@ -13,7 +13,7 @@ const StaticoError = require('../staticoError');
 const StaticoTemplateHandlerError = require('../templatehandlers/staticoTemplateHandlerError');
 const CollectionDateSorted = require('../collectionDateSorted');
 const BaseParser = require('./baseParser');
-const { Schema } = require('js-framework');
+const Schema = require(require.resolve("statico/src/schema/schema.js"));
 const debug = require('debug')('Statico:TemplateParser'),
       debugf = require('debug')('Full.Statico:TemplateParser');
 
