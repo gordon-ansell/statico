@@ -555,31 +555,38 @@ class Schema
             }
 
             let obj = new SchemaObject(type, {}, 'article');
+            let sch = SchemaCreator.create(type, 'article');
 
             if (this.ctx.title) {
                 obj.setAttrib('name', this.ctx.title);
+                sch.name(this.ctx.title);
             }
 
             for (let item of ['headline', 'description']) {
                 if (this.ctx[item]) {
                     obj.setAttrib(item, this.ctx[item]);
+                    sch.addProp(item, this.ctx[item]);
                 }
             }
 
             if (this.ctx.permalink) {
                 obj.setAttrib('url', this.qualify(this.ctx.permalink));
+                sch.url(this.qualify(this.ctx.permalink));
             }
 
             if (!obj.hasAttrib('headline') && this.ctx.title) {
                 obj.setAttrib('headline', this.ctx.title)
+                sch.headline(this.ctx.title);
             }
 
             if (this.ctx._date) {
                 obj.setAttrib('datePublished', this.ctx._date.iso);
+                sch.datePublished(this.ctx._date.iso);
             }
 
             if (this.ctx._modified) {
                 obj.setAttrib('dateModified', this.ctx._modified.iso);
+                sch.dateModified(this.ctx._modified.iso);
             }
 
             obj.setAttrib('mainEntityOfPage', this.ref('webpage'));
