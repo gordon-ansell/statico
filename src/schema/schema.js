@@ -618,9 +618,13 @@ class Schema
                     url: this.raw.citation.url
                 };
                 obj.setAttrib('citation', c);
-                if (this.graph.has('citation')) {
-                    sch.citation(SchemaBase.ref('citation'));
-                }
+
+                sch.citation(SchemaCreator.create('WebPage', null, 
+                    {
+                        name: this.raw.citation.title,
+                        url: this.raw.citation.url
+                    }
+                ));
             }
 
             if (this.imageIds.length > 0) {
