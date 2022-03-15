@@ -333,13 +333,13 @@ class Schema
                         obj.appendArrayAttrib('image', this.ref(id));
                         refs.push(SchemaBase.ref(id));
                     }
-                    sch.addProp('image', refs);
+                    sch.setProp('image', refs);
                 } else if ('url' === f) { 
                     obj.setAttrib('url', this.qualify(stink[f]));
-                    sch.addProp('url', this.qualify(stink[f]));
+                    sch.setProp('url', this.qualify(stink[f]));
                 } else {
                     obj.setAttrib(f, stink[f]);
-                    sch.addProp(f, stink[f]);
+                    sch.setProp(f, stink[f]);
                 }
             }
             this.items[id] = obj;
