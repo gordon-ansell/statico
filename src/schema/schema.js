@@ -834,7 +834,7 @@ class Schema
         for (let idx in this.items) {
             ret['@graph'].push(this.items[idx].attribs);
         }
-        return JSON.stringify(ret, replacer, space) + `\n\n\n\n` + this.graph.resolveProps();
+        return JSON.stringify(ret, replacer, space) + `\n\n\n\n` + this.graph.resolve();
     }
 }
 
