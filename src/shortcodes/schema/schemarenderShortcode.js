@@ -11,8 +11,6 @@ const debug = require('debug')('Statico.shortcodes.SchemaRenderShortcode'),
       debugf = require('debug')('Full.Statico.shortcodes.SchemaRenderShortcode');
 
 
-class StaticoSchemaRenderShortcodeError extends GAError {};
-
 /**
  * Schema render shortcode class.
  */

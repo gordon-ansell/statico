@@ -31,9 +31,6 @@
             "path": "../statico-plugins/statico-plugin-webmentions"
         },
         {
-            "path": "../statico-plugins/statico-plugin-schemahelpers"
-        },
-        {
             "path": "../../statico-blog-eg"
         },
         {
