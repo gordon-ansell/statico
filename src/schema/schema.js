@@ -336,7 +336,7 @@ class Schema
                     sch.addProp('image', refs);
                 } else if ('url' === f) { 
                     obj.setAttrib('url', this.qualify(stink[f]));
-                    sch.addProp('url', this.qualify(stink[f]));
+                    //sch.addProp('url', this.qualify(stink[f]));
                 } else {
                     obj.setAttrib(f, stink[f]);
                     //sch.addProp(f, stink[f]);
