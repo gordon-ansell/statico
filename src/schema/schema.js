@@ -237,6 +237,7 @@ class Schema
                     obj.setAttrib('height', f.height);
                     obj.setAttrib('representativeOfPage', true);
 
+                    /*
                     let sch = SchemaCreator.create('ImageObject', mdid);
                     sch.addProp('contentUrl', this.qualify(f.file));
                     sch.addProp('url', this.qualify(f.file));
@@ -244,6 +245,7 @@ class Schema
                     sch.addProp('height', f.height);
                     sch.addProp('representativeOfPage', true);
                     this.graph.set('image-' + mdid, sch);
+                    */
 
 
                     this.items[mdid] = obj; 
@@ -834,7 +836,7 @@ class Schema
         for (let idx in this.items) {
             ret['@graph'].push(this.items[idx].attribs);
         }
-        return JSON.stringify(ret, replacer, space) + this.graph.resolve();
+        return JSON.stringify(ret, replacer, space);
     }
 }
 
