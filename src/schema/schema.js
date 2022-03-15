@@ -516,7 +516,7 @@ class Schema
                 }
                 this.items['breadcrumb'] = new SchemaObject('BreadcrumbList', {itemListElement: itemListElement}, 'breadcrumb');
                 obj.setAttrib('breadcrumb', this.ref('breadcrumb'));
-                obj.addProp('breadcrumb', this.ref('breadcrumb'));
+                sch.addProp('breadcrumb', this.ref('breadcrumb'));
             }
 
             if (this.ctx.permalink) {
