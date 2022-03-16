@@ -649,7 +649,9 @@ class Schema
             }
         }
 
-        sch.mainEntityOfPage(SchemaBase.ref('article'));
+        if (!this.raw.faqpage) {
+            sch.mainEntityOfPage(SchemaBase.ref('article'));
+        }
 
         let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
         sch.author(SchemaBase.ref(author));
