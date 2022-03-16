@@ -101,7 +101,7 @@ class ReviewShortcode extends NunjucksShortcode
         //syslog.inspect(html, "warning");
 
         if (!kwargs.text) {
-            kwargs.text = text;
+            //kwargs.text = text;
         }
 
         if (!this.config.schema[context.ctx.permalink]) {
