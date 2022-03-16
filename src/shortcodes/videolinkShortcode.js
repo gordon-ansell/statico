@@ -7,7 +7,7 @@
 'use strict';
 
 const { syslog, NunjucksShortcode, MultiDate } = require("js-framework");
-const Schema = require('../../schema/schema');
+const Schema = require('../schema/schema');
 
 
 /**
