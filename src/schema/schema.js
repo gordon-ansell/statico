@@ -229,7 +229,7 @@ class Schema
         for (let idx of Object.keys(this.images)) {
             for (let type of Object.keys(this.images[idx])) {
                 for (let f of this.images[idx][type].files) {
-                    let mdid = 'image-' + mdc.md5(f.file);
+                    let mdid = 'image-' + string.slugify(f.file);
                     let sch = SchemaCreator.create('ImageObject', mdid);
                     sch.contentUrl(this.qualify(f.file));
                     sch.url(this.qualify(f.file));
@@ -262,7 +262,7 @@ class Schema
         if (Schema.globalImages[src]) {
             for (let type of Object.keys(Schema.globalImages[src])) {
                 for (let f of Schema.globalImages[src][type].files) {
-                    let mdid = 'image-' + mdc.md5(f.file);
+                    let mdid = 'image-' + string.slugify(f.file);
                     let sch = SchemaCreator.create('ImageObject', mdid);
                     sch.contentUrl(this.qualify(f.file));
                     sch.url(this.qualify(f.file));
@@ -274,7 +274,7 @@ class Schema
                 }
             }
         } else {
-            let mdid = 'image-' + mdc.md5(src);
+            let mdid = 'image-' + string.slugify(src);
             let sch = SchemaCreator.create('ImageObject', 'image-' + mdid);
             sch.contentUrl(this.qualify(src));
             sch.url(this.qualify(src));
@@ -774,8 +774,6 @@ class Schema
                 name: item.q,
                 url: this.qualify(path.join(page, '#faq-' + stepNum))
             });
-
-            syslog.inspect(step, "error");
 
             step.addProp('acceptedAnswer', SchemaCreator.create('Answer', null, {text: item.html}));
 
