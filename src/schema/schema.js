@@ -770,10 +770,12 @@ class Schema
 
         for (let item of this.raw.faqqa) {
 
+            let ans = SchemaCreator.create('Answer', null, {text: item.html});
+
             let step = SchemaCreator.create('Question', null, {
                 name: item.q,
                 url: this.qualify(path.join(page, '#faq-' + stepNum)),
-                acceptedAnswer: SchemaCreator.create('Answer', null, {text: item.html})
+                acceptedAnswer: ans
             });
 
             ret.push(step);
