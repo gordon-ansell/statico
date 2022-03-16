@@ -458,7 +458,7 @@ class Schema
                     }
                     itemListElements.push(bcitem);
                 }
-                sch.breadcrumb(SchemaCreator.create('BreacrumbList', null, {itemListElement: itemListElements}));
+                sch.breadcrumb(SchemaCreator.create('BreadcrumbList', null, {itemListElement: itemListElements}));
             }
 
             if (this.ctx.permalink) {
