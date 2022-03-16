@@ -49,7 +49,6 @@
         "image-size": "*",
 		"js-framework": "gordon-ansell/js-framework",
         "js-beautify": "*",
-        "js-schema": "gordon-ansell/js-schema",
 		"lodash.clonedeep": "*",
         "lodash.get": "*",
 		"minimist": "*",
