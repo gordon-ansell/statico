@@ -435,7 +435,7 @@ class Schema
                 sch.url(this.qualify(this.ctx.permalink));
             }
 
-            if (!obj.hasAttrib('headline') && this.ctx.title) {
+            if (!this.ctx.headline && this.ctx.title) {
                 sch.headline(this.ctx.title)
             }
 
@@ -491,7 +491,7 @@ class Schema
                 type = 'Article';
             }
 
-            let obj = new SchemaObject(type, {}, 'article');
+            let sch = SchemaCreator.create(type, 'article');
 
             if (this.ctx.title) {
                 sch.name(this.ctx.title);
@@ -507,7 +507,7 @@ class Schema
                 sch.url(this.qualify(this.ctx.permalink));
             }
 
-            if (!obj.hasAttrib('headline') && this.ctx.title) {
+            if (!this.ctx.headline && this.ctx.title) {
                 sch.headline(this.ctx.title);
             }
 
