@@ -100,6 +100,23 @@ class VideoLinkShortcode extends NunjucksShortcode
             delete kwargs.src;
             delete kwargs.class;
 
+            let saveData = {
+                embedUrl: url,
+                contentUrl: `https://www.youtube-nocookie.com/watch?v=${id}`,
+                thumbnailUrl: `https://img.youtube-nocookie.com/vi/${id}/default.jpg`
+            }
+
+            if (kwargs.caption) {
+                saveData.caption = kwargs.caption;
+            }
+
+            for (let idx in meta) {
+                if (!idx.startsWith('__')) {
+                    saveData[idx] = meta[idx];
+                }
+            }
+
+            /*
             ret += '<span itemprop="video" itemtype="https://schema.org/VideoObject" itemscope>';
             ret += `<link itemprop="embedUrl" href="${url}" />`;
             ret += `<link itemprop="contentUrl" href="https://www.youtube-nocookie.com/watch?v=${id}" />`;
@@ -111,6 +128,12 @@ class VideoLinkShortcode extends NunjucksShortcode
             }
 
             ret += '</span>';
+            */
+
+            if (!this.config.schema[context.ctx.permalink]) {
+                this.config.schema[context.ctx.permalink] = new Schema(this.config);
+            }
+            this.config.schema[context.ctx.permalink].addVideo(url, saveData);
 
         } else {
             syslog.error(`'${type}' is an unsupported video link type: ${context.ctx.permalink}.`);
