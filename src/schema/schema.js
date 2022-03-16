@@ -63,6 +63,18 @@ class Schema
     imageIdsForSrc = {};
 
     /**
+     * Videos.
+     * @member {object}
+     */
+    videos = {};
+
+    /**
+     * Video IDs
+     * @member {string[]}
+     */
+    videoIds = [];
+
+    /**
      * Configs.
      * @member {object}
      */
@@ -168,6 +180,20 @@ class Schema
     }
 
     /**
+     * Add video.
+     * 
+     * @param   {string}    name        Name.
+     * @param   {object}    obj         Raw data.
+     * 
+     * @return  {Schema}
+     */
+    addVideo(name, obj)
+    {
+        this.videos[name] = obj;
+        return this;
+    }
+
+    /**
      * Dump images.
      * 
      * @return  {void}
@@ -249,6 +275,29 @@ class Schema
     }
 
     /**
+     * Render videos.
+     * 
+     * @param   {string}    page
+     * 
+     * @return  {void}
+     */
+    _renderVideos(page)
+    {
+        let mdc = new MD5();
+        for (let idx of Object.keys(this.videos)) {
+            let mdid = 'video-' + mdc.md5(idx);
+            let sch = SchemaCreator.create('VideoObject', mdid);
+            for (let field in this.videos[idx]) {
+                sch.addProp(field, this.videos[idx][field]);
+            }
+
+            this.graph.set(mdid, sch);
+
+            this.videoIds.push(mdid);
+        }
+    }
+
+    /**
      * Create global image object.
      * 
      * @param   {string}    src
@@ -325,6 +374,20 @@ class Schema
     {
         let ret = [];
         for (let item of this.imageIds) {
+            ret.push(this.ref(item));
+        }
+        return ret;
+    }
+
+    /**
+     * Get all the video IDs
+     * 
+     * @return
+     */
+    getVideoIds()
+    {
+        let ret = [];
+        for (let item of this.videoIds) {
             ret.push(this.ref(item));
         }
         return ret;
@@ -473,6 +536,9 @@ class Schema
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
             }
+            if (this.videoIds.length > 0) {
+                sch.video(this.getVideoIds());
+            }
 
             this.graph.set('webpage', sch);
         }
@@ -553,6 +619,9 @@ class Schema
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
             }
+            if (this.videoIds.length > 0) {
+                sch.video(this.getVideoIds());
+            }
 
             this.graph.set('article', sch);
         }
@@ -599,6 +668,10 @@ class Schema
 
         if (this.imageIds.length > 0) {
             sch.image(this.getImageIds());
+        }
+
+        if (this.videoIds.length > 0) {
+            sch.video(this.getVideoIds());
         }
 
         this.graph.set(id, sch);
@@ -803,6 +876,7 @@ class Schema
     render(page, replacer = null, space = null)
     {
         this._renderImages(page);
+        this._renderVideos(page);
         this._renderWebsite(page);
         this._renderWebpage(page);
         if (!this.raw.faqpage) {
