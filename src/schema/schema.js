@@ -777,7 +777,7 @@ class Schema
 
             syslog.inspect(step, "error");
 
-            step.acceptedAnwer(SchemaCreator.create('Answer', null, {text: item.html}));
+            step.addProp('acceptedAnswer', SchemaCreator.create('Answer', null, {text: item.html}));
 
             ret.push(step);
             stepNum++;
