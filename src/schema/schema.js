@@ -229,24 +229,15 @@ class Schema
         for (let idx of Object.keys(this.images)) {
             for (let type of Object.keys(this.images[idx])) {
                 for (let f of this.images[idx][type].files) {
-                    let mdid = mdc.md5(f.file);
-                    let obj = new SchemaObject('ImageObject', {}, mdid);
-                    obj.setAttrib('contentUrl', this.qualify(f.file));
-                    obj.setAttrib('url', this.qualify(f.file));
-                    obj.setAttrib('width', f.width);
-                    obj.setAttrib('height', f.height);
-                    obj.setAttrib('representativeOfPage', true);
+                    let mdid = 'image-' + mdc.md5(f.file);
+                    let sch = SchemaCreator.create('ImageObject', mdid);
+                    sch.contentUrl(this.qualify(f.file));
+                    sch.url(this.qualify(f.file));
+                    sch.width(f.width);
+                    sch.height(f.height);
+                    sch.representativeOfPage(true);
+                    this.graph.set(mdid, sch);
 
-                    let sch = SchemaCreator.create('ImageObject', 'image-' + mdid);
-                    sch.addProp('contentUrl', this.qualify(f.file));
-                    sch.addProp('url', this.qualify(f.file));
-                    sch.addProp('width', f.width);
-                    sch.addProp('height', f.height);
-                    sch.addProp('representativeOfPage', true);
-                    this.graph.set('image-' + mdid, sch);
-
-
-                    this.items[mdid] = obj; 
                     this.imageIds.push(mdid);
                     if (!this.imageIdsForSrc[idx]) {
                         this.imageIdsForSrc[idx] = [];
@@ -271,38 +262,23 @@ class Schema
         if (Schema.globalImages[src]) {
             for (let type of Object.keys(Schema.globalImages[src])) {
                 for (let f of Schema.globalImages[src][type].files) {
-                    let mdid = mdc.md5(f.file);
-                    let obj = new SchemaObject('ImageObject', {}, mdid);
-                    obj.setAttrib('contentUrl', this.qualify(f.file));
-                    obj.setAttrib('url', this.qualify(f.file));
-                    obj.setAttrib('width', f.width);
-                    obj.setAttrib('height', f.height);
-                    obj.setAttrib('representativeOfPage', true);
-
-                    let sch = SchemaCreator.create('ImageObject', 'image-' + mdid);
-                    sch.addProp('contentUrl', this.qualify(f.file));
-                    sch.addProp('url', this.qualify(f.file));
-                    sch.addProp('width', f.width);
-                    sch.addProp('height', f.height);
-                    sch.addProp('representativeOfPage', true);
-                    this.graph.set('image-' + mdid, sch);
-
-                    this.items[mdid] = obj;
+                    let mdid = 'image-' + mdc.md5(f.file);
+                    let sch = SchemaCreator.create('ImageObject', mdid);
+                    sch.contentUrl(this.qualify(f.file));
+                    sch.url(this.qualify(f.file));
+                    sch.width(f.width);
+                    sch.height(f.height);
+                    sch.representativeOfPage(true);
+                    this.graph.set(mdid, sch);
                     ret.push(mdid); 
                 }
             }
         } else {
-            let mdid = mdc.md5(src);
-            let obj = new SchemaObject('ImageObject', {}, mdid);
-            obj.setAttrib('contentUrl', this.qualify(src));
-            obj.setAttrib('url', this.qualify(src));
-
+            let mdid = 'image-' + mdc.md5(src);
             let sch = SchemaCreator.create('ImageObject', 'image-' + mdid);
-            sch.addProp('contentUrl', this.qualify(src));
-            sch.addProp('url', this.qualify(src));
-            this.graph.set('image-' + mdid, sch);
-
-            this.items[mdid] = obj;
+            sch.contentUrl(this.qualify(src));
+            sch.url(this.qualify(src));
+            this.graph.set(mdid, sch);
             ret.push(mdid); 
         }
         return ret;
@@ -320,29 +296,22 @@ class Schema
     {
         for (let key of Object.keys(authors)) {
             let id = 'author-' + string.slugify(key);
-            let obj = new SchemaObject('Person', {}, id);
-
             let sch = SchemaCreator.create('Person', id);
-
             let stink = authors[key];
             for (let f in stink) {
                 if ('image' === f) {
                     let ids = this.createGlobalImageObject(stink['image']);
                     let refs = [];
                     for (let id of ids) {
-                        obj.appendArrayAttrib('image', this.ref(id));
-                        refs.push(SchemaBase.ref('image-' + id));
+                        refs.push(SchemaBase.ref(id));
                     }
-                    sch.addProp('image', refs);
+                    sch.image(refs);
                 } else if ('url' === f) { 
-                    obj.setAttrib('url', this.qualify(stink[f]));
-                    sch.addProp('url', this.qualify(stink[f]));
+                    sch.url(this.qualify(stink[f]));
                 } else {
-                    obj.setAttrib(f, stink[f]);
                     sch.addProp(f, stink[f]);
                 }
             }
-            this.items[id] = obj;
             this.graph.set(id, sch);
         }
     }
@@ -371,26 +340,21 @@ class Schema
      */
     _renderPublisher(publisher, page)
     {
-        let obj = new SchemaObject('Organization', {}, 'publisher');
         let sch = SchemaCreator.create('Organization', 'publisher');
         for (let key of Object.keys(publisher)) {
             if ('image' === key || 'logo' === key) {
                 let ids = this.createGlobalImageObject(publisher[key]);
                 let refs = [];
                 for (let id of ids) {
-                    obj.appendArrayAttrib(key, this.ref(id));
-                    refs.push(SchemaBase.ref('image-' + id));
+                    refs.push(SchemaBase.ref(id));
                 }
                 sch.addProp(key, refs);
             } else if ('url' === key) { 
-                obj.setAttrib('url', this.qualify(publisher[key]));
-                sch.addProp('url', this.qualify(publisher[key]));
+                sch.url(this.qualify(publisher[key]));
             } else {
-                obj.setAttrib(key, publisher[key]);
                 sch.addProp(key, publisher[key]);
             }
         }
-        this.items['publisher'] = obj;
         this.graph.set('publisher', sch);
     }
 
@@ -405,8 +369,6 @@ class Schema
     {
         if (this.config.site) {
             let site = this.config.site;
-            
-            let obj = new SchemaObject('WebSite', {}, 'website');
             let sch = SchemaCreator.create('WebSite', 'website');
 
             if (site.authors) {
@@ -414,17 +376,12 @@ class Schema
             }
             if (site.publisher) {
                 this._renderPublisher(site.publisher, page);
-                obj.setAttrib('publisher', this.ref('publisher'));
-                sch.addProp('publisher', SchemaBase.ref('publisher'));
+                sch.publisher(SchemaBase.ref('publisher'));
             }
             
-            if (site.title) obj.setAttrib('name', site.title);
-            if (site.title) sch.addProp('name', site.title);
-            if (site.description) obj.setAttrib('description', site.description);
-            if (site.description) sch.addProp('description', site.description);
-            obj.setAttrib('url', this.config.hostname);
-            sch.addProp('url', this.config.hostname);
-            this.items['website'] = obj;
+            if (site.title) sch.name(site.title);
+            if (site.description) sch.description(site.description);
+            sch.url(this.config.hostname);
             this.graph.set('website', sch);
         }
     }
@@ -462,76 +419,56 @@ class Schema
             }
 
 
-            let obj = new SchemaObject(type, {}, 'webpage');
             let sch = SchemaCreator.create(type, 'webpage');
 
             if (this.ctx.title) {
-                obj.setAttrib('name', this.ctx.title);
-                sch.addProp('name', this.ctx.title);
+                sch.name(this.ctx.title);
             }
 
             for (let item of ['headline', 'description']) {
                 if (this.ctx[item]) {
-                    obj.setAttrib(item, this.ctx[item]);
                     sch.addProp(item, this.ctx[item]);
                 }
             }
 
             if (this.ctx.permalink) {
-                obj.setAttrib('url', this.qualify(this.ctx.permalink));
-                sch.addProp('url', this.qualify(this.ctx.permalink));
+                sch.url(this.qualify(this.ctx.permalink));
             }
 
             if (!obj.hasAttrib('headline') && this.ctx.title) {
-                obj.setAttrib('headline', this.ctx.title)
-                sch.addProp('headline', this.ctx.title)
+                sch.headline(this.ctx.title)
             }
 
             if (this.ctx._date) {
-                obj.setAttrib('datePublished', this.ctx._date.iso);
-                sch.addProp('datePublished', this.ctx._date.iso);
+                sch.datePublished(this.ctx._date.iso);
             }
 
             if (this.ctx._modified) {
-                obj.setAttrib('dateModified', this.ctx._modified.iso);
-                sch.addProp('dateModified', this.ctx._modified.iso);
+                sch.dateModified(this.ctx._modified.iso);
             }
 
-            obj.setAttrib('isPartOf', this.ref('website'));
-            sch.addProp('isPartOf', this.ref('website'));
+            sch.isPartOf(SchemaBase.ref('website'));
 
             if (this.raw.breadcrumb) {
-                let itemListElement = [];
+                let itemListElements = [];
                 for (let item of this.raw.breadcrumb) {
-                    let s = {
-                        "@type": "ListItem",
-                        name: item.title,
-                        position: item.num
-                    }
+                    let bcitem = SchemaCreator.create('ListItem', null, {name: item.title, position: item.num});
                     if (item.url) {
-                        //s['@id'] = this.qualify(item.url);
-                        s['item'] = {"@type": "WebPage", "@id": this.qualify(item.url)};
+                        bcitem.item(SchemaCreator.create('WebPage', SchemaBase.plainId(this.qualify(item.url))));
                     }
-                    itemListElement.push(s);
+                    itemListElements.push(s);
                 }
-                this.items['breadcrumb'] = new SchemaObject('BreadcrumbList', {itemListElement: itemListElement}, 'breadcrumb');
-                obj.setAttrib('breadcrumb', this.ref('breadcrumb'));
-                sch.addProp('breadcrumb', this.ref('breadcrumb'));
+                sch.breadcrumb(SchemaCreator.create('BreacrumbList', null, {itemListElement: itemListElements}));
             }
 
             if (this.ctx.permalink) {
-                let action = {"@type": "ReadAction", target: this.qualify(this.ctx.permalink)};
-                obj.setAttrib('potentialAction', action);
-                sch.addProp('potentialAction', 
-                    SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
+                sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
             if (this.imageIds.length > 0) {
-                obj.setAttrib('image', this.getImageIds());
-                sch.addProp('image', this.getImageIds());
+                sch.image(this.getImageIds());
             }
 
-            this.items['webpage'] = obj;
             this.graph.set('webpage', sch);
         }
     }
@@ -555,70 +492,51 @@ class Schema
             }
 
             let obj = new SchemaObject(type, {}, 'article');
-            let sch = SchemaCreator.create(type, 'article');
 
             if (this.ctx.title) {
-                obj.setAttrib('name', this.ctx.title);
                 sch.name(this.ctx.title);
             }
 
             for (let item of ['headline', 'description']) {
                 if (this.ctx[item]) {
-                    obj.setAttrib(item, this.ctx[item]);
                     sch.addProp(item, this.ctx[item]);
                 }
             }
 
             if (this.ctx.permalink) {
-                obj.setAttrib('url', this.qualify(this.ctx.permalink));
                 sch.url(this.qualify(this.ctx.permalink));
             }
 
             if (!obj.hasAttrib('headline') && this.ctx.title) {
-                obj.setAttrib('headline', this.ctx.title)
                 sch.headline(this.ctx.title);
             }
 
             if (this.ctx._date) {
-                obj.setAttrib('datePublished', this.ctx._date.iso);
                 sch.datePublished(this.ctx._date.iso);
             }
 
             if (this.ctx._modified) {
-                obj.setAttrib('dateModified', this.ctx._modified.iso);
                 sch.dateModified(this.ctx._modified.iso);
             }
 
-            obj.setAttrib('mainEntityOfPage', this.ref('webpage'));
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
             let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
-            obj.setAttrib('author', this.ref(author));
             sch.author(SchemaBase.ref(author));
 
             if (this.ctx.tags) {
-                obj.setAttrib('keywords', this.ctx.tags);
                 sch.keywords(this.ctx.tags);
             }
 
             if (this.ctx.wordcount) {
-                obj.setAttrib('wordcount', this.ctx.wordcount);
                 sch.wordCount(this.ctx.wordcount);
             }
 
             if (this.ctx.excerpt_text) {
-                obj.setAttrib('backstory', this.ctx.excerpt_text);
                 sch.backstory(this.ctx.excerpt_text);
             }
 
             if (this.raw.citation) {
-                let c = {
-                    "@type": "WebPage",
-                    name: this.raw.citation.title,
-                    url: this.raw.citation.url
-                };
-                obj.setAttrib('citation', c);
-
                 sch.citation(SchemaCreator.create('WebPage', null, 
                     {
                         name: this.raw.citation.title,
@@ -628,11 +546,9 @@ class Schema
             }
 
             if (this.imageIds.length > 0) {
-                obj.setAttrib('image', this.getImageIds());
                 sch.image(this.getImageIds());
             }
 
-            this.items['article'] = obj;
             this.graph.set('article', sch);
         }
     }
@@ -648,34 +564,22 @@ class Schema
     _renderProduct(page, productFields, rating = null, reviewId)
     {
         let id = 'product-' + string.slugify(productFields.name);
-        let obj = new SchemaObject(productFields.type, {}, id);
         let sch = SchemaCreator.create(productFields.type, id);
 
         for (let idx of Object.keys(productFields)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
 
                 if ('brand' === idx) {
-                    obj.setAttrib(idx, {'@type': "Organization", name: productFields[idx]});
                     sch.brand(SchemaCreator.create('Organization', null, {name: productFields[idx]}));
                 } else if ('operatingSystem' === idx) {
-                    obj.setAttrib(idx, productFields[idx]);
                     sch.operatingSystem(productFields[idx]);
                 } else {
-                    obj.setAttrib(idx, productFields[idx]);
                     sch.addProp(idx, productFields[idx]);
                 }
             }
         }
 
         if (rating) {
-            let ar = {
-                '@type': 'AggregateRating',
-                ratingValue: rating,
-                bestRating: 5,
-                worstRating: 0,
-                ratingCount: 1
-            };
-            obj.setAttrib('aggregateRating', ar);
             sch.aggregateRating(SchemaCreator.create('AggregateRating', null, {
                 ratingValue: rating,
                 bestRating: 5,
@@ -684,15 +588,12 @@ class Schema
             }));
         }
 
-        obj.setAttrib('review', this.ref(reviewId));
-        sch.review(this.ref(reviewId));
+        sch.review(SchemaBase.ref(reviewId));
 
         if (this.imageIds.length > 0) {
-            obj.setAttrib('image', this.getImageIds());
             sch.image(this.getImageIds());
         }
 
-        this.items[id] = obj;
         this.graph.set(id, sch);
 
         return id;
@@ -728,45 +629,32 @@ class Schema
             pid = this._renderProduct(page, this.raw.review.product, rating, id);
         }
  
-        let obj = new SchemaObject('Review', {}, id);
         let sch = SchemaCreator.create('Review', id);
 
         for (let idx of Object.keys(reviewFields)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
 
                 if ('rating' === idx) {
-                    let r = {
-                        '@type': "Rating",
-                        ratingValue: reviewFields[idx],
-                        bestRating: 5,
-                        worstRating: 0
-                    }
-                    obj.setAttrib('reviewRating', r);
                     sch.reviewRating(SchemaCreator.create('Rating', null, {
                         ratingValue: reviewFields[idx],
                         bestRating: 5,
                         worstRating: 0
                     }));
                 } else {
-                    obj.setAttrib(idx, reviewFields[idx]);
                     sch.addProp(idx, reviewFields[idx]);
                 }
 
             }
         }
 
-        obj.setAttrib('mainEntityOfPage', this.ref('article'));
         sch.mainEntityOfPage(SchemaBase.ref('article'));
 
         let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
-        obj.setAttrib('author', this.ref(author));
         sch.author(SchemaBase.ref(author));
 
 
-        obj.setAttrib('itemReviewed', this.ref(pid));
         sch.itemReviewed(SchemaBase.ref(pid));
 
-        this.items[id] = obj;
         this.graph.set(id, sch);
     }
 
@@ -783,19 +671,18 @@ class Schema
             return;
         }
 
-        let obj = new SchemaObject('HowTo', {}, 'howto');
+        let sch = SchemaObject.create('HowTo', 'howto');
 
         for (let idx of Object.keys(this.raw.howto)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
-                obj.setAttrib(idx, this.raw.howto[idx]);
+                sch.addProp(idx, this.raw.howto[idx]);
             }
         }
 
-        obj.setAttrib('step', this._renderHowToSteps(page));
+        sch.step(this._renderHowToSteps(page));
+        sch.mainEntityOfPage(SchemaBase.ref('article'));
 
-        obj.setAttrib('mainEntityOfPage', this.ref('article'));
-
-        this.items['howto'] = obj;
+        this.graph.set('howto', sch);
     }
 
     /**
@@ -817,19 +704,18 @@ class Schema
 
         for (let item of this.raw.howtostep) {
 
-            let step = {
-                "@type": "HowToStep",
+            let step = SchemaCreator.create('HowToStep', null, {
                 name: item.name,
                 text: item.text,
                 url: this.qualify(path.join(page, '#step-' + stepNum))
-            }
+            });
 
             if (item.image && this.imageIdsForSrc[item.image]) {
                 let imgs = [];
                 for (let im of this.imageIdsForSrc[item.image]) {
-                    imgs.push(this.ref(im));
+                    imgs.push(SchemaBase.ref(im));
                 }
-                step.image = imgs;
+                step.image(imgs);
             }
 
             ret.push(step);
@@ -852,19 +738,17 @@ class Schema
             return;
         }
 
-        let obj = new SchemaObject('FAQPage', {}, 'faqpage');
+        let sch = SchemaObject.create('FAQPage', 'faqpage');
 
         for (let idx of Object.keys(this.raw.faqpage)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
-                obj.setAttrib(idx, this.raw.faqpage[idx]);
+                sch.setProp(idx, this.raw.faqpage[idx]);
             }
         }
 
-        obj.setAttrib('mainEntity', this._renderFaqQAs(page));
+        sch.mainEntity(this._renderFaqQAs(page));
 
-        //obj.setAttrib('mainEntityOfPage', this.ref('article'));
-
-        this.items['faqpage'] = obj;
+        this.graph.set('faqpage', sch);
     }
 
     /**
@@ -886,15 +770,11 @@ class Schema
 
         for (let item of this.raw.faqqa) {
 
-            let step = {
-                "@type": "Question",
+            let step = SchemaCreator.create('Question', null, {
                 name: item.q,
                 url: this.qualify(path.join(page, '#faq-' + stepNum)),
-                acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.html
-                } 
-            }
+                acceptedAnswer: SchemaCreator.create('Answer', null, {text: item.html})
+            });
 
             ret.push(step);
             stepNum++;
@@ -922,6 +802,7 @@ class Schema
 
         //debug(`${page}: %O`, this.items)
 
+        /*
         let ret = {
             "@context": Schema.schemaContext,
             "@graph": []
@@ -930,7 +811,8 @@ class Schema
         for (let idx in this.items) {
             ret['@graph'].push(this.items[idx].attribs);
         }
-        return JSON.stringify(ret, replacer, space) + `\n\n\n\n` + this.graph.resolve();
+        */
+        return this.graph.resolve();
     }
 }
 
