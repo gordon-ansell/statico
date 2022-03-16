@@ -808,7 +808,7 @@ class Schema
         if (!this.raw.faqpage) {
             this._renderArticle(page);
         }
-        //this._renderReview(page);
+        this._renderReview(page);
         this._renderHowTo(page);
         this._renderFaqPage(page);
 
