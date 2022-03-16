@@ -456,7 +456,7 @@ class Schema
                     if (item.url) {
                         bcitem.item(SchemaCreator.create('WebPage', SchemaBase.plainId(this.qualify(item.url))));
                     }
-                    itemListElements.push(s);
+                    itemListElements.push(bcitem);
                 }
                 sch.breadcrumb(SchemaCreator.create('BreacrumbList', null, {itemListElement: itemListElements}));
             }
@@ -794,9 +794,9 @@ class Schema
         this._renderWebsite(page);
         this._renderWebpage(page);
         this._renderArticle(page);
-        //this._renderReview(page);
-        //this._renderHowTo(page);
-        //this._renderFaqPage(page);
+        this._renderReview(page);
+        this._renderHowTo(page);
+        this._renderFaqPage(page);
 
         //this.dumpImages(page);
 
