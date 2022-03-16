@@ -406,6 +406,8 @@ class Schema
                 type = 'ContactPage';
             } else if (this.ctx.type && 'collection' === this.ctx.type) {
                 type = 'CollectionPage';
+            } else if (this.raw['faqpage']) {
+                type = 'FAQPage';
             }
 
             if (this.ctx.home && true === this.ctx.home) {
@@ -738,6 +740,7 @@ class Schema
             return;
         }
 
+        /*
         let sch = SchemaCreator.create('FAQPage', 'faqpage');
 
         for (let idx of Object.keys(this.raw.faqpage)) {
@@ -745,10 +748,11 @@ class Schema
                 sch.setProp(idx, this.raw.faqpage[idx]);
             }
         }
+        */
 
-        sch.mainEntity(this._renderFaqQAs(page));
+        this.graph.get('webpage').mainEntity(this._renderFaqQAs(page));
 
-        this.graph.set('faqpage', sch);
+        //this.graph.set('faqpage', sch);
     }
 
     /**
@@ -797,7 +801,7 @@ class Schema
         this._renderArticle(page);
         this._renderReview(page);
         this._renderHowTo(page);
-        //this._renderFaqPage(page);
+        this._renderFaqPage(page);
 
         //this.dumpImages(page);
 
