@@ -671,7 +671,7 @@ class Schema
         }
 
         if (this.videoIds.length > 0) {
-            sch.video(this.getVideoIds());
+            //sch.video(this.getVideoIds());
         }
 
         this.graph.set(id, sch);
