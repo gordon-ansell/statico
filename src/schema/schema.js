@@ -464,7 +464,7 @@ class Schema
             }
 
             if (this.ctx.permalink) {
-                sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
+                //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
             let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
