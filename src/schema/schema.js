@@ -275,7 +275,7 @@ class Schema
             }
         } else {
             let mdid = 'image-' + string.slugify(src);
-            let sch = SchemaCreator.create('ImageObject', 'image-' + mdid);
+            let sch = SchemaCreator.create('ImageObject', mdid);
             sch.contentUrl(this.qualify(src));
             sch.url(this.qualify(src));
             this.graph.set(mdid, sch);
