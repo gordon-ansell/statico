@@ -90,7 +90,7 @@ class Schema
     constructor(config)
     {
         this.config = config;
-        SchemaObject.url = this.config.hostname;
+        SchemaBase.urlDomain = this.config.hostname;
         this.graph = new SchemaGraph;
     }
 
