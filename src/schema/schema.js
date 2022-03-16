@@ -467,6 +467,9 @@ class Schema
                 sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
+            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+            sch.author(SchemaBase.ref(author));
+
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
             }
