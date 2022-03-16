@@ -76,7 +76,9 @@ class ReviewShortcode extends NunjucksShortcode
         }
 
         if (!kwargs.description) {
-            if (ctxData.leader) {
+            if (ctxData.leader_text) {
+                kwargs.description = ctxData.leader_text;
+            } else if (ctxData.leader) {
                 kwargs.description = ctxData.leader;
             } else {
                 kwargs.description = ctxData.description;
