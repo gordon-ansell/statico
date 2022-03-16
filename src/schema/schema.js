@@ -288,7 +288,6 @@ class Schema
             let mdid = 'video-' + mdc.md5(idx);
             let sch = SchemaCreator.create('VideoObject', mdid);
             for (let field in this.videos[idx]) {
-                console.log('===============> ' + field)
                 sch.addProp(field, this.videos[idx][field]);
             }
 
