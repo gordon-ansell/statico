@@ -7,7 +7,7 @@
 'use strict';
 
 const path = require('path');
-const SchemaObject = require('./schemaObject');
+//const SchemaObject = require('./schemaObject');
 const { URL } = require('url');
 const { MD5, string } = require('js-framework');
 const { SchemaGraph, SchemaCreator, SchemaBase } = require('js-schema');
@@ -671,7 +671,7 @@ class Schema
             return;
         }
 
-        let sch = SchemaObject.create('HowTo', 'howto');
+        let sch = SchemaCreator.create('HowTo', 'howto');
 
         for (let idx of Object.keys(this.raw.howto)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
@@ -738,7 +738,7 @@ class Schema
             return;
         }
 
-        let sch = SchemaObject.create('FAQPage', 'faqpage');
+        let sch = SchemaCreator.create('FAQPage', 'faqpage');
 
         for (let idx of Object.keys(this.raw.faqpage)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
