@@ -7,6 +7,8 @@
 'use strict';
 
 const { syslog, NunjucksShortcode, MultiDate } = require("js-framework");
+const Schema = require('../../schema/schema');
+
 
 /**
  * Video link shortcode class.
