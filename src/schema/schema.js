@@ -775,6 +775,8 @@ class Schema
                 url: this.qualify(path.join(page, '#faq-' + stepNum))
             });
 
+            syslog.inspect(step, "error");
+
             step.acceptedAnwer(SchemaCreator.create('Answer', null, {text: item.html}));
 
             ret.push(step);
