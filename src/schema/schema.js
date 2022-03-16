@@ -786,7 +786,7 @@ class Schema
                 url: this.qualify(path.join(page, '#faq-' + stepNum))
             });
 
-            step.addProp('acceptedAnswer', SchemaCreator.create('Answer', null, {text: item.text}));
+            step.addProp('acceptedAnswer', SchemaCreator.create('Answer', null, {text: item.html}));
 
             ret.push(step);
             stepNum++;
