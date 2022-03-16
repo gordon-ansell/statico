@@ -406,7 +406,7 @@ class Schema
                 type = 'ContactPage';
             } else if (this.ctx.type && 'collection' === this.ctx.type) {
                 type = 'CollectionPage';
-            } else if (this.raw['faqpage']) {
+            } else if (this.raw.faqpage) {
                 type = 'FAQPage';
             }
 
@@ -798,7 +798,9 @@ class Schema
         this._renderImages(page);
         this._renderWebsite(page);
         this._renderWebpage(page);
-        this._renderArticle(page);
+        if (!this.raw.faqpage) {
+            this._renderArticle(page);
+        }
         this._renderReview(page);
         this._renderHowTo(page);
         this._renderFaqPage(page);
