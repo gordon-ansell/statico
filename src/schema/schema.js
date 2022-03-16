@@ -584,6 +584,7 @@ class Schema
             }
         }
 
+        /*
         if (rating) {
             sch.aggregateRating(SchemaCreator.create('AggregateRating', null, {
                 ratingValue: rating,
@@ -592,6 +593,7 @@ class Schema
                 ratingCount: 1
             }));
         }
+        */
 
         sch.review(SchemaBase.ref(reviewId));
 
