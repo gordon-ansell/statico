@@ -8,6 +8,7 @@
 
 const { NunjucksShortcode, ComplexImage } = require("js-framework");
 const imageSize = require("image-size");
+const Schema = require('../schema/schema')
 const path = require('path');
 const debug = require('debug')('Statico.shortcodes.ImgShortcode'),
       debugf = require('debug')('Full.Statico.shortcodes.ImgShortcode');
@@ -109,6 +110,16 @@ class ImgShortcode extends NunjucksShortcode
 
         //ret = imgHtml.renderSimple(this.config.asset(args[0]), imgSpec);
         ret = imgHtml.render(this.config.asset(args[0]), imgSpec);
+
+        if (!this.config.schema[context.ctx.permalink]) {
+            this.config.schema[context.ctx.permalink] = new Schema(this.config);
+        }
+        if (imgSpec['@itemprop']) {
+            this.config.schema[context.ctx.permalink].addImage(url, generated);
+        } else {
+            Schema.addGlobalImage(url, generated);
+        }
+
 
         let imgs = imgHtml.metaIds;
         if (imgs.length > 0) {

@@ -8,6 +8,7 @@
 
 const { NunjucksShortcode, ComplexImage } = require("js-framework");
 const path = require('path');
+const Schema = require('../schema/schema')
 const imageSize = require("image-size");
 
 /**
@@ -87,6 +88,16 @@ class SimpleImgShortcode extends NunjucksShortcode
         let generated = {};
         generated[ext] = {files:[spec]};
         this.config.imageInfoStore.addBySrcAndPage(url, context.ctx.permalink, generated);
+
+        if (!this.config.schema[context.ctx.permalink]) {
+            this.config.schema[context.ctx.permalink] = new Schema(this.config);
+        }
+        if (imgSpec['@itemprop']) {
+            this.config.schema[context.ctx.permalink].addImage(url, generated);
+        } else {
+            Schema.addGlobalImage(url, generated);
+        }
+
 
         let imgs = imgHtml.metaIds;
         if (imgs.length > 0) {
