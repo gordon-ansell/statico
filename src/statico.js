@@ -177,6 +177,7 @@ class Statico
 
         debugf("Config after init: %O", this.config);
 
+        syslog.notice(`Hostname is ${this.config.hostname}`);
         syslog.notice(`Statico initialisation completed in ${(Date.now() - this.#initStartTime) / 1000} seconds.`);
 
         Benchmarks.getInstance().markEnd('statico-init');
