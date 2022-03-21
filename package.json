@@ -39,7 +39,7 @@
     ],
 	"dependencies": {
         "basic-ftp": "4.6.6",
-        "body-parser": "1.9.2",
+        "body-parser": "1.19.2",
         "chokidar": "3.5.3",
         "dateformat": "^2.0.0",
         "debug": "4.3.4",
