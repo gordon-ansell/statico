@@ -45,10 +45,8 @@ class SectionShortcode extends NunjucksShortcode
 
         let ret = `<${type}`;
 
-        if (kwargs.length > 0) {
-            for (let idx in kwargs) {
-                ret += ` ${idx}="${kwargs[idx]}"`;
-            }
+        for (let idx in kwargs) {
+            ret += ` ${idx}="${kwargs[idx]}"`;
         }
 
         ret += `>`;
