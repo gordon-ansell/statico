@@ -27,7 +27,6 @@ class SectionShortcode extends NunjucksShortcode
         let kwargs = args[1] || {};
 
         syslog.inspect(args, "error");
-        syslog.warning(cls);
 
         if (cls) {
             kwargs.class = cls;
@@ -38,6 +37,9 @@ class SectionShortcode extends NunjucksShortcode
             type = kwargs.type;
             delete kwargs.type;
         }
+
+        syslog.inspect(kwargs, "error");
+        syslog.warning(type);
 
         let [html, text] = this.config.templateHandlers.markdown.handler.parseMarkdown(body);
 
