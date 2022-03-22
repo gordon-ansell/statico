@@ -27,6 +27,7 @@ class SectionShortcode extends NunjucksShortcode
         let kwargs = args[1] || {};
 
         syslog.inspect(args, "error");
+        syslog.warning(cls);
 
         if (cls) {
             kwargs.class = cls;
