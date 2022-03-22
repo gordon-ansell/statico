@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { NunjucksShortcode, syslog } = require('js-framework');
+const { NunjucksShortcode } = require('js-framework');
 
 /**
  * Section shortcode class.
@@ -26,8 +26,6 @@ class SectionShortcode extends NunjucksShortcode
         let cls = args[0] || null;
         let kwargs = args[1] || {};
 
-        syslog.inspect(args, "error");
-
         if (cls) {
             kwargs.class = cls;
         }
@@ -37,9 +35,6 @@ class SectionShortcode extends NunjucksShortcode
             type = kwargs.type;
             delete kwargs.type;
         }
-
-        syslog.inspect(kwargs, "error");
-        syslog.warning(type);
 
         let [html, text] = this.config.templateHandlers.markdown.handler.parseMarkdown(body);
 
