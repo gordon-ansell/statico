@@ -46,6 +46,6 @@ module.exports = function(config) {
     config.addNunjucksShortcode('tags', TagsShortcode);
     debug(`Added shortcode to Nunjucks: tags`);
 
-    config.addNunjucksShortcode('section', SectionShortcode);
+    config.addNunjucksPairedShortcode('section', SectionShortcode);
     debug(`Added shortcode to Nunjucks: section`);
 }
