@@ -162,6 +162,7 @@ class ImageInfoStore
     {
         if (-1 !== page.indexOf('eternals-review')) {
             debugt(`Adding for ${page}: %O`, src);
+            debugt(`We added this struct: %O`, this.getBySrc(src));
         }
         //debug(`Adding by page ${page}: %s`, src);
         if (!this.store.byPage[page]) {
