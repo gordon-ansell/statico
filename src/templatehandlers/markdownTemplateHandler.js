@@ -119,6 +119,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content);
             }
             templateFile.data.content_text = striptags(templateFile.data.content_html);
+            templateFile.data.content = templateFile.data.content_html;
         }
         if (rss && templateFile.data.contentRss) {
             if (compile.content) {
