@@ -238,8 +238,14 @@ class ImageInfoStore
                         if (file.width === size) {
                             return file;
                         } else {
+                            if (-1 !== page.indexOf('eternals-review')) {
+                                debugt(`Checking ${Math.abs(file.width - savedDiff)} < ${Math.abs(size - savedDiff)}`)
+                            }
                             debug(`Checking ${Math.abs(file.width - savedDiff)} < ${Math.abs(size - savedDiff)}`)
                             if (Math.abs(file.width - savedDiff) < Math.abs(size - savedDiff)) {
+                                if (-1 !== page.indexOf('eternals-review')) {
+                                    debugt(`Saving ${file}`)
+                                }
                                 saved = file;
                                 savedDiff = Math.abs(file.width - savedDiff);
                             }
@@ -249,6 +255,9 @@ class ImageInfoStore
             }
         }
 
+        if (-1 !== page.indexOf('eternals-review')) {
+            debugt(`Returning ${saved}`)
+        }
         return saved;
 
         /*
