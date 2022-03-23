@@ -228,6 +228,9 @@ class ImageInfoStore
         debugf(`For page ${page}: %O`, forPage)
 
         if (-1 !== page.indexOf('eternals-review')) {
+            debugt(`For page ${page}: %O`, forPage);
+        }
+        if (-1 !== page.indexOf('eternals-review')) {
             debugt(`Checking this.`);
         }
 
