@@ -176,14 +176,17 @@ class NunjucksTemplateHandler extends TemplateHandler
         if (templateFile.data.content && !templateFile.hasParsed.content) {
             templateFile.data.content_html = this.renderString(templateFile.data.content, templateFile.data);
             templateFile.data.content_text = striptags(templateFile.data.content_html);
+            templateFile.hasParsed.content = true;
         }
         if (templateFile.data.excerpt && !templateFile.hasParsed.excerpt) {
             templateFile.data.excerpt_html = this.renderString(templateFile.data.excerpt, templateFile.data);
             templateFile.data.excerpt_text = striptags(templateFile.data.excerpt_html);
+            templateFile.hasParsed.excerpt = true;
         }
         if (templateFile.data.leader &&  !templateFile.hasParsed.leader) {
             templateFile.data.leader_html = this.renderString(templateFile.data.leader, templateFile.data);
             templateFile.data.leader_text = striptags(templateFile.data.leader_html);
+            templateFile.hasParsed.leader = true;
         }
 
         if (!this.config.toParseThroughLayout) {
