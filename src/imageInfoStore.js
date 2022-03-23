@@ -10,6 +10,7 @@ const { syslog, fsutils, string } = require('js-framework');
 const StaticoError = require('./staticoError');
 const debug = require("debug")('Statico:ImageInfoStore');
 const debugf = require("debug")('Full.Statico:ImageInfoStore');
+const debugt = require("debug")('ImageTest.Statico:ImageInfoStore');
 
 class StaticoImageInfoStoreError extends StaticoError {};
 
@@ -225,6 +226,10 @@ class ImageInfoStore
 
         let forPage = this.getByPage(page);
         debugf(`For page ${page}: %O`, forPage)
+
+        if (-1 !== page.indexOf('eternals-review')) {
+            debugt(`Checking this.`);
+        }
 
         for (let item of forPage) {
             for (let t in item) {
