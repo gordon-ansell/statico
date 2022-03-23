@@ -54,8 +54,10 @@ class ImageInfoStore
      */
     addBySrcAndPage(src, page, info)
     {
-        this.addBySrc(src, info);
-        this.addByPage(page, src);
+        if (!this.hasBySrc(src)) {
+            this.addBySrc(src, info);
+            this.addByPage(page, src);
+        }
         return this;
     }
 
@@ -70,7 +72,9 @@ class ImageInfoStore
     addBySrc(src, info)
     {
         //debug(`Adding by src ${src}: %O`, info);
-        this.store.bySrc[src] = info;
+        if (!this.hasBySrc(src)) {
+            this.store.bySrc[src] = info;
+        }
         return this;
     }
 
@@ -160,10 +164,6 @@ class ImageInfoStore
      */
     addByPage(page, src)
     {
-        if (-1 !== page.indexOf('eternals-review')) {
-            debugt(`Adding for ${page}: %O`, src);
-            debugt(`We added this struct: %O`, this.getBySrc(src));
-        }
         //debug(`Adding by page ${page}: %s`, src);
         if (!this.store.byPage[page]) {
             this.store.byPage[page] = [];
