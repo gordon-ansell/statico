@@ -72,7 +72,9 @@ class ImageInfoStore
     addBySrc(src, info)
     {
         //debug(`Adding by src ${src}: %O`, info);
-        this.store.bySrc[src] = info;
+        if (!this.hasBySrc(src)) {
+            this.store.bySrc[src] = info;
+        }
         return this;
     }
 
