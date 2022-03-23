@@ -54,8 +54,10 @@ class ImageInfoStore
      */
     addBySrcAndPage(src, page, info)
     {
-        this.addBySrc(src, info);
-        this.addByPage(page, src);
+        if (!this.hasBySrc(src)) {
+            this.addBySrc(src, info);
+            this.addByPage(page, src);
+        }
         return this;
     }
 
