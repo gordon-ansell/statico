@@ -244,7 +244,7 @@ class ImageInfoStore
                             debug(`Checking ${Math.abs(file.width - savedDiff)} < ${Math.abs(size - savedDiff)}`)
                             if (Math.abs(file.width - savedDiff) < Math.abs(size - savedDiff)) {
                                 if (-1 !== page.indexOf('eternals-review')) {
-                                    debugt(`Saving ${file}`)
+                                    debugt(`Saving %O`, file)
                                 }
                                 saved = file;
                                 savedDiff = Math.abs(file.width - savedDiff);
@@ -256,7 +256,7 @@ class ImageInfoStore
         }
 
         if (-1 !== page.indexOf('eternals-review')) {
-            debugt(`Returning ${saved}`)
+            debugt(`Returning %O`, saved)
         }
         return saved;
 
