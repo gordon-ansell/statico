@@ -14,6 +14,7 @@ const path = require('path');
 const cloneDeep = require('lodash.clonedeep');
 const TemplatePathUrl = require('./templatePathUrl');
 const Pagination = require('./pagination');
+const { setFlagsFromString } = require('v8');
 const debug = require('debug')('Statico:TemplateFile'),
       debugf = require('debug')('Full.Statico:TemplateFile');
 
@@ -87,6 +88,17 @@ class TemplateFile
      * @member {boolean}
      */
     isBuffer = false;
+
+    /**
+     * What bits of data have we parsed?
+     * @member {object}
+     */
+    hasParsed = {
+        content: false,
+        contentRss: false,
+        excerpt: false,
+        leader: false,
+    }
 
     /**
      * Constructor.

@@ -114,17 +114,18 @@ class MarkdownTemplateHandler extends TemplateHandler
         if (templateFile.data.content) {
             if (compile.content) {
                 templateFile.data.content_html = this.parseThroughTemplate(templateFile.data.content, templateFile.data);
+                templateFile.hasParsed.content = true;
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content_html);
              } else {
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content);
             }
             templateFile.data.content_text = striptags(templateFile.data.content_html);
-            templateFile.data.content = templateFile.data.content_html;
         }
         if (rss && templateFile.data.contentRss) {
             if (compile.content) {
                 templateFile.data.content_html_rss = this.parseThroughTemplate(templateFile.data.contentRss, templateFile.data);
                 templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.content_html_rss);
+                templateFile.hasParsed.contentRss = true;
             } else {
                 templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.contentRss);
             }
@@ -133,6 +134,7 @@ class MarkdownTemplateHandler extends TemplateHandler
             if (compile.excerpt) {
                 templateFile.data.excerpt_html = this.parseThroughTemplate(templateFile.data.excerpt, templateFile.data);
                 templateFile.data.excerpt_html = this.parseThroughMarkdown(templateFile.data.excerpt_html);
+                templateFile.hasParsed.excerpt = true;
             } else {
                 templateFile.data.excerpt_html = this.parseThroughMarkdown(templateFile.data.excerpt);
             }
@@ -152,6 +154,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                 if (compile.leader) {
                     templateFile.data.leader_html = this.parseThroughTemplate(tmp, templateFile.data);
                     templateFile.data.leader_html = this.parseThroughMarkdown(templateFile.data.leader_html);
+                    templateFile.hasParsed.leader = true;
                 } else {
                     templateFile.data.leader_html = this.parseThroughMarkdown(tmp);
                 }
@@ -160,6 +163,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                 if (compile.leader) {
                     templateFile.data.leader_html = this.parseThroughTemplate(templateFile.data.leader, templateFile.data);
                     templateFile.data.leader_html = this.parseThroughMarkdown(templateFile.data.leader_html);
+                    templateFile.hasParsed.leader = true;
                 } else {
                     templateFile.data.leader_html = this.parseThroughMarkdown(templateFile.data.leader);
                 }

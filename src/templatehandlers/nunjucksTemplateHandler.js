@@ -173,15 +173,15 @@ class NunjucksTemplateHandler extends TemplateHandler
         let fp = templateFile.filePath.replace(this.sitePath, '');
         debug(`Nunjucks template handler is processing file: ${fp}`);
 
-        if (templateFile.data.content) {
+        if (templateFile.data.content && !templateFile.hasParsed.content) {
             templateFile.data.content_html = this.renderString(templateFile.data.content, templateFile.data);
             templateFile.data.content_text = striptags(templateFile.data.content_html);
         }
-        if (templateFile.data.excerpt) {
+        if (templateFile.data.excerpt && !templateFile.hasParsed.excerpt) {
             templateFile.data.excerpt_html = this.renderString(templateFile.data.excerpt, templateFile.data);
             templateFile.data.excerpt_text = striptags(templateFile.data.excerpt_html);
         }
-        if (templateFile.data.leader) {
+        if (templateFile.data.leader &&  !templateFile.hasParsed.leader) {
             templateFile.data.leader_html = this.renderString(templateFile.data.leader, templateFile.data);
             templateFile.data.leader_text = striptags(templateFile.data.leader_html);
         }
