@@ -160,6 +160,9 @@ class ImageInfoStore
      */
     addByPage(page, src)
     {
+        if (-1 !== page.indexOf('eternals-review')) {
+            debugt(`Adding for ${page}: %O`, src);
+        }
         //debug(`Adding by page ${page}: %s`, src);
         if (!this.store.byPage[page]) {
             this.store.byPage[page] = [];
@@ -229,9 +232,6 @@ class ImageInfoStore
 
         if (-1 !== page.indexOf('eternals-review')) {
             debugt(`For page ${page}: %O`, forPage);
-        }
-        if (-1 !== page.indexOf('eternals-review')) {
-            debugt(`Checking this.`);
         }
 
         for (let item of forPage) {
