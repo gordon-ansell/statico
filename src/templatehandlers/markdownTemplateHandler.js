@@ -113,7 +113,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         // Parse the data.
         if (templateFile.data.content) {
             if (compile.content) {
-                if (templateFile.hasParsed.content) {
+                if (!templateFile.hasParsed.content) {
                     templateFile.data.content_html = this.parseThroughTemplate(templateFile.data.content, templateFile.data);
                     templateFile.hasParsed.content = true;
                 }
@@ -125,7 +125,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
         if (rss && templateFile.data.contentRss) {
             if (compile.content) {
-                if (templateFile.hasParsed.contentRss) {
+                if (!templateFile.hasParsed.contentRss) {
                     templateFile.data.content_html_rss = this.parseThroughTemplate(templateFile.data.contentRss, templateFile.data);
                     templateFile.hasParsed.contentRss = true;
                 }
@@ -136,7 +136,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
         if (templateFile.data.excerpt) {
             if (compile.excerpt) {
-                if (templateFile.hasParsed.excerpt) {
+                if (!templateFile.hasParsed.excerpt) {
                     templateFile.data.excerpt_html = this.parseThroughTemplate(templateFile.data.excerpt, templateFile.data);
                     templateFile.hasParsed.excerpt = true;
                 }
@@ -158,7 +158,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                     count++;
                 }
                 if (compile.leader) {
-                    if (templateFile.hasParsed.leader) {
+                    if (!templateFile.hasParsed.leader) {
                         templateFile.data.leader_html = this.parseThroughTemplate(tmp, templateFile.data);
                         templateFile.hasParsed.leader = true;
                     }
@@ -169,7 +169,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                 templateFile.data.leader_text = striptags(templateFile.data.leader_html);
             } else {
                 if (compile.leader) {
-                    if (templateFile.hasParsed.leader) {
+                    if (!templateFile.hasParsed.leader) {
                         templateFile.data.leader_html = this.parseThroughTemplate(templateFile.data.leader, templateFile.data);
                         templateFile.hasParsed.leader = true;
                     }
