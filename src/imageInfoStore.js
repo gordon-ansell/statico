@@ -236,6 +236,9 @@ class ImageInfoStore
 
         for (let item of forPage) {
             for (let t of Array.keys(item)) {
+                if (-1 !== page.indexOf('eternals-review')) {
+                    debugt(`Parsing type ${t}.`);
+                }
                 if (t === type) {
                     for (let file of item[t].files) {
                         if (file.width === size) {
