@@ -235,7 +235,11 @@ class ImageInfoStore
         }
 
         for (let item of forPage) {
-            for (let t of Object.keys(item)) {
+            if (-1 !== page.indexOf('eternals-review')) {
+                debugt(`Parsing item %O`, item);
+            }
+
+            for (let t in item) {
                 if (-1 !== page.indexOf('eternals-review')) {
                     debugt(`Parsing type ${t}.`);
                 }
