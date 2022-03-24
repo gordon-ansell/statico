@@ -552,6 +552,10 @@ class Schema
             if (this.raw.faqpage) {
                 this._renderFaqPage(page);
                 this._renderReview(page);
+            } else {
+                this._renderArticle(page);
+                this._renderReview(page);
+                this._renderHowTo(page);
             }
         }
     }
@@ -645,11 +649,7 @@ class Schema
             }
 
             this.graph.set('article', sch);
-
-            this.renderedArticle = true;
             
-            this._renderReview(page);
-            this._renderHowTo(page);
         }
     }
 
@@ -904,9 +904,6 @@ class Schema
         this._renderVideos(page);
         this._renderWebsite(page);
         this._renderWebpage(page);
-        if (!this.raw.faqpage && !this.renderedArticle) {
-            this._renderArticle(page);
-        }
         /*
         this._renderReview(page);
         this._renderHowTo(page);
