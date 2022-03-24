@@ -173,16 +173,34 @@ class NunjucksTemplateHandler extends TemplateHandler
         let fp = templateFile.filePath.replace(this.sitePath, '');
         debug(`Nunjucks template handler is processing file: ${fp}`);
 
+        let compile = {
+            content: false,
+            excerpt: false,
+            leader: false
+        };
+        for (let fld of ['content', 'excerpt', 'leader']) {
+            if (templateFile.data[fld]) {
+                let f = templateFile.data[fld];
+                compile[fld] = f.indexOf('{{') || f.indexOf('{%') || f.indexOf('{#');
+            }
+        }
+
         if (templateFile.data.content) {
-            templateFile.data.content_html = this.renderString(templateFile.data.content, templateFile.data);
+            if (compile.content) {
+                templateFile.data.content_html = this.renderString(templateFile.data.content, templateFile.data);
+            }
             templateFile.data.content_text = striptags(templateFile.data.content_html);
         }
         if (templateFile.data.excerpt) {
-            templateFile.data.excerpt_html = this.renderString(templateFile.data.excerpt, templateFile.data);
+            if (compile.excerpt) {
+                templateFile.data.excerpt_html = this.renderString(templateFile.data.excerpt, templateFile.data);
+            }
             templateFile.data.excerpt_text = striptags(templateFile.data.excerpt_html);
         }
         if (templateFile.data.leader) {
-            templateFile.data.leader_html = this.renderString(templateFile.data.leader, templateFile.data);
+            if (compile.leader) {
+                templateFile.data.leader_html = this.renderString(templateFile.data.leader, templateFile.data);
+            }
             templateFile.data.leader_text = striptags(templateFile.data.leader_html);
         }
 

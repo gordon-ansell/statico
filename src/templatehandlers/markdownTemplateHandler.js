@@ -113,10 +113,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         // Parse the data.
         if (templateFile.data.content) {
             if (compile.content) {
-                if (!templateFile.hasParsed.content) {
-                    templateFile.data.content_html = this.parseThroughTemplate(templateFile.data.content, templateFile.data);
-                    templateFile.hasParsed.content = true;
-                }
+                templateFile.data.content_html = this.parseThroughTemplate(templateFile.data.content, templateFile.data);
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content_html);
              } else {
                 templateFile.data.content_html = this.parseThroughMarkdown(templateFile.data.content);
@@ -125,10 +122,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
         if (rss && templateFile.data.contentRss) {
             if (compile.content) {
-                if (!templateFile.hasParsed.contentRss) {
-                    templateFile.data.content_html_rss = this.parseThroughTemplate(templateFile.data.contentRss, templateFile.data);
-                    templateFile.hasParsed.contentRss = true;
-                }
+                templateFile.data.content_html_rss = this.parseThroughTemplate(templateFile.data.contentRss, templateFile.data);
                 templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.content_html_rss);
             } else {
                 templateFile.data.content_html_rss = this.parseThroughMarkdown(templateFile.data.contentRss);
@@ -136,10 +130,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
         if (templateFile.data.excerpt) {
             if (compile.excerpt) {
-                if (!templateFile.hasParsed.excerpt) {
-                    templateFile.data.excerpt_html = this.parseThroughTemplate(templateFile.data.excerpt, templateFile.data);
-                    templateFile.hasParsed.excerpt = true;
-                }
+                templateFile.data.excerpt_html = this.parseThroughTemplate(templateFile.data.excerpt, templateFile.data);
                 templateFile.data.excerpt_html = this.parseThroughMarkdown(templateFile.data.excerpt_html);
             } else {
                 templateFile.data.excerpt_html = this.parseThroughMarkdown(templateFile.data.excerpt);
@@ -158,10 +149,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                     count++;
                 }
                 if (compile.leader) {
-                    if (!templateFile.hasParsed.leader) {
-                        templateFile.data.leader_html = this.parseThroughTemplate(tmp, templateFile.data);
-                        templateFile.hasParsed.leader = true;
-                    }
+                    templateFile.data.leader_html = this.parseThroughTemplate(tmp, templateFile.data);
                     templateFile.data.leader_html = this.parseThroughMarkdown(templateFile.data.leader_html);
                 } else {
                     templateFile.data.leader_html = this.parseThroughMarkdown(tmp);
@@ -169,10 +157,7 @@ class MarkdownTemplateHandler extends TemplateHandler
                 templateFile.data.leader_text = striptags(templateFile.data.leader_html);
             } else {
                 if (compile.leader) {
-                    if (!templateFile.hasParsed.leader) {
-                        templateFile.data.leader_html = this.parseThroughTemplate(templateFile.data.leader, templateFile.data);
-                        templateFile.hasParsed.leader = true;
-                    }
+                    templateFile.data.leader_html = this.parseThroughTemplate(templateFile.data.leader, templateFile.data);
                     templateFile.data.leader_html = this.parseThroughMarkdown(templateFile.data.leader_html);
                 } else {
                     templateFile.data.leader_html = this.parseThroughMarkdown(templateFile.data.leader);
