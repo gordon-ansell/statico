@@ -164,11 +164,12 @@ class NunjucksTemplateHandler extends TemplateHandler
     /**
      * Process a file.
      * 
-     * @param   {TemplateFile}    templateFile    Template file object.
+     * @param   {TemplateFile}      templateFile    Template file object.
+     * @param   {string[]|null}     incremental     Incremental build?
      * 
      * @return
      */
-    async process(templateFile)
+    async process(templateFile, incremental = null)
     {
         let fp = templateFile.filePath.replace(this.sitePath, '');
         debug(`Nunjucks template handler is processing file: ${fp}`);
@@ -217,7 +218,11 @@ class NunjucksTemplateHandler extends TemplateHandler
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
 
-        this.parseThroughLayoutAndWrite(templateFile);
+        if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
+            this.parseThroughLayoutAndWrite(templateFile);
+        } else {
+            syslog.notice(`Skipping ${templateFile.filePath} write for incremental build.`);
+        }
 
     }
 

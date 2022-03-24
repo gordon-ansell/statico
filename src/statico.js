@@ -403,7 +403,7 @@ class Statico
 
         // Early parse.
         syslog.notice(`Running early parse.`);
-        this.#parsedCounts.templates += await templateParser.parse(others, 'early');
+        this.#parsedCounts.templates += await templateParser.parse(others, 'early', true, null, incremental);
         let lateParsers = templateParser.notProcessed;
         Benchmarks.getInstance().markEnd('template-parser-early');
 
@@ -413,7 +413,7 @@ class Statico
         // Late parse.
         Benchmarks.getInstance().markStart('template-parser-late', 'Template Parser (Late)');
         syslog.notice(`Running late parse.`);
-        this.#parsedCounts.templates += await templateParser.parse(lateParsers, 'late');
+        this.#parsedCounts.templates += await templateParser.parse(lateParsers, 'late', true, null, incremental);
         let lastParsers = templateParser.notProcessed;
         Benchmarks.getInstance().markEnd('template-parser-late');
 
@@ -426,7 +426,7 @@ class Statico
         // Last parse.
         Benchmarks.getInstance().markStart('template-parser-last', 'Template Parser (Last)');
         syslog.notice(`Running last parse.`);
-        this.#parsedCounts.templates += await templateParser.parse(lastParsers, 'last');
+        this.#parsedCounts.templates += await templateParser.parse(lastParsers, 'last', true, null, incremental);
         Benchmarks.getInstance().markEnd('template-parser-last');
 
         // Now push everything through their layouts.
@@ -465,6 +465,7 @@ class Statico
      * Push everything through their layouts.
      * 
      */
+    /*
     async parseThroughLayoutAndWrite(parseName, incremental)
     {
         syslog.info(`Parse through layouts - ${parseName}.`);
@@ -493,6 +494,7 @@ class Statico
 
         this.config.toParseThroughLayout[parseName] = []; 
     }
+    */
 
     /**
      * Sort the taxonomies.

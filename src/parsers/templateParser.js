@@ -49,14 +49,15 @@ class TemplateParser extends BaseParser
     /**
      * Parser run.
      * 
-     * @param   {string[]}  files       Files to parse.
-     * @param   {string}    parseName   Parse name.
-     * @param   {boolean}   paginate    Paginate?
-     * @param   {object}    data        Additional data to parse.
+     * @param   {string[]}      files       Files to parse.
+     * @param   {string}        parseName   Parse name.
+     * @param   {boolean}       paginate    Paginate?
+     * @param   {object}        data        Additional data to parse.
+     * @param   {string[]|null} incremental Incremental build?
      * 
      * @return  {number}
      */
-    async parse(files, parseName = null, paginate = true, data = null)
+    async parse(files, parseName = null, paginate = true, data = null, incremental = null)
     {
         let pn = parseName || 'NULL';
         this.notProcessed = [];
@@ -72,7 +73,7 @@ class TemplateParser extends BaseParser
             if (this.config.templateHandlers.hasHandlerForExt(ext))  {
                 try {
                     debug(`Seeing if template for ${trimmed} is parseable (${pn}).`)
-                    let tf = await this._parseTemplateFile(element, parseName, paginate, data);
+                    let tf = await this._parseTemplateFile(element, parseName, paginate, data, incremental);
                     if (null !== tf) {
                         this._addToCollections(tf);
                         debug(`${trimmed} was indeed parseable (${pn}).`)
@@ -151,14 +152,15 @@ class TemplateParser extends BaseParser
     /**
      * Parse a template file.
      * 
-     * @param   {string}    filePath    Where the file is.
-     * @param   {string}    parseName   The parse.  Either a parse name or null to force the parse.
-     * @param   {boolean}   paginate    Paginate?
-     * @param   {object}    data        Additional data to parse.
+     * @param   {string}        filePath    Where the file is.
+     * @param   {string}        parseName   The parse.  Either a parse name or null to force the parse.
+     * @param   {boolean}       paginate    Paginate?
+     * @param   {object}        data        Additional data to parse.
+     * @param   {string[]|null} incremental Incremental build?
      * 
      * @return  {TemplateFile|null}     Template file or null.
      */
-    async _parseTemplateFile(filePath, parseName, paginate = true, mightHaveLayout = true, data = null)
+    async _parseTemplateFile(filePath, parseName, paginate = true, mightHaveLayout = true, data = null, incremental = null)
     {
         let trimmed = filePath.replace(this.config.sitePath, '');
 
@@ -181,7 +183,7 @@ class TemplateParser extends BaseParser
             if (null === parseName || parseName === tf.data.parse) {
                 debug(`Passing control to template handler for ${ext}, for file ${trimmed}.`)
                 let handler = this.config.templateHandlers.getHandlerForExt(ext)
-                await handler.process(tf);
+                await handler.process(tf, incremental);
                 // Add schema.
                 if (!this.config.schema[tf.data.permalink]) {
                     this.config.schema[tf.data.permalink] = new Schema(this.config);
