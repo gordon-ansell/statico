@@ -37,6 +37,7 @@ class SchemarenderShortcode extends NunjucksShortcode
         if (this.config.schema[page]) {
             debug(`Rendering schema for page ${page}.`);
             let schema = this.config.schema[page];
+            schema.setCtx(context);
             rendered = schema.render(page, replacer, spacer);
         } else {
             syslog.warning(`Creating new schema for ${page}.`);
