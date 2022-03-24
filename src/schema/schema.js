@@ -542,7 +542,11 @@ class Schema
 
             this.graph.set('webpage', sch);
 
-            this._renderFaqPage(page);
+
+            if (this.raw.faqpage) {
+                this._renderFaqPage(page);
+                this._renderReview(page);
+            }
         }
     }
 
