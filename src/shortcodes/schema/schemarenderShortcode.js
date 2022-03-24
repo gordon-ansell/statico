@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { NunjucksShortcode, GAError } = require('js-framework');
+const { NunjucksShortcode, GAError, syslog } = require('js-framework');
 const Schema = require('../../schema/schema');
 const debug = require('debug')('Statico.shortcodes.SchemaRenderShortcode'),
       debugf = require('debug')('Full.Statico.shortcodes.SchemaRenderShortcode');
@@ -39,6 +39,7 @@ class SchemarenderShortcode extends NunjucksShortcode
             let schema = this.config.schema[page];
             rendered = schema.render(page, replacer, spacer);
         } else {
+            syslog.warning(`Creating new schema for ${page}.`);
             this.config.schema[page] = new Schema(this.config);
             this.config.schema[page].setCtx(context);
             rendered = this.config.schema[page].render(page, replacer, spacer);
