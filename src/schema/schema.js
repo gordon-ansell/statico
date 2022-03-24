@@ -433,9 +433,6 @@ class Schema
             let site = this.config.site;
             let sch = SchemaCreator.create('WebSite', 'website');
 
-            if (site.authors) {
-                this._renderAuthors(site.authors, page); 
-            }
             if (site.publisher) {
                 this._renderPublisher(site.publisher, page);
                 sch.publisher(SchemaBase.ref('publisher'));
@@ -458,6 +455,10 @@ class Schema
     _renderWebpage(page)
     {
         if (this.ctx) {
+
+            if (site.authors) {
+                this._renderAuthors(site.authors, page); 
+            }
 
             //debug("ctx: %O", this.ctx);
 
