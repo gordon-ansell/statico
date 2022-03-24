@@ -530,6 +530,7 @@ class Schema
             }
 
             let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+            syslog.warning(`Author: ${author}`)
             sch.author(SchemaBase.ref(author));
 
             if (this.imageIds.length > 0) {
