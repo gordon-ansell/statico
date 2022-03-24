@@ -358,7 +358,9 @@ class Statico
                 return s.mtimeMs > d1;
             });
             let l2 = incremental.length;
-            syslog.notice(`Filtered out ${l1 - l2} files for incremental build. ${l2} template files left to process.`);
+            let fileText1 = (1 === l1 - l2) ? 'file' : 'files';
+            let fileText2 = (1 === l2) ? 'file' : 'files';
+            syslog.notice(`Filtered out ${l1 - l2} ${fileText1} for incremental build. ${l2} template ${fileText2} left to process.`);
         }
 
         // Tell user.
