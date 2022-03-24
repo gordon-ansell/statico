@@ -451,9 +451,11 @@ class Schema
     /**
      * Get the author for the page.
      * 
+     * @param   {string}    elem
+     * 
      * @return  {string}
      */
-    getAuthorForPage()
+    getAuthorForPage(elem)
     {
         if (this.ctx) {
 
@@ -468,11 +470,12 @@ class Schema
             if (author) {
                 return 'author-' + string.slugify(author);
             } else {
+                syslog.error(`No author could be determined for ${elem} schema.`);
                 return 'UNKNOWM1';
             }
             
         } else {
-            syslog.error(`No 'ctx' context defined for webpage schema.`);
+            syslog.error(`No 'ctx' context defined for ${elem} schema.`);
             return 'UNKNOWN2'
         }
 
@@ -559,7 +562,7 @@ class Schema
                 //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
-            sch.author(this.getAuthorForPage());
+            sch.author(this.getAuthorForPage('webpage'));
 
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
@@ -620,7 +623,7 @@ class Schema
 
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
-            sch.author(this.getAuthorForPage());
+            sch.author(this.getAuthorForPage('article'));
 
             if (this.ctx.tags) {
                 sch.keywords(this.ctx.tags);
@@ -758,7 +761,7 @@ class Schema
             sch.mainEntityOfPage(SchemaBase.ref('article'));
         }
 
-        sch.author(this.getAuthorForPage());
+        sch.author(this.getAuthorForPage('review'));
 
 
         sch.itemReviewed(SchemaBase.ref(pid));
