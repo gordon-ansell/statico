@@ -862,7 +862,11 @@ class Schema
         }
         */
 
-        this.graph.get('webpage').mainEntity(this._renderFaqQAs(page));
+        if (this.graph.has('webpage')) {       
+            this.graph.get('webpage').mainEntity(this._renderFaqQAs(page));
+        } else {
+            syslog.warning(`No 'webpage' found in the schema graph; trying to assign FAQQAs t; webpage's 'mainEntity'.`);
+        }
 
         //this.graph.set('faqpage', sch);
     }
