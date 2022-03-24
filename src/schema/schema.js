@@ -92,6 +92,12 @@ class Schema
     graph = null;
 
     /**
+     * Delayed assigns.
+     * @member {object}
+     */
+    delayed = {};
+
+    /**
      * Constructor.
      * 
      * @param   {object}    config      Configs.
@@ -572,6 +578,12 @@ class Schema
                 sch.video(this.getVideoIds());
             }
 
+            if (this.delayed.webpage) {
+                for (let item of this.delayed.webpage) {
+                    sch.addProp(item.name, item.data);
+                }
+            }
+
             this.graph.set('webpage', sch);
         }
     }
@@ -862,10 +874,15 @@ class Schema
         }
         */
 
+        let faqqas = this._renderFaqQAs(page);
         if (this.graph.has('webpage')) {       
-            this.graph.get('webpage').mainEntity(this._renderFaqQAs(page));
+            this.graph.get('webpage').mainEntity(faqqas);
         } else {
-            syslog.warning(`No 'webpage' found in the schema graph; trying to assign FAQQAs t; webpage's 'mainEntity'.`);
+            syslog.warning(`No 'webpage' found in the schema graph; trying to assign FAQQAs to webpage's 'mainEntity'.`);
+            if (!this.delayed.webpage) {
+                this.delayed.webpage = [];
+            }
+            this.delayed.webpage.push({name: 'mainEntity', data: faqqas});
         }
 
         //this.graph.set('faqpage', sch);
