@@ -221,6 +221,9 @@ class NunjucksTemplateHandler extends TemplateHandler
         */
 
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
+            if (incremental && incremental.includes(templateFile.filePath)) {
+                syslog.notice(`File ${templateFile.filePath} being processed incrementally.`);
+            }
             this.parseThroughLayoutAndWrite(templateFile);
         } else {
             syslog.info(`Skipping ${templateFile.filePath} write for incremental build.`);

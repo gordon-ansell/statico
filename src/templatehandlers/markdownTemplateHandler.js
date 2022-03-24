@@ -200,7 +200,7 @@ class MarkdownTemplateHandler extends TemplateHandler
 
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
             if (incremental && incremental.includes(templateFile.filePath)) {
-                syslog.notice(`File ${templateFile.permalink} being processed incrementally.`);
+                syslog.notice(`File ${templateFile.filePath} being processed incrementally.`);
             }
             this.parseThroughLayoutAndWrite(templateFile);
         } else {
