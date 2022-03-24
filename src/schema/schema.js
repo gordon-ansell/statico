@@ -530,7 +530,7 @@ class Schema
                 //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
-            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+            let author = 'author-' + string.slugify(this.ctx.author || this.config.site.defaultAuthor); 
             sch.author(SchemaBase.ref(author));
 
             if (this.imageIds.length > 0) {
@@ -594,7 +594,7 @@ class Schema
 
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
-            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+            let author = 'author-' + string.slugify(this.ctx.author || this.config.site.defaultAuthor); 
             sch.author(SchemaBase.ref(author));
 
             if (this.ctx.tags) {
@@ -736,7 +736,7 @@ class Schema
             sch.mainEntityOfPage(SchemaBase.ref('article'));
         }
 
-        let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+        let author = 'author-' + string.slugify(this.ctx.author || this.config.site.defaultAuthor); 
         sch.author(SchemaBase.ref(author));
 
 
