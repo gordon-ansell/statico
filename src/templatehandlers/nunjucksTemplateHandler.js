@@ -173,20 +173,17 @@ class NunjucksTemplateHandler extends TemplateHandler
         let fp = templateFile.filePath.replace(this.sitePath, '');
         debug(`Nunjucks template handler is processing file: ${fp}`);
 
-        if (templateFile.data.content && !templateFile.hasParsed.content) {
+        if (templateFile.data.content) {
             templateFile.data.content_html = this.renderString(templateFile.data.content, templateFile.data);
             templateFile.data.content_text = striptags(templateFile.data.content_html);
-            templateFile.hasParsed.content = true;
         }
-        if (templateFile.data.excerpt && !templateFile.hasParsed.excerpt) {
+        if (templateFile.data.excerpt) {
             templateFile.data.excerpt_html = this.renderString(templateFile.data.excerpt, templateFile.data);
             templateFile.data.excerpt_text = striptags(templateFile.data.excerpt_html);
-            templateFile.hasParsed.excerpt = true;
         }
-        if (templateFile.data.leader &&  !templateFile.hasParsed.leader) {
+        if (templateFile.data.leader) {
             templateFile.data.leader_html = this.renderString(templateFile.data.leader, templateFile.data);
             templateFile.data.leader_text = striptags(templateFile.data.leader_html);
-            templateFile.hasParsed.leader = true;
         }
 
         if (!this.config.toParseThroughLayout) {
@@ -201,6 +198,8 @@ class NunjucksTemplateHandler extends TemplateHandler
             this.config.toParseThroughLayout[parseName] = [];
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
+
+        this.parseThroughLayoutAndWrite(templateFile);
 
     }
 
