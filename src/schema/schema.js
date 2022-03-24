@@ -449,6 +449,36 @@ class Schema
     }
 
     /**
+     * Get the author for the page.
+     * 
+     * @return  {string}
+     */
+    getAuthorForPage()
+    {
+        if (this.ctx) {
+
+            let author;
+
+            if (this.ctx.author) {
+                author = this.ctx.author;
+            } else if (this.ctx.site.defaultAuthor) {
+                author = this.ctx.site.defaultAuthor;
+            }
+
+            if (author) {
+                return 'author-' + string.slugify(author);
+            } else {
+                return 'UNKNOWM1';
+            }
+            
+        } else {
+            syslog.error(`No 'ctx' context defined for webpage schema.`);
+            return 'UNKNOWN2'
+        }
+
+    }
+
+    /**
      * Render the web page.
      * 
      * @param   {string}    page
@@ -529,9 +559,7 @@ class Schema
                 //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
-            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
-            syslog.warning(`Author: ${author}`)
-            sch.author(SchemaBase.ref(author));
+            sch.author(this.getAuthorForPage());
 
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
@@ -592,8 +620,7 @@ class Schema
 
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
-            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
-            sch.author(SchemaBase.ref(author));
+            sch.author(this.getAuthorForPage());
 
             if (this.ctx.tags) {
                 sch.keywords(this.ctx.tags);
@@ -731,8 +758,7 @@ class Schema
             sch.mainEntityOfPage(SchemaBase.ref('article'));
         }
 
-        let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
-        sch.author(SchemaBase.ref(author));
+        sch.author(this.getAuthorForPage());
 
 
         sch.itemReviewed(SchemaBase.ref(pid));
