@@ -456,8 +456,8 @@ class Schema
     {
         if (this.ctx) {
 
-            if (site.authors) {
-                this._renderAuthors(site.authors, page); 
+            if (this.config.site.authors) {
+                this._renderAuthors(this.config.site.authors, page); 
             }
 
             //debug("ctx: %O", this.ctx);
