@@ -44,6 +44,12 @@ class Schema
     raw = {};
 
     /**
+     * Raw LATE source for schema.
+     * @member {object}
+     */
+    rawLate = {};
+
+    /**
      * Images.
      * @member  {object}
      */
@@ -568,7 +574,7 @@ class Schema
                 //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
-            let author = this.getAuthorForPage('review');
+            let author = this.getAuthorForPage('webpage');
             if (author) sch.author(author);
 
             if (this.imageIds.length > 0) {
@@ -585,6 +591,8 @@ class Schema
             }
 
             this.graph.set('webpage', sch);
+
+            // Late stuff to renfer only after webpage is rendered.
         }
     }
 
@@ -636,7 +644,7 @@ class Schema
 
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
-            let author = this.getAuthorForPage('review');
+            let author = this.getAuthorForPage('article');
             if (author) sch.author(author);
 
             if (this.ctx.tags) {
