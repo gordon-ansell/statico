@@ -506,17 +506,21 @@ class Statico
         }
 
         await Promise.all(this.config.taxonomyTypes.map(async taxType => {
-            this.config.collections[taxType] = Object.keys(this.config.collections[taxType])
-                .sort(function(a, b) {
-                    return a.toLowerCase().localeCompare(b.toLowerCase());
-                })
-                .reduce(
-                (obj, key) => { 
-                    obj[key] = this.config.collections[taxType][key]; 
-                    return obj;
-                }, 
-                {}
-            );
+            if (this.config.collections && this.config.collections[taxType]) {
+                this.config.collections[taxType] = Object.keys(this.config.collections[taxType])
+                    .sort(function(a, b) {
+                        return a.toLowerCase().localeCompare(b.toLowerCase());
+                    })
+                    .reduce(
+                    (obj, key) => { 
+                        obj[key] = this.config.collections[taxType][key]; 
+                        return obj;
+                    }, 
+                    {}
+                );
+            } else {
+                syslog.warning(`Cannot sort taxonomy '${taxType}' because we do not have a taxonomy of that name.`);
+            }
         }));
 
         syslog.info(`Sorted taxonomies.`)
