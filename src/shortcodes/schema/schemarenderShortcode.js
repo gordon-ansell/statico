@@ -38,12 +38,12 @@ class SchemarenderShortcode extends NunjucksShortcode
             debug(`Rendering schema for page ${page}.`);
             syslog.inspect(context, "error");
             let schema = this.config.schema[page];
-            schema.setCtx(context);
+            schema.setCtx(context.ctx);
             rendered = schema.render(page, replacer, spacer);
         } else {
             syslog.warning(`Creating new schema for ${page}.`);
             this.config.schema[page] = new Schema(this.config);
-            this.config.schema[page].setCtx(context);
+            this.config.schema[page].setCtx(context.ctx);
             rendered = this.config.schema[page].render(page, replacer, spacer);
         }
         return `<script type="application/ld+json">` + rendered + `</script>`;
