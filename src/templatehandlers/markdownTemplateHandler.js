@@ -180,6 +180,7 @@ class MarkdownTemplateHandler extends TemplateHandler
             this.config.totalWordCount += words; 
         }
 
+        /*
         // Deal with the layout.
         if (!this.config.toParseThroughLayout) {
             this.config.toParseThroughLayout = {};
@@ -195,6 +196,11 @@ class MarkdownTemplateHandler extends TemplateHandler
             this.config.toParseThroughLayout[parseName] = [];
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
+        */
+
+        if (incremental) {
+            syslog.inspect(incremental, "error");
+        }
 
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
             syslog.notice(`Processing ${templateFile.filePath} write for incremental build.`);
