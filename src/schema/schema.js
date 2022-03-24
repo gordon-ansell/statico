@@ -92,6 +92,12 @@ class Schema
     graph = null;
 
     /**
+     * Have we rendered the article?
+     * @member {boolean}
+     */
+    renderedArticle = false;
+
+    /**
      * Constructor.
      * 
      * @param   {object}    config      Configs.
@@ -639,6 +645,8 @@ class Schema
             }
 
             this.graph.set('article', sch);
+
+            this.renderedArticle = true;
             
             this._renderReview(page);
             this._renderHowTo(page);
@@ -896,7 +904,7 @@ class Schema
         this._renderVideos(page);
         this._renderWebsite(page);
         this._renderWebpage(page);
-        if (!this.raw.faqpage) {
+        if (!this.raw.faqpage && !this.renderedArticle) {
             this._renderArticle(page);
         }
         /*
