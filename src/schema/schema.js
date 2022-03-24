@@ -44,12 +44,6 @@ class Schema
     raw = {};
 
     /**
-     * Raw LATE source for schema.
-     * @member {object}
-     */
-    rawLate = {};
-
-    /**
      * Images.
      * @member  {object}
      */
@@ -96,12 +90,6 @@ class Schema
      * @member {SchemaGraph}
      */
     graph = null;
-
-    /**
-     * Delayed assigns.
-     * @member {object}
-     */
-    delayed = {};
 
     /**
      * Constructor.
@@ -461,39 +449,6 @@ class Schema
     }
 
     /**
-     * Get the author for the page.
-     * 
-     * @param   {string}    elem
-     * 
-     * @return  {string}
-     */
-    getAuthorForPage(elem)
-    {
-        if (this.ctx) {
-
-            let author;
-
-            if (this.ctx.author) {
-                author = this.ctx.author;
-            } else if (this.ctx.site && this.ctx.site.defaultAuthor) {
-                author = this.ctx.site.defaultAuthor;
-            }
-
-            if (author) {
-                return 'author-' + string.slugify(author);
-            } else {
-                syslog.error(`No author could be determined for ${elem} schema.`);
-                return null;
-            }
-            
-        } else {
-            syslog.error(`No 'ctx' context defined for ${elem} schema.`);
-            return null;
-        }
-
-    }
-
-    /**
      * Render the web page.
      * 
      * @param   {string}    page
@@ -574,8 +529,8 @@ class Schema
                 //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
-            let author = this.getAuthorForPage('webpage');
-            if (author) sch.author(author);
+            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+            sch.author(SchemaBase.ref(author));
 
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
@@ -584,15 +539,9 @@ class Schema
                 sch.video(this.getVideoIds());
             }
 
-            if (this.delayed.webpage) {
-                for (let item of this.delayed.webpage) {
-                    sch.addProp(item.name, item.data);
-                }
-            }
-
             this.graph.set('webpage', sch);
 
-            // Late stuff to renfer only after webpage is rendered.
+            this._renderFaqPage(page);
         }
     }
 
@@ -644,8 +593,8 @@ class Schema
 
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
-            let author = this.getAuthorForPage('article');
-            if (author) sch.author(author);
+            let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+            sch.author(SchemaBase.ref(author));
 
             if (this.ctx.tags) {
                 sch.keywords(this.ctx.tags);
@@ -676,6 +625,9 @@ class Schema
             }
 
             this.graph.set('article', sch);
+            
+            this._renderReview(page);
+            this._renderHowTo(page);
         }
     }
 
@@ -783,8 +735,8 @@ class Schema
             sch.mainEntityOfPage(SchemaBase.ref('article'));
         }
 
-        let author = this.getAuthorForPage('review');
-        if (author) sch.author(author);
+        let author = 'author-' + string.slugify(this.ctx.author || this.ctx.site.defaultAuthor); 
+        sch.author(SchemaBase.ref(author));
 
 
         sch.itemReviewed(SchemaBase.ref(pid));
@@ -874,7 +826,6 @@ class Schema
 
         /*
         let sch = SchemaCreator.create('FAQPage', 'faqpage');
-
         for (let idx of Object.keys(this.raw.faqpage)) {
             if ('type' !== idx && !idx.startsWith('__') && !idx.startsWith('@')) {
                 sch.setProp(idx, this.raw.faqpage[idx]);
@@ -882,16 +833,7 @@ class Schema
         }
         */
 
-        let faqqas = this._renderFaqQAs(page);
-        if (this.graph.has('webpage')) {       
-            this.graph.get('webpage').mainEntity(faqqas);
-        } else {
-            syslog.warning(`No 'webpage' found in the schema graph; trying to assign FAQQAs to webpage's 'mainEntity'.`);
-            if (!this.delayed.webpage) {
-                this.delayed.webpage = [];
-            }
-            this.delayed.webpage.push({name: 'mainEntity', data: faqqas});
-        }
+        this.graph.get('webpage').mainEntity(this._renderFaqQAs(page));
 
         //this.graph.set('faqpage', sch);
     }
@@ -943,9 +885,11 @@ class Schema
         if (!this.raw.faqpage) {
             this._renderArticle(page);
         }
+        /*
         this._renderReview(page);
         this._renderHowTo(page);
         this._renderFaqPage(page);
+        */
 
         //this.dumpImages(page);
 
@@ -956,7 +900,6 @@ class Schema
             "@context": Schema.schemaContext,
             "@graph": []
         }
-
         for (let idx in this.items) {
             ret['@graph'].push(this.items[idx].attribs);
         }
