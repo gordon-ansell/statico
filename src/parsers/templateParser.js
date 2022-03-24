@@ -73,7 +73,7 @@ class TemplateParser extends BaseParser
             if (this.config.templateHandlers.hasHandlerForExt(ext))  {
                 try {
                     debug(`Seeing if template for ${trimmed} is parseable (${pn}).`)
-                    let tf = await this._parseTemplateFile(element, parseName, paginate, data, incremental);
+                    let tf = await this._parseTemplateFile(element, parseName, paginate, true, data, incremental);
                     if (null !== tf) {
                         this._addToCollections(tf);
                         debug(`${trimmed} was indeed parseable (${pn}).`)
