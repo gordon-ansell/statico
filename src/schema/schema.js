@@ -588,6 +588,11 @@ class Schema
                 sch.headline(this.ctx.title);
             }
 
+
+            if (!sch.hasProp('title') && this.config.schemaWarnings) {
+                syslog.warning(`Article at '${page}' has no title.`);
+            }
+
             if (!sch.hasProp('headline') && this.config.schemaWarnings) {
                 syslog.warning(`Article at '${page}' has no headline.`);
             }
