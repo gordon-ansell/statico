@@ -469,7 +469,7 @@ class Schema
 
             if (this.ctx.author) {
                 author = this.ctx.author;
-            } else if (this.ctx.site.defaultAuthor) {
+            } else if (this.ctx.site && this.ctx.site.defaultAuthor) {
                 author = this.ctx.site.defaultAuthor;
             }
 
