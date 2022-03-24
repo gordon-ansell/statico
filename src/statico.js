@@ -519,7 +519,7 @@ class Statico
                     {}
                 );
             } else {
-                syslog.warning(`Cannot sort taxonomy '${taxType}' because we do not have a taxonomy of that name.`);
+                syslog.info(`Cannot sort taxonomy '${taxType}' because we do not have a taxonomy of that name. This MAY not be an error if we're building incrementally.`);
             }
         }));
 

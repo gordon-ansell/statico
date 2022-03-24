@@ -205,6 +205,7 @@ class NunjucksTemplateHandler extends TemplateHandler
             templateFile.data.leader_text = striptags(templateFile.data.leader_html);
         }
 
+        /*
         if (!this.config.toParseThroughLayout) {
             this.config.toParseThroughLayout = {};
         }
@@ -217,6 +218,7 @@ class NunjucksTemplateHandler extends TemplateHandler
             this.config.toParseThroughLayout[parseName] = [];
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
+        */
 
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
             this.parseThroughLayoutAndWrite(templateFile);
