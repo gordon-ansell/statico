@@ -471,12 +471,12 @@ class Schema
                 return 'author-' + string.slugify(author);
             } else {
                 syslog.error(`No author could be determined for ${elem} schema.`);
-                return 'UNKNOWM1';
+                return null;
             }
             
         } else {
             syslog.error(`No 'ctx' context defined for ${elem} schema.`);
-            return 'UNKNOWN2'
+            return null;
         }
 
     }
@@ -562,7 +562,8 @@ class Schema
                 //sch.potentialAction(SchemaCreator.create('ReadAction', null, {target: this.qualify(this.ctx.permalink)}));
             }
 
-            sch.author(this.getAuthorForPage('webpage'));
+            let author = this.getAuthorForPage('review');
+            if (author) sch.author(author);
 
             if (this.imageIds.length > 0) {
                 sch.image(this.getImageIds());
@@ -623,7 +624,8 @@ class Schema
 
             sch.mainEntityOfPage(SchemaBase.ref('webpage'))
 
-            sch.author(this.getAuthorForPage('article'));
+            let author = this.getAuthorForPage('review');
+            if (author) sch.author(author);
 
             if (this.ctx.tags) {
                 sch.keywords(this.ctx.tags);
@@ -761,7 +763,8 @@ class Schema
             sch.mainEntityOfPage(SchemaBase.ref('article'));
         }
 
-        sch.author(this.getAuthorForPage('review'));
+        let author = this.getAuthorForPage('review');
+        if (author) sch.author(author);
 
 
         sch.itemReviewed(SchemaBase.ref(pid));
