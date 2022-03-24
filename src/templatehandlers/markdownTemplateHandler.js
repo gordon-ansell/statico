@@ -198,9 +198,9 @@ class MarkdownTemplateHandler extends TemplateHandler
         this.config.toParseThroughLayout[parseName].push(templateFile);
         */
 
-        //if (incremental) {
+        if (incremental) {
             syslog.inspect(incremental, "error");
-        //}
+        }
 
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
             syslog.notice(`Processing ${templateFile.filePath} write for incremental build.`);
