@@ -113,7 +113,7 @@ class TemplateParser extends BaseParser
     async parseAndReturnString(file, parseName = null, paginate = true, data = null)
     {
         let trimmed = file.replace(this.config.sitePath, '');
-        let ext = path.extname(file).substr(1);
+        let ext = path.extname(file).substring(1);
 
         if (this.config.templateHandlers.hasHandlerForExt(ext))  {
             try {
