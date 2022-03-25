@@ -180,6 +180,8 @@ class MarkdownTemplateHandler extends TemplateHandler
             this.config.totalWordCount += words; 
         }
 
+        await this.config.events.emit('statico.parsedtemplatefile', this.config, templateFile);
+
         /*
         // Deal with the layout.
         if (!this.config.toParseThroughLayout) {
@@ -207,6 +209,7 @@ class MarkdownTemplateHandler extends TemplateHandler
             syslog.info(`Skipping ${templateFile.filePath} write for incremental build.`);
         }
 
+        await this.config.events.emit('statico.parsedlayout', this.config, templateFile);
     }
 
     /**

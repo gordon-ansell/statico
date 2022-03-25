@@ -116,7 +116,8 @@ class Config
                 'statico.parsedfilesystem',
                 'statico.preparseassetfile',
                 'statico.abouttoparsetemplatefile',
-                'statico.parsedtemplatefile'
+                'statico.parsedtemplatefile',
+                'statico.parsedlayout'
             ]),
             templateHandlers: new HandlerCollection(),
             assetHandlers: new HandlerCollection(),

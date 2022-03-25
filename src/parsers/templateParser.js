@@ -133,7 +133,7 @@ class TemplateParser extends BaseParser
                         debug(`Passing control to template handler for ${ext}, for file ${trimmed}.`);
                         let handler = this.config.templateHandlers.getHandlerForExt(ext)
                         await handler.process(tf);
-                        await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
+                        //await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
                         return tf;
                     }
                 }
@@ -189,7 +189,7 @@ class TemplateParser extends BaseParser
                     this.config.schema[tf.data.permalink] = new Schema(this.config);
                 }
                 this.config.schema[tf.data.permalink].setCtx(tf.data);
-                await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
+                //await this.config.events.emit('statico.parsedtemplatefile', this.config, tf);
                 return tf;
             } else {
                 this.notProcessed.push(filePath);

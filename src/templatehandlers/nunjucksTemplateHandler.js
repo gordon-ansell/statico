@@ -205,6 +205,8 @@ class NunjucksTemplateHandler extends TemplateHandler
             templateFile.data.leader_text = striptags(templateFile.data.leader_html);
         }
 
+        await this.config.events.emit('statico.parsedtemplatefile', this.config, templateFile);
+
         /*
         if (!this.config.toParseThroughLayout) {
             this.config.toParseThroughLayout = {};
@@ -229,6 +231,7 @@ class NunjucksTemplateHandler extends TemplateHandler
             syslog.info(`Skipping ${templateFile.filePath} write for incremental build.`);
         }
 
+        await this.config.events.emit('statico.parsedlayout', this.config, templateFile);
     }
 
     /**
