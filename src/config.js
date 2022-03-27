@@ -424,10 +424,17 @@ class Config
         
         for (let file of files) {
             let base = path.basename(file, path.extname(file));
-            syslog.warning(base);
             let newData = this.loadFile(file);
-            syslog.inspect(newData, "error");
+            if (base.startsWith('_')) {
+                for (let idx of Object.keys(newData)) {
+                    this.dataDirData[idx] = newData[idx];
+                }
+            } else {
+                this.dataDirData[base] = newData;
+            }
         }
+
+        syslog.inspect(this.dataDirData, "error");
     }
 
     /**
