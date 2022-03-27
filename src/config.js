@@ -432,7 +432,7 @@ class Config
             let ptr = data;
 
             for (let part of sp) {
-                if (!sp.startsWith('_')) {
+                if (!part.startsWith('_')) {
                     ptr[part] = {};
                     ptr = ptr[part];
                 }
