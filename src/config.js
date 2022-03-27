@@ -427,24 +427,15 @@ class Config
         for (let file of files) {
             let newData = this.loadFile(file);
             let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
-            syslog.warning(relPath);
 
             relPath = pathUtils.removeLeadingSlash(relPath);
-
-            syslog.warning(relPath);
-
             let sp = relPath.split('/');
-            syslog.inspect(sp, "error", "SP")
-
             let ptr = data;
 
             for (let part of sp) {
-                syslog.warning(`Testing part: ${part}`)
                 if (!part.startsWith('_')) {
-                    syslog.warning(`Dealing with part: ${part}`)
                     ptr[part] = {};
                     ptr = ptr[part];
-                    syslog.inspect(ptr, "error", "Pointer");
                 }
             }
 
