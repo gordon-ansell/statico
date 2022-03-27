@@ -409,7 +409,7 @@ class Config
         }
         let patterns = this.config.fsParserDataDirFilters;
         this.fsParser = new FsParser(path.join(this.#input, this.dataDir), this.#input, patterns);
-        let files = await this.fsParser.parse();
+        let files = this.fsParser.parse();
         syslog.inspect(files, 'error');
     }
 
