@@ -434,6 +434,7 @@ class Config
             let ptr = data;
 
             for (let part of sp) {
+                syslog.warning(`Testing part: ${part}`)
                 if (!part.startsWith('_')) {
                     ptr[part] = {};
                     ptr = ptr[part];
