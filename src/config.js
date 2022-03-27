@@ -423,19 +423,29 @@ class Config
         let files = await this.fsParser.parse();
         
         for (let file of files) {
-            let relPath = path.basename(file.replace(path.join(this.sitePath, '_data'), ''), path.extname(file));
-            syslog.warning(relPath);
-            let base = path.basename(file, path.extname(file));
             let newData = this.loadFile(file);
+            let relPath = path.basename(file.replace(path.join(this.sitePath, '_data'), ''), path.extname(file));
 
-            if (base.startsWith('_')) {
-                for (let idx of Object.keys(newData)) {
-                    this.dataDirData[idx] = newData[idx];
+            let sp = pathUtils.removeBothSlashes(relPath).split('/');
+
+            let data = {};
+            let ptr = data;
+
+            for (let part of sp) {
+                if (!sp.startWith('_')) {
+                    ptr[part] = {};
+                    ptr = ptr[part];
                 }
-            } else {
-                this.dataDirData[base] = newData;
+            }
+
+            for (let idx of Object.keys(newData)) {
+                ptr[idx] = newData[idx];
             }
         }
+
+        this.dataDirData = data;
+
+        syslog.inspect(this.dataDirData, "error");
     }
 
     /**
