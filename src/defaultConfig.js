@@ -8,6 +8,8 @@
 
 const path = require('path');
 
+const DATADIR = '_data';
+
 /**
  * Default configuration.
  */
@@ -18,7 +20,7 @@ module.exports = function(configData) {
         // Filters used when parsing filesystem.
         fsParserFilters: {
             allowPaths: ['_posts'],
-            ignorePaths: ['_', 'node_modules', '_conv', '_drafts', '_data'],
+            ignorePaths: ['_', 'node_modules', '_conv', '_drafts', DATADIR],
             ignoreDirs: ['.git', '_generatedImages'],
             allowFiles: [],
             ignoreFiles: ['.', '_', 'package.json', 'package-lock.json'],
@@ -27,7 +29,7 @@ module.exports = function(configData) {
         },
         fsParserDataFilters: {
             allowPaths: undefined,
-            ignorePaths: ['node_modules', '_conv', '_drafts', '_data'],
+            ignorePaths: ['node_modules', '_conv', '_drafts', DATADIR],
             ignoreDirs: ['.git', '_generatedImages'],
             allowFiles: ['.statico.'],
             ignoreFiles: ['package.json', 'package-lock.json'],
@@ -54,6 +56,7 @@ module.exports = function(configData) {
             }
         },
         preprocessors: {},
+        dataDir: DATADIR,
         layoutDir: '_layouts',
         ignoreParts: ["^\\d{4}-\\d{2}-\\d{2}-"],
         layoutProcessor: 'nunjucks',
