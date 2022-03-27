@@ -434,7 +434,9 @@ class Config
 
             for (let part of sp) {
                 if (!part.startsWith('_')) {
-                    ptr[part] = {};
+                    if (!ptr[part]) {
+                        ptr[part] = {};
+                    }
                     ptr = ptr[part];
                 }
             }
