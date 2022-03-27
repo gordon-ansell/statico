@@ -36,15 +36,6 @@ module.exports = function(configData) {
             ignoreFilesFirst: undefined,
             ignoreExts: ['.sh'],
         },
-        fsParserDataDirFilters: {
-            allowPaths: undefined,
-            ignorePaths: ['_'],
-            ignoreDirs: undefined,
-            allowFiles: undefined,
-            ignoreFiles: undefined,
-            ignoreFilesFirst: undefined,
-            ignoreExts: undefined,
-        },
         templateHandlerDefaults: {
             nunjucks: {
                 exts: ['njk'],
