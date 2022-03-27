@@ -423,10 +423,11 @@ class Config
         let files = await this.fsParser.parse();
         
         for (let file of files) {
-            let relPath = file.replace(this.sitePath, '');
+            let relPath = file.replace(path.join(this.sitePath, '_data'), '');
             syslog.warning(relPath);
             let base = path.basename(file, path.extname(file));
             let newData = this.loadFile(file);
+
             if (base.startsWith('_')) {
                 for (let idx of Object.keys(newData)) {
                     this.dataDirData[idx] = newData[idx];
