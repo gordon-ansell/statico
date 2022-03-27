@@ -398,6 +398,22 @@ class Config
     }
 
     /**
+     * Load everything from the data directories.
+     * 
+     */
+    loadDataDirectory()
+    {
+        if (!this.dataDir) {
+            syslog.warning(`No data directory defined - will not load any data.`);
+            return;
+        }
+        let patterns = this.config.fsParserDataDirFilters;
+        this.fsParser = new FsParser(path.join(this.#input, this.dataDir), this.#input, patterns);
+        let files = await this.fsParser.parse();
+        syslog.inspect(files, 'error');
+    }
+
+    /**
      * Merge the base configs into the final data.
      * 
      * @return  {void}
