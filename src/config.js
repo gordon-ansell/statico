@@ -426,7 +426,7 @@ class Config
         
         for (let file of files) {
             let newData = this.loadFile(file);
-            let relPath = path.basename(file.replace(path.join(this.sitePath, '_data'), ''), path.extname(file));
+            let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
             syslog.warning(relPath);
 
             let sp = pathUtils.removeBothSlashes(relPath).split('/');
