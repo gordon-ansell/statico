@@ -403,7 +403,16 @@ class Config
      */
     loadDataDirectory()
     {
-        let patterns = this.config.fsParserDataDirFilters;
+        let patterns =  {
+            allowPaths: undefined,
+            ignorePaths: ['_'],
+            ignoreDirs: undefined,
+            allowFiles: undefined,
+            ignoreFiles: undefined,
+            ignoreFilesFirst: undefined,
+            ignoreExts: undefined,
+        };
+
         this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
         let files = this.fsParser.parse();
         syslog.inspect(files, 'error');
