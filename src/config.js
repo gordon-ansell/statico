@@ -408,7 +408,7 @@ class Config
             ignorePaths: ['_'],
             ignoreDirs: undefined,
             allowFiles: undefined,
-            ignoreFiles: undefined,
+            ignoreFiles: ['.'],
             ignoreFilesFirst: undefined,
             ignoreExts: undefined,
         };
