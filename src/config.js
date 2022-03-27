@@ -429,15 +429,17 @@ class Config
             let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
             syslog.warning(relPath);
 
-            let sp = pathUtils.removeLeadingSlash(relPath).split('/');
+            let sp = pathUtils.removeBothSlashes(relPath).split('/');
 
             let ptr = data;
 
             for (let part of sp) {
                 syslog.warning(`Testing part: ${part}`)
                 if (!part.startsWith('_')) {
+                    syslog.warning(`Dealing with part: ${part}`)
                     ptr[part] = {};
                     ptr = ptr[part];
+                    syslog.inspect(ptr, "error", "Pointer");
                 }
             }
 
