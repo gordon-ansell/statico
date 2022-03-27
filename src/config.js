@@ -448,7 +448,7 @@ class Config
 
         this.dataDirData = data;
 
-        syslog.inspect(this.dataDirData, "error");
+        //syslog.inspect(this.dataDirData, "error");
     }
 
     /**
@@ -490,6 +490,7 @@ class Config
     mergeBaseConfigs()
     {
         let result = merge.mergeMany([this, this.defaultConfig, this.dataDirData, this.userData]);
+        syslog.inspect(result, "error");
         for (let k in result) {
             this[k] = result[k];
         }
