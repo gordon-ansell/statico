@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, merge, pathUtils, FsParser } = require('js-framework');
+const { syslog, merge, pathUtils, FsParser, YamlFile } = require('js-framework');
 const { EventManager, CacheManager } = require('js-framework');
 const fs = require('fs');
 const os = require('os');
@@ -43,6 +43,12 @@ class Config
      * @member {object}
      */
     userData = {};
+
+    /**
+     * Data dir data.
+     * @member {object}
+     */
+    dataDirData = {};
 
     /**
      * Site path.
@@ -418,6 +424,7 @@ class Config
         
         for (let file of files) {
             let newData = this.loadFile(file);
+            syslog.inspect(newData, "error");
         }
     }
 
@@ -431,7 +438,14 @@ class Config
      */
     loadFile(filePath, config)
     {
-        let newConfig = require(filePath);
+        let ext = path.extname(filePath);
+        let newConfig;
+        if ('.yaml' === ext) {
+            let ym = new YamlFile(filePath);
+            newConfig = ym.parse();
+        } else {
+            newConfig = require(filePath);
+        }
         if ("function" === typeof newConfig) {
             try {
                 newConfig = newConfig.call(this, this);
