@@ -429,7 +429,7 @@ class Config
             let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
             syslog.warning(relPath);
 
-            let sp = pathUtils.removeBothSlashes(relPath).split('/');
+            let sp = (pathUtils.removeBothSlashes(relPath)).split('/');
 
             syslog.inspect(sp, "error", "SP")
 
