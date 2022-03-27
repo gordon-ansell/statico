@@ -431,6 +431,8 @@ class Config
 
             let sp = pathUtils.removeBothSlashes(relPath).split('/');
 
+            syslog.inspect(sp, "error", "SP")
+
             let ptr = data;
 
             for (let part of sp) {
