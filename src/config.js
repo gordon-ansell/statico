@@ -415,7 +415,34 @@ class Config
 
         this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
         let files = await this.fsParser.parse();
-        syslog.inspect(files, 'error');
+        
+        for (let file of files) {
+            let newData = this.loadFile(file);
+        }
+    }
+
+    /**
+     * Load a config file.
+     * 
+     * @param   {string}        filePath        Path to file to load.
+     * @param   {Config}        config          Config object passed if config file is a function.
+     * 
+     * @return  {JSON}
+     */
+    loadFile(filePath, config)
+    {
+        let newConfig = require(filePath);
+        if ("function" === typeof newConfig) {
+            try {
+                newConfig = newConfig.call(this, this);
+            } catch (e) {
+                throw new StaticoError(`Failed to load config file at: ${filePath}: ${e.message}`, null, e);
+            }
+        } else {
+            throw new StaticoError(`Config file at ${filePath} is of the wrong type.`);
+        }
+        debug(`Loaded config file '${filePath}'.`);
+        return newConfig;
     }
 
     /**
@@ -594,29 +621,6 @@ class Config
 
     }
 
-    /**
-     * Load a config file.
-     * 
-     * @param   {string}        filePath        Path to file to load.
-     * @param   {Config}        config          Config object passed if config file is a function.
-     * 
-     * @return  {JSON}
-     */
-    loadFile(filePath, config)
-    {
-        let newConfig = require(filePath);
-        if ("function" === typeof newConfig) {
-            try {
-                newConfig = newConfig.call(this, this);
-            } catch (e) {
-                throw new StaticoError(`Failed to load config file at: ${filePath}: ${e.message}`, null, e);
-            }
-        } else {
-            throw new StaticoError(`Config file at ${filePath} is of the wrong type.`);
-        }
-        debug(`Loaded config file '${filePath}'.`);
-        return newConfig;
-    }
 
     /**
      * Add a plugin.
