@@ -408,7 +408,7 @@ class Config
             return;
         }
         let patterns = this.config.fsParserDataDirFilters;
-        this.fsParser = new FsParser(path.join(this.#input, this.dataDir), this.#input, patterns);
+        this.fsParser = new FsParser(path.join(this.sitePath, this.dataDir), this.sitePath, patterns);
         let files = this.fsParser.parse();
         syslog.inspect(files, 'error');
     }
