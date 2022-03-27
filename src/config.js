@@ -401,7 +401,7 @@ class Config
      * Load everything from the data directories.
      * 
      */
-    loadDataDirectory()
+    async loadDataDirectory()
     {
         let patterns =  {
             allowPaths: undefined,
@@ -414,7 +414,7 @@ class Config
         };
 
         this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
-        let files = this.fsParser.parse();
+        let files = await this.fsParser.parse();
         syslog.inspect(files, 'error');
     }
 
