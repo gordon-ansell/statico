@@ -423,6 +423,8 @@ class Config
         let files = await this.fsParser.parse();
         
         for (let file of files) {
+            let relPath = file.replace(this.sitePath, '');
+            syslog.warning(relPath);
             let base = path.basename(file, path.extname(file));
             let newData = this.loadFile(file);
             if (base.startsWith('_')) {
@@ -433,8 +435,6 @@ class Config
                 this.dataDirData[base] = newData;
             }
         }
-
-        syslog.inspect(this.dataDirData, "error");
     }
 
     /**
@@ -475,7 +475,7 @@ class Config
      */
     mergeBaseConfigs()
     {
-        let result = merge.mergeMany([this, this.defaultConfig, this.userData]);
+        let result = merge.mergeMany([this, this.defaultConfig, this.dataDirData, this.userData]);
         for (let k in result) {
             this[k] = result[k];
         }
