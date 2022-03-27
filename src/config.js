@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { syslog, merge, pathUtils } = require('js-framework');
+const { syslog, merge, pathUtils, FsParser } = require('js-framework');
 const { EventManager, CacheManager } = require('js-framework');
 const fs = require('fs');
 const os = require('os');
