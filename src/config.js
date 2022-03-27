@@ -403,12 +403,8 @@ class Config
      */
     loadDataDirectory()
     {
-        if (!this.dataDir) {
-            syslog.warning(`No data directory defined - will not load any data.`);
-            return;
-        }
         let patterns = this.config.fsParserDataDirFilters;
-        this.fsParser = new FsParser(path.join(this.sitePath, this.dataDir), this.sitePath, patterns);
+        this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
         let files = this.fsParser.parse();
         syslog.inspect(files, 'error');
     }
