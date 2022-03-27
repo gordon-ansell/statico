@@ -65,7 +65,6 @@ module.exports = function(configData) {
             }
         },
         preprocessors: {},
-        dataDir: DATADIR,
         layoutDir: '_layouts',
         ignoreParts: ["^\\d{4}-\\d{2}-\\d{2}-"],
         layoutProcessor: 'nunjucks',
