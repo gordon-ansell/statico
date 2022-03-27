@@ -414,7 +414,7 @@ class Config
             ignorePaths: ['__'],
             ignoreDirs: undefined,
             allowFiles: undefined,
-            ignoreFiles: ['.'],
+            ignoreFiles: ['.', '__'],
             ignoreFilesFirst: undefined,
             ignoreExts: undefined,
         };
