@@ -421,6 +421,8 @@ class Config
 
         this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
         let files = await this.fsParser.parse();
+
+        let data = {};
         
         for (let file of files) {
             let newData = this.loadFile(file);
@@ -428,7 +430,6 @@ class Config
 
             let sp = pathUtils.removeBothSlashes(relPath).split('/');
 
-            let data = {};
             let ptr = data;
 
             for (let part of sp) {
