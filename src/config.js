@@ -429,7 +429,7 @@ class Config
             let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
             syslog.warning(relPath);
 
-            relPath = pathUtils.removeBothSlashes(relPath);
+            relPath = pathUtils.removeleadingSlash(relPath);
 
             syslog.warning(relPath);
 
