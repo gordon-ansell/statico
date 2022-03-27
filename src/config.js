@@ -412,7 +412,7 @@ class Config
         let patterns =  {
             allowPaths: undefined,
             ignorePaths: ['__'],
-            ignoreDirs: undefined,
+            ignoreDirs: ['__'],
             allowFiles: undefined,
             ignoreFiles: ['.'],
             ignoreFilesFirst: ['__'],
