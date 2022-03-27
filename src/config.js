@@ -453,7 +453,7 @@ class Config
                 throw new StaticoError(`Failed to load config file at: ${filePath}: ${e.message}`, null, e);
             }
         } else {
-            throw new StaticoError(`Config file at ${filePath} is of the wrong type.`);
+            //throw new StaticoError(`Config file at ${filePath} is of the wrong type.`);
         }
         debug(`Loaded config file '${filePath}'.`);
         return newConfig;
