@@ -431,10 +431,10 @@ class Config
 
             relPath = pathUtils.removeBothSlashes(relPath);
 
-            syslog.inspect(sp, "error", "SP")
             syslog.warning(relPath);
 
             let sp = relPath.split('/');
+            syslog.inspect(sp, "error", "SP")
 
             let ptr = data;
 
