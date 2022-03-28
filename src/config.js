@@ -486,7 +486,7 @@ class Config
                     recurse: (-1 !== base.indexOf('recurse'))
                 }
             );
-            syslog.inspect(this.dirSpecficConfig, "error", "pushing");
+            syslog.inspect(file, "error", "pushing");
         }
 
         syslog.inspect(this.dirSpecficConfig, "error");
