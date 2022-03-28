@@ -505,7 +505,7 @@ class Config
         for (let item of this.dirSpecificConfig) {
             if (item.recurse && templateFile.filePath.startsWith(item.pattern)) {
                 syslog.warning(`Dir specific recurse match: ${templateFile.filePath} => ${item.file}`);
-            } else if (!item.recurse && path.basename(templateFile.filePath) === item.pattern) {
+            } else if (!item.recurse && path.dirname(templateFile.filePath) === item.pattern) {
                 syslog.warning(`Dir specific non-recurse match: ${templateFile.filePath} => ${item.file}`);
             }
         }
