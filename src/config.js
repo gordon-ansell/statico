@@ -499,6 +499,8 @@ class Config
             return;
         }
 
+        syslog.inspect(this.dirSpecficConfig, "error");
+
         for (let item of this.dirSpecficConfig) {
             if (item.recurse && templateFile.filePath.startsWith(item.pattern)) {
                 syslog.warning(`Dir specific recurse match: ${templateFile.filePath} => ${item.file}`);
