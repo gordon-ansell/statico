@@ -188,6 +188,9 @@ class TemplateFile
             // Frig the dates.
             this.frigDates();
 
+            // Run directory-specific config.
+            this.config.runDirSpecificConfig(this);
+
             // Generate the output location.
             this.generateOutputLocation();
 
@@ -200,8 +203,6 @@ class TemplateFile
             }
         }
 
-        // Run directory-specific config.
-        this.config.runDirSpecificConfig(this);
     }
 
     /**
