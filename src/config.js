@@ -504,9 +504,22 @@ class Config
 
         for (let item of this.dirSpecificConfig) {
             if (item.recurse && templateFile.filePath.startsWith(item.pattern)) {
-                syslog.warning(`Dir specific recurse match: ${templateFile.filePath} => ${item.file}`);
-            } else if (!item.recurse && path.dirname(templateFile.filePath) === item.pattern) {
-                syslog.warning(`Dir specific non-recurse match: ${templateFile.filePath} => ${item.file}`);
+                debug(`Dir specific recurse match: ${templateFile.filePath} => ${item.file}`);
+                let js = require(item.file);
+                try {
+                    js.call(this, this, templateFile);
+                } catch (err) {
+                    throw new StaticoError(`Failed to load directory-specific config (recurse) file at: ${item.file}: ${e.message}`, null, e);
+                }
+            }
+            if (!item.recurse && path.dirname(templateFile.filePath) === item.pattern) {
+                debug(`Dir specific non-recurse match: ${templateFile.filePath} => ${item.file}`);
+                let js = require(item.file);
+                try {
+                    js.call(this, this, templateFile);
+                } catch (err) {
+                    throw new StaticoError(`Failed to load directory-specific config file at: ${item.file}: ${e.message}`, null, e);
+                }
             }
         }
     }
