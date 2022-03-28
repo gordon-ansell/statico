@@ -108,11 +108,9 @@ class TemplatePathUrl
                 }
             }
 
-            /*
-            if (!item.startsWith('_')) {
+            //if (!item.startsWith('_')) {
                 sel.push(item);
-            } 
-            */
+            //} 
         }
         op = sel.join('/');
 
