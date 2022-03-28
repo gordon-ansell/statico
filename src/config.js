@@ -146,7 +146,8 @@ class Config
             watcher: {},
             dynamicData: {},
             imageInfoStore: new ImageInfoStore(this),
-            schema: {}
+            schema: {},
+            dirSpecificConfig: []
         };        
     }
 
@@ -473,7 +474,17 @@ class Config
         this.fsParser = new FsParser(this.sitePath, this.sitePath, patterns);
         let files = await this.fsParser.parse();
 
-        syslog.inspect(files, "error")
+        for (let file of files) {
+            let base = path.basename(file);
+            this.dirSpecificConfig.push(
+                {
+                    file: file,
+                    recurse: (-1 !== base.indexOf('recurse'))
+                }
+            );
+        }
+
+        syslog.inspect(this.dirSpecificConfig, "error")
 
         /*
         let data = {};
