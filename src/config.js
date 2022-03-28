@@ -476,6 +476,9 @@ class Config
 
         for (let file of files) {
             let base = path.basename(file);
+            if (!this.dirSpecificConfig) {
+                this.dirSpecficConfig = [];
+            }
             this.dirSpecificConfig.push(
                 {
                     file: file,
@@ -483,6 +486,7 @@ class Config
                     recurse: (-1 !== base.indexOf('recurse'))
                 }
             );
+            syslog.inspect(this.dirSpecficConfig, "error", "pushing");
         }
 
         syslog.inspect(this.dirSpecficConfig, "error");
