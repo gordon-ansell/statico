@@ -17,7 +17,7 @@ module.exports = function(configData) {
     return {
         // Filters used when parsing filesystem.
         fsParserFilters: {
-            allowPaths: ['_posts'],
+            allowPaths: undefined,
             ignorePaths: ['_', 'node_modules', '_conv', '_drafts', '_data'],
             ignoreDirs: ['.git', '_generatedImages'],
             allowFiles: [],
