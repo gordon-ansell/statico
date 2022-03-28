@@ -126,6 +126,13 @@ class TemplatePathUrl
         // If we have a manual permalink.
         if (this.permalink) {
 
+            // If the permalink contains replaceables ...
+            if (-1 !== this.permalink.indexOf('{')) {
+                this.permalink = this.permalink.replace('{dir}', dirName);
+                this.permalink = this.permalink.replace('{file}', fileNameWithoutExt);
+                this.permalink = this.permalink.replace('{ext}', ext);
+            }
+
             // Add slashes.
             permalink = pathUtils.addBothSlashes(this.permalink);
 
