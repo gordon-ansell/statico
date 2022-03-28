@@ -484,6 +484,8 @@ class Config
                 }
             );
         }
+
+        syslog.inspect(this.dirSpecficConfig, "error");
     }
 
     /**
