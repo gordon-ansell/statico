@@ -199,6 +199,9 @@ class TemplateFile
                 pager.calculatePaging();
             }
         }
+
+        // Run directory-specific config.
+        this.config.runDirSpecificConfig(this);
     }
 
     /**
