@@ -453,11 +453,11 @@ class Config
     }
 
     /**
-     * Load directory data files.
+     * Load directory-specific config files.
      * 
      * @return  {void}
      */
-    async loadDirDataFiles()
+    async loadDirConfigFiles()
     {
         let patterns =  {
             allowPaths: undefined,
@@ -469,7 +469,7 @@ class Config
             ignoreExts: ['.sh'],
         };
 
-        this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
+        this.fsParser = new FsParser(this.sitePath, this.sitePath, patterns);
         let files = await this.fsParser.parse();
 
         syslog.inspect(files, "error")
