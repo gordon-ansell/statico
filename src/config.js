@@ -476,9 +476,6 @@ class Config
 
         for (let file of files) {
             let base = path.basename(file);
-            if (!this.dirSpecificConfig) {
-                this.dirSpecficConfig = [];
-            }
             this.dirSpecificConfig.push(
                 {
                     file: file,
@@ -486,10 +483,8 @@ class Config
                     recurse: (-1 !== base.indexOf('recurse'))
                 }
             );
-            syslog.inspect(file, "error", "pushing");
         }
 
-        syslog.inspect(this.dirSpecficConfig, "error");
     }
 
     /**
@@ -507,7 +502,7 @@ class Config
 
         //syslog.inspect(this.dirSpecficConfig, "error");
 
-        for (let item of this.dirSpecficConfig) {
+        for (let item of this.dirSpecificConfig) {
             if (item.recurse && templateFile.filePath.startsWith(item.pattern)) {
                 syslog.warning(`Dir specific recurse match: ${templateFile.filePath} => ${item.file}`);
             } else if (!item.recurse && path.basename(templateFile.filePath) === item.pattern) {
