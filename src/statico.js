@@ -159,6 +159,7 @@ class Statico
 
         this.config.loadSiteConfig();
         await this.config.loadDataDirectory();
+        await this.config.loadDirConfigFiles();
         this.config.mergeBaseConfigs();
         this.config.collateProcessArgs();
 
