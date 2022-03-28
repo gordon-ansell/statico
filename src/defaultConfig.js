@@ -8,8 +8,6 @@
 
 const path = require('path');
 
-const DATADIR = '_data';
-
 /**
  * Default configuration.
  */
@@ -20,19 +18,10 @@ module.exports = function(configData) {
         // Filters used when parsing filesystem.
         fsParserFilters: {
             allowPaths: ['_posts'],
-            ignorePaths: ['_', 'node_modules', '_conv', '_drafts', DATADIR],
+            ignorePaths: ['_', 'node_modules', '_conv', '_drafts', '_data'],
             ignoreDirs: ['.git', '_generatedImages'],
             allowFiles: [],
             ignoreFiles: ['.', '_', 'package.json', 'package-lock.json'],
-            ignoreFilesFirst: undefined,
-            ignoreExts: ['.sh'],
-        },
-        fsParserDataFilters: {
-            allowPaths: undefined,
-            ignorePaths: ['node_modules', '_conv', '_drafts', DATADIR],
-            ignoreDirs: ['.git', '_generatedImages'],
-            allowFiles: ['.statico.'],
-            ignoreFiles: ['package.json', 'package-lock.json'],
             ignoreFilesFirst: undefined,
             ignoreExts: ['.sh'],
         },

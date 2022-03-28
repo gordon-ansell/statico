@@ -406,6 +406,7 @@ class Config
     /**
      * Load everything from the data directories.
      * 
+     * @return  {void}
      */
     async loadDataDirectory()
     {
@@ -449,6 +450,58 @@ class Config
         this.dataDirData = data;
 
         //syslog.inspect(this.dataDirData, "error");
+    }
+
+    /**
+     * Load directory data files.
+     * 
+     * @return  {void}
+     */
+    async loadDirDataFiles()
+    {
+        let patterns =  {
+            allowPaths: undefined,
+            ignorePaths: ['node_modules', '_conv', '_drafts', '_data'],
+            ignoreDirs: ['.git', '_generatedImages'],
+            allowFiles: ['.statico.recurse.js', '.statico.dir.js'],
+            ignoreFiles: ['package.json', 'package-lock.json'],
+            ignoreFilesFirst: undefined,
+            ignoreExts: ['.sh'],
+        };
+
+        this.fsParser = new FsParser(path.join(this.sitePath, '_data'), this.sitePath, patterns);
+        let files = await this.fsParser.parse();
+
+        syslog.inspect(files, "error")
+
+        /*
+        let data = {};
+        
+        for (let file of files) {
+            let newData = this.loadFile(file);
+            let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
+
+            relPath = pathUtils.removeLeadingSlash(relPath);
+            let sp = relPath.split('/');
+            let ptr = data;
+
+            for (let part of sp) {
+                if (!part.startsWith('_')) {
+                    if (!ptr[part]) {
+                        ptr[part] = {};
+                    }
+                    ptr = ptr[part];
+                }
+            }
+
+            for (let idx of Object.keys(newData)) {
+                ptr[idx] = newData[idx];
+            }
+        }
+
+        this.dataDirData = data;
+        */
+
     }
 
     /**
