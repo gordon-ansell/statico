@@ -463,10 +463,11 @@ class Config
             allowPaths: undefined,
             ignorePaths: ['node_modules', '_conv', '_drafts', '_data'],
             ignoreDirs: ['.git', '_generatedImages'],
-            allowFiles: ['.statico.recurse.js', '.statico.dir.js'],
-            ignoreFiles: ['package.json', 'package-lock.json'],
+            onlyFiles: ['.statico.recurse.js', '.statico.dir.js'],
+            allowFiles: undefined,
+            ignoreFiles: undefined,
             ignoreFilesFirst: undefined,
-            ignoreExts: ['.sh'],
+            ignoreExts: undefined,
         };
 
         this.fsParser = new FsParser(this.sitePath, this.sitePath, patterns);
