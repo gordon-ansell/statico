@@ -479,41 +479,33 @@ class Config
             this.dirSpecificConfig.push(
                 {
                     file: file,
+                    pattern: path.dirname(file),
                     recurse: (-1 !== base.indexOf('recurse'))
                 }
             );
         }
+    }
 
-        syslog.inspect(this.dirSpecificConfig, "error")
-
-        /*
-        let data = {};
-        
-        for (let file of files) {
-            let newData = this.loadFile(file);
-            let relPath = file.replace(path.join(this.sitePath, '_data'), '').replace(/\.[^/.]+$/, "");
-
-            relPath = pathUtils.removeLeadingSlash(relPath);
-            let sp = relPath.split('/');
-            let ptr = data;
-
-            for (let part of sp) {
-                if (!part.startsWith('_')) {
-                    if (!ptr[part]) {
-                        ptr[part] = {};
-                    }
-                    ptr = ptr[part];
-                }
-            }
-
-            for (let idx of Object.keys(newData)) {
-                ptr[idx] = newData[idx];
-            }
+    /**
+     * Run directory specific config.
+     * 
+     * @param   {TemplateFile}  templateFile    Template file we're processing.
+     * 
+     * @return  {void}
+     */
+    runDirSpecificConfig(templateFile)
+    {
+        if (0 === this.dirSpecificConfig.length) {
+            return;
         }
 
-        this.dataDirData = data;
-        */
-
+        for (let item of this.dirSpecficConfig) {
+            if (item.recurse && templateFile.filePath.startsWith(item.pattern)) {
+                syslog.warning(`Dir specific recurse match: ${templateFile.filePath} => ${item.file}`);
+            } else if (!item.recurse && path.basename(templateFile.filePath) === item.pattern) {
+                syslog.warning(`Dir specific non-recurse match: ${templateFile.filePath} => ${item.file}`);
+            }
+        }
     }
 
     /**
