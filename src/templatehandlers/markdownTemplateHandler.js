@@ -182,7 +182,6 @@ class MarkdownTemplateHandler extends TemplateHandler
 
         await this.config.events.emit('statico.parsedtemplatefile', this.config, templateFile);
 
-        /*
         // Deal with the layout.
         if (!this.config.toParseThroughLayout) {
             this.config.toParseThroughLayout = {};
@@ -198,8 +197,8 @@ class MarkdownTemplateHandler extends TemplateHandler
             this.config.toParseThroughLayout[parseName] = [];
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
-        */
 
+        /*
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
             if (incremental && incremental.includes(templateFile.filePath)) {
                 syslog.notice(`File ${templateFile.filePath} being processed incrementally.`);
@@ -210,6 +209,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         }
 
         await this.config.events.emit('statico.parsedlayout', this.config, templateFile);
+        */
     }
 
     /**

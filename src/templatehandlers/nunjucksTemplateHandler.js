@@ -207,7 +207,6 @@ class NunjucksTemplateHandler extends TemplateHandler
 
         await this.config.events.emit('statico.parsedtemplatefile', this.config, templateFile);
 
-        /*
         if (!this.config.toParseThroughLayout) {
             this.config.toParseThroughLayout = {};
         }
@@ -220,8 +219,8 @@ class NunjucksTemplateHandler extends TemplateHandler
             this.config.toParseThroughLayout[parseName] = [];
         }
         this.config.toParseThroughLayout[parseName].push(templateFile);
-        */
 
+        /*
         if ((incremental && incremental.includes(templateFile.filePath)) || !incremental) {
             if (incremental && incremental.includes(templateFile.filePath)) {
                 syslog.notice(`File ${templateFile.filePath} being processed incrementally.`);
@@ -232,6 +231,7 @@ class NunjucksTemplateHandler extends TemplateHandler
         }
 
         await this.config.events.emit('statico.parsedlayout', this.config, templateFile);
+        */
     }
 
     /**

@@ -434,7 +434,6 @@ class Statico
         Benchmarks.getInstance().markEnd('template-parser-last');
 
         // Now push everything through their layouts.
-        /*
         Benchmarks.getInstance().markStart('layout-parser-early', 'Layout Parser (Early)');
         syslog.notice(`Parsing everything through layouts - early.`)
         await this.parseThroughLayoutAndWrite('early', incremental);
@@ -449,7 +448,6 @@ class Statico
         syslog.notice(`Parsing everything through layouts - last.`)
         await this.parseThroughLayoutAndWrite('last', incremental);
         Benchmarks.getInstance().markEnd('layout-parser-last');
-        */
 
         //syslog.inspect(this.config.schema, "warning");
 
@@ -469,7 +467,6 @@ class Statico
      * Push everything through their layouts.
      * 
      */
-    /*
     async parseThroughLayoutAndWrite(parseName, incremental)
     {
         syslog.info(`Parse through layouts - ${parseName}.`);
@@ -498,7 +495,6 @@ class Statico
 
         this.config.toParseThroughLayout[parseName] = []; 
     }
-    */
 
     /**
      * Sort the taxonomies.
