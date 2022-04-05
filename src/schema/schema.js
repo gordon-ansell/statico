@@ -670,10 +670,11 @@ class Schema
                     sch.operatingSystem(productFields[idx]);
                 } else if ('Event' === productFields.type) {
                     if ('organizer' === idx) {
-                        sch.organizer(SchemaCreator.create('Organization', null, {name: productFields[idx]}));
+                        let n = {name: productFields[idx]};
                         if (productFields['organizer_url']) {
-                            sch.organizer().addProp('url', productFields['organizer_url']);
+                            n.url = productFields['organizer_url'];
                         }
+                        sch.organizer(SchemaCreator.create('Organization', null, n));
                     } else if ('organizer_url' !== idx) {
                         sch.addProp(idx, productFields[idx]);
                     }
