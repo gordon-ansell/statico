@@ -669,12 +669,12 @@ class Schema
                 } else if ('operatingSystem' === idx) {
                     sch.operatingSystem(productFields[idx]);
                 } else if ('Event' === productFields.type) {
-                    if ('product_organizer' === idx) {
+                    if ('organizer' === idx) {
                         sch.organizer(SchemaCreator.create('Organization', null, {name: productFields[idx]}));
-                        if (productFields['product_organizer.url']) {
-                            sch.organizer().addProp('url', productFields['product_organizer.url']);
+                        if (productFields['organizer.url']) {
+                            sch.organizer().addProp('url', productFields['organizer.url']);
                         }
-                    } else if ('product_organizer_url' !== idx) {
+                    } else if ('organizer_url' !== idx) {
                         sch.addProp(idx, productFields[idx]);
                     }
 
