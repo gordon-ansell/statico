@@ -671,8 +671,8 @@ class Schema
                 } else if ('Event' === productFields.type) {
                     if ('organizer' === idx) {
                         sch.organizer(SchemaCreator.create('Organization', null, {name: productFields[idx]}));
-                        if (productFields['organizer.url']) {
-                            sch.organizer().addProp('url', productFields['organizer.url']);
+                        if (productFields['organizer_url']) {
+                            sch.organizer().addProp('url', productFields['organizer_url']);
                         }
                     } else if ('organizer_url' !== idx) {
                         sch.addProp(idx, productFields[idx]);
