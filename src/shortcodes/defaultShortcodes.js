@@ -14,6 +14,7 @@ const VideoLinkShortcode = require('./videolinkShortcode');
 const MetaShortcode = require('./metaShortcode');
 const TagsShortcode = require('./tagsShortcode');
 const SectionShortcode = require('./sectionShortcode');
+const ClearfixShortcode = require('./clearfixShortcode');
 const { syslog } = require('js-framework');
 const debug = require('debug')('Statico:defaultShortcodes'),
       debugf = require('debug')('Full.Statico:defaultShortcodes');
@@ -48,4 +49,7 @@ module.exports = function(config) {
 
     config.addNunjucksPairedShortcode('section', SectionShortcode);
     debug(`Added shortcode to Nunjucks: section`);
+
+    config.addNunjucksShortcode('clearfix', ClearfixShortcode);
+    debug(`Added shortcode to Nunjucks: clearfix`);
 }
