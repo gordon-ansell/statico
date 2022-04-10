@@ -136,7 +136,7 @@ class Watcher
 
                 await new Promise((resolve, reject) => {
                     watchDelay = setTimeout(async () => {
-                        this._run.then(resolve, reject);
+                        this._run().then(resolve, reject);
                     }, 0);
                 });
             } catch (e) {
