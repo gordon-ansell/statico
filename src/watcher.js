@@ -60,8 +60,36 @@ class Watcher
     /**
      * The actual watch run.
      */
-    async _run(filePath)
+    async _run(/*filePath*/)
     {
+        if (this.q.length > 0) {
+            let files = [];
+            let builtScss = false;
+
+            for (let file of this.q) {
+                let ext = path.extname(file);
+
+                if (!buildScss && '.scss' === ext && this.config.scssBuild) {
+                    let tmp = this.config.scssBuild;
+                    //filePath = [];
+                    for (let item of tmp) {
+                        files.push(path.join(this.config.sitePath, item));
+                    }
+                    builtScss = true;
+                } else {
+                    files.push(file);
+                }
+            }
+
+            this.q = [];
+
+            if (files.length > 0) {
+                this.statico.process(files);
+            }
+
+        }
+
+        /*
         let ext = path.extname(filePath);
 
         if ('.scss' == ext && this.config.scssBuild) {
@@ -77,6 +105,7 @@ class Watcher
             syslog.notice(`Telling browsersync to refresh.`);
             this.server.reload('*.*');
         }
+        */
     }
 
     /**
@@ -99,14 +128,32 @@ class Watcher
         syslog.notice('Starting file watcher ...');
         this.config.watching = true;
 
+        let watchDelay;
+        let watchExecute = async (filePath) => {
+            try {
+                this.q.push(filePath);
+                clearTimeout(watchDelay);
+
+                await new Promise((resolve, reject) => {
+                    watchDelay = setTimeout(async () => {
+                        this._run.then(resolve, reject);
+                    }, 0);
+                });
+            } catch (e) {
+                syslog.error(`Watcher error: ${e.message}`);
+            }
+        }
+
         ch.on('change', async (filePath) => {
             syslog.notice(`File changed: ${filePath}`);
-            await this._run(filePath);
+            await watchExecute(filePath);
+            //await this._run(filePath);
         });
 
         ch.on('add', async (filePath) => {
             syslog.notice(`File added: ${filePath}`);
-            await this._run(filePath);
+            await watchExecute(filePath);
+            //await this._run(filePath);
         });
 
         process.on('SIGINT', () => {
