@@ -83,7 +83,7 @@ module.exports = function(configData) {
                 path.join(configData.sitePath, '_conv'),
                 path.join(configData.sitePath, '_site'),
                 path.join(configData.sitePath, '_tmp'),
-                path.join(configData.sitePath, '_generatedImages'),
+                path.join(configData.sitePath, 'assets/_generatedImages'),
                 path.join(configData.sitePath, 'package.*'),
                 /(^|[\/\\])\../,
             ]
