@@ -11,6 +11,7 @@ const fs = require('fs');
 const { syslog } = require('js-framework');
 const path = require('path');
 const chokidar = require('chokidar');
+const { exit } = require('process');
 
 /**
  * Statico watcher.
@@ -65,11 +66,16 @@ class Watcher
         if (this.q.length > 0) {
             let files = [];
             let builtScss = false;
+            let layoutChange = false;
 
             for (let file of this.q) {
                 let ext = path.extname(file);
 
-                if (!builtScss && '.scss' === ext && this.config.scssBuild) {
+                if (file.startsWith(path.join(this.config.sitePath, this.config.layoutDir))) {
+                    syslog.notice(`Layout change detected - must rebuild everything.`);
+                    layoutChange = true;
+                    break;
+                } else if (!builtScss && '.scss' === ext && this.config.scssBuild) {
                     let tmp = this.config.scssBuild;
                     //filePath = [];
                     for (let item of tmp) {
@@ -83,7 +89,9 @@ class Watcher
 
             this.q = [];
 
-            if (files.length > 0) {
+            if (layoutChange) {
+                this.statico.process();
+            } else if (files.length > 0) {
                 this.statico.process(files);
             }
 

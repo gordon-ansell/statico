@@ -78,6 +78,7 @@ module.exports = function(configData) {
         },
         incrementalTolerance: 3600,
         watcher: {
+            livereload: true,
             ignores: [
                 path.join(configData.sitePath, 'node_modules'),
                 path.join(configData.sitePath, '_conv'),
