@@ -69,7 +69,7 @@ class Watcher
             for (let file of this.q) {
                 let ext = path.extname(file);
 
-                if (!buildScss && '.scss' === ext && this.config.scssBuild) {
+                if (!builtScss && '.scss' === ext && this.config.scssBuild) {
                     let tmp = this.config.scssBuild;
                     //filePath = [];
                     for (let item of tmp) {
