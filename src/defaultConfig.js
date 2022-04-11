@@ -100,6 +100,35 @@ module.exports = function(configData) {
             dests: [
                 "/public_html"
             ]            
+        },
+        schemaDefs: {
+            publisher: {
+                type: 'Organization',
+                image: {
+                    type: 'ImageObject',
+                    create: 'global',
+                    ref: true
+                },
+                logo: {
+                    type: 'ImageObject',
+                    create: 'global',
+                    ref: true
+                },
+                url: {
+                    qualify: true
+                }
+            },
+            website: {
+                type: 'WebSite',
+                name: 'site.title',
+                description: 'site.description',
+                url: 'cfg.hostname',
+                publisher: {
+                    render: 'publisher',
+                    with: 'site.publisher'
+                }
+
+            }
         }
     }
 }
