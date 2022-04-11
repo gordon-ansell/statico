@@ -12,15 +12,13 @@ const { syslog, FsParser, fsutils, string } = require('js-framework');
 const matter = require('gray-matter');
 const pack = require('../package.json');
 const Config = require('./config');
-const StaticoError = require('./staticoError');
-const Server = require('./server');
+//const StaticoError = require('./staticoError');
 const ServerExpress = require('./serverExpress');
-const StaticoTemplateHandlerError = require('./templatehandlers/staticoTemplateHandlerError');
 const TemplatePathUrl = require('./templatePathUrl');
 const TemplateParser = require('./parsers/templateParser');
 const AssetParser = require('./parsers/assetParser');
 const Watcher = require('./watcher');
-const Converter = require('./converter');
+//const Converter = require('./converter');
 const FtpRunner = require('./ftpRunner');
 const Benchmarks = require('./benchmarks');
 const debug = require('debug')('Statico'),
@@ -254,30 +252,10 @@ class Statico
 
         if (!this.config.processArgs.argv.dryrun) {
 
-            // Serve?
-            if (this.config.processArgs.argv.servenode) {
-                server = new Server(
-                    path.join(this.config.outputPath),
-                    this.config.hostname
-                );
-                server.start();
-
             // Express?
-            } else if (this.config.processArgs.argv.serve || this.config.processArgs.argv.watch) {
+            if (this.config.processArgs.argv.serve || this.config.processArgs.argv.watch) {
                 server = new ServerExpress(this.config);
                 server.start();
-
-            // Servesync?
-            /*
-            } else if (this.config.processArgs.argv.servesync) {
-                const ServerSync = require('./serverSync');
-                server = new ServerSync(
-                    path.join(this.config.outputPath),
-                    this.config.hostname,
-                    this
-                );
-                server.start();
-                */
             } 
 
             // Watch?
