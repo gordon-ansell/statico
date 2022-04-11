@@ -177,7 +177,7 @@ class ServerExpress
         this.#server.use('/', express.static(this.#outputPath));
 
         this.#server.listen(this.#port, () => {
-            syslog.notice(`Statico Express server running at ${this.#address}.`)
+            syslog.notice(`Statico Express server running at ${this.#address}`)
         });
 
         return this.#server;
