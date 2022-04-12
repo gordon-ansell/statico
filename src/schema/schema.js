@@ -948,20 +948,23 @@ class Schema
             if ('string' === typeof(d)) {
                 syslog.warning(d);
                 if (d.startsWith('site.')) {
-                    let dfilt = d.substring('site.'.length)
+                    let dfilt = d.substring('site.'.length);
                     if (!this.config.site[dfilt]) {
                         syslog.error(`No site specification for '${dfilt}' - cannot process schema.`)
                         continue;
                     }
                     v = this.config.site[dfilt];
                 } else if (d.startsWith('cfg.')) {
-                    let dfilt = d.substring('cfg.'.length)
+                    let dfilt = d.substring('cfg.'.length);
                     if (!this.config[dfilt]) {
                         syslog.error(`No config specification for '${dfilt}' - cannot process schema.`)
                         continue;
                     }
                     v = this.config[dfilt];
-                }
+                } else if (d.startsWith('ref.')) {
+                    let dfilt = d.substring('ref.'.length);
+                    v = SchemaBase.ref(dfilt);
+                } 
             }
 
         

@@ -125,11 +125,7 @@ module.exports = function(configData) {
                 name: 'site.title',
                 description: 'site.description',
                 url: 'cfg.hostname',
-                publisher: {
-                    render: 'publisher',
-                    with: 'site.publisher'
-                }
-
+                publisher: 'ref.publisher'
             }
         }
     }
