@@ -922,8 +922,8 @@ class Schema
 
         let partDefs = defs[part];
 
-        if (!partDefs.type) {
-            syslog.error(`No scheme definition for 'type' in part '${part}'.`);
+        if (!partDefs._type) {
+            syslog.error(`No scheme definition for '_type' in part '${part}'.`);
             return;
         }
 
