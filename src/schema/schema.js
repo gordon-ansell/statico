@@ -916,7 +916,7 @@ class Schema
             return;
         }
 
-        let partDefs = defs.part;
+        let partDefs = defs[part];
 
         if (!partDefs.type) {
             syslog.error(`No scheme definition for 'type' in part '${part}'.`);
