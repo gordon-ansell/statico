@@ -103,8 +103,8 @@ module.exports = function(configData) {
         },
         schemaDefs: {
             publisher: {
-                id: 'publisher',
-                type: 'Organization',
+                _id: 'publisher',
+                _type: 'Organization',
                 image: {
                     type: 'ImageObject',
                     create: 'global',
@@ -120,8 +120,9 @@ module.exports = function(configData) {
                 }
             },
             website: {
-                id: 'website',
-                type: 'WebSite',
+                _id: 'website',
+                _type: 'WebSite',
+                _shouldHave: ['name', 'url'],
                 name: 'site.title',
                 description: 'site.description',
                 url: 'cfg.hostname',

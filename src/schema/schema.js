@@ -928,18 +928,17 @@ class Schema
         }
 
         let id = null;
-        if (partDefs.id) {
-            id = partDefs.id;
+        if (partDefs._id) {
+            id = partDefs._id;
         }
 
-        let sch = SchemaCreator.create(partDefs.type, id);
+        let sch = SchemaCreator.create(partDefs._type, id);
 
-        let ignores = ['id', 'type'];
         let toqualify = ['url'];
 
         for (let key of Object.keys(partDefs)) {
 
-            if (ignores.includes(key)) {
+            if ('_' === key[0]) {
                 continue;
             }
 
@@ -976,6 +975,14 @@ class Schema
                 sch.addProp(key, v);
             }
 
+        }
+
+        if (partDefs._shouldHave) {
+            for (let item of partDefs._shouldHave) {
+                if (!sch.hasProp(item)) {
+                    syslog.warning(`Schema type ${partDefs._type} should hava the ${item} property.`)
+                }
+            }
         }
 
         syslog.inspect(sch.resolveProps(), "error");
