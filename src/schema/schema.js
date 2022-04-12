@@ -905,10 +905,11 @@ class Schema
      * Render part.
      * 
      * @param   {string}    part
+     * @param   {object}    data
      * 
      * @return
      */
-    renderPart(part)
+    renderPart(part, data = null)
     {
         let defs = this.config.schemaDefs;
         if (!defs[part]) {
@@ -931,6 +932,7 @@ class Schema
         let sch = SchemaCreator.create(partDefs.type, id);
 
         let ignores = ['id', 'type'];
+        let toqualify = ['url'];
 
         for (let key of Object.keys(partDefs)) {
 
@@ -939,12 +941,22 @@ class Schema
             }
 
             let d = partDefs[key];
+            let v = null;
             if ('string' === typeof(d)) {
                 if (d.startsWith('site.')) {
                     let dfilt = d.substring('site.'.length)
-                    sch.addProp(key, this.config.site[dfilt]);
+                    v = this.config.site[dfilt];
+                } else if (d.startsWith('cfg.')) {
+                    let dfilt = d.substring('cfg.'.length)
+                    v = this.config[dfilt];
                 }
             }
+
+            if (toqualify.includes(key)) {
+                v = this.qualify(v);
+            }
+
+            sch.addProp(key, v);
 
         }
 
