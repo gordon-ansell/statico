@@ -244,6 +244,9 @@ class Schema
      */
     qualify(path)
     {
+        if (path.startsWith(this.config.hostname)) {
+            return path;
+        }
         return new URL(path, this.config.hostname).toString();
     }
 
@@ -945,9 +948,17 @@ class Schema
             if ('string' === typeof(d)) {
                 if (d.startsWith('site.')) {
                     let dfilt = d.substring('site.'.length)
+                    if (!this.config.site[dfilt]) {
+                        syslog.error(`No site specification for '${dfilt}' - cannot process schema.`)
+                        continue;
+                    }
                     v = this.config.site[dfilt];
                 } else if (d.startsWith('cfg.')) {
                     let dfilt = d.substring('cfg.'.length)
+                    if (!this.config[dfilt]) {
+                        syslog.error(`No config specification for '${dfilt}' - cannot process schema.`)
+                        continue;
+                    }
                     v = this.config[dfilt];
                 }
             }
