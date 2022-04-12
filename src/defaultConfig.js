@@ -103,6 +103,7 @@ module.exports = function(configData) {
         },
         schemaDefs: {
             publisher: {
+                id: 'publisher',
                 type: 'Organization',
                 image: {
                     type: 'ImageObject',
@@ -119,6 +120,7 @@ module.exports = function(configData) {
                 }
             },
             website: {
+                id: 'website',
                 type: 'WebSite',
                 name: 'site.title',
                 description: 'site.description',

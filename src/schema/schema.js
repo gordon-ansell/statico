@@ -902,12 +902,65 @@ class Schema
     }
 
     /**
+     * Render part.
+     * 
+     * @param   {string}    part
+     * 
+     * @return
+     */
+    renderPart(part)
+    {
+        let defs = this.config.schemaDefs;
+        if (!defs.part) {
+            syslog.error(`No schema defs for part '${park}'.`);
+            return;
+        }
+
+        let partDefs = defs.part;
+
+        if (!partDefs.type) {
+            syslog.error(`No scheme definition for 'type' in part '${part}'.`);
+            return;
+        }
+
+        let id = null;
+        if (partDefs.id) {
+            id = partDefs.id;
+        }
+
+        let sch = SchemaCreator.create(partDefs.type, id);
+
+        let ignores = ['id', 'type'];
+
+        for (let key of Object.keys(partDefs)) {
+
+            if (ignores.includes(key)) {
+                continue;
+            }
+
+            let d = partDefs[key];
+            if ('string' === typeof(d)) {
+                if (d.startsWith('site.')) {
+                    let dfilt = d.substring('site.'.length)
+                    sch.addProp(key, this.config.site[dfilt]);
+                }
+            }
+
+        }
+
+        syslog.inspect(sch.resolveProps(), "error");
+
+    }
+
+    /**
      * Render the schema.
      * 
      * @return  {string}
      */
     render(page, replacer = null, space = null)
     {
+        this.renderPart('website');
+
         this._renderImages(page);
         this._renderVideos(page);
         this._renderWebsite(page);
