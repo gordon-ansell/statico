@@ -966,13 +966,14 @@ class Schema
                 }
             }
 
+        
             if (null !== v) {
                 if (toqualify.includes(key)) {
                     v = this.qualify(v);
                 }
+                
+                sch.addProp(key, v);
             }
-
-            sch.addProp(key, v);
 
         }
 
