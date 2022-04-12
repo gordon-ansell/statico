@@ -912,7 +912,7 @@ class Schema
     {
         let defs = this.config.schemaDefs;
         if (!defs.part) {
-            syslog.error(`No schema defs for part '${park}'.`);
+            syslog.error(`No schema defs for part '${part}'.`);
             return;
         }
 
