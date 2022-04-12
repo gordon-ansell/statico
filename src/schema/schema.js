@@ -953,6 +953,7 @@ class Schema
                         continue;
                     }
                     v = this.config.site[dfilt];
+                /*
                 } else if (d.startsWith('cfg.')) {
                     let dfilt = d.substring('cfg.'.length)
                     if (!this.config[dfilt]) {
@@ -960,6 +961,7 @@ class Schema
                         continue;
                     }
                     v = this.config[dfilt];
+                    */
                 }
             }
 
