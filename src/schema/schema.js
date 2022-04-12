@@ -966,8 +966,10 @@ class Schema
                 }
             }
 
-            if (toqualify.includes(key)) {
-                v = this.qualify(v);
+            if (null !== v) {
+                if (toqualify.includes(key)) {
+                    v = this.qualify(v);
+                }
             }
 
             sch.addProp(key, v);
