@@ -911,7 +911,7 @@ class Schema
     renderPart(part)
     {
         let defs = this.config.schemaDefs;
-        if (!defs.part) {
+        if (!defs[part]) {
             syslog.error(`No schema defs for part '${part}'.`);
             return;
         }
