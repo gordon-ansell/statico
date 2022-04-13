@@ -945,7 +945,6 @@ class Schema
             let d = partDefs[key];
             let v = null;
             if ('string' === typeof(d)) {
-                syslog.warning(d);
                 if (d.startsWith('site.')) {
                     let dfilt = d.substring('site.'.length);
                     if (!this.config.site[dfilt]) {
@@ -985,7 +984,7 @@ class Schema
             }
         }
 
-        syslog.inspect(sch.resolveProps(), "error");
+        //syslog.inspect(sch.resolveProps(), "error");
 
     }
 
