@@ -92,6 +92,12 @@ class Schema
     graph = null;
 
     /**
+     * Schema graph.
+     * @member {SchemaGraph}
+     */
+    schemaGraph = null;
+
+    /**
      * Have we rendered the article?
      * @member {boolean}
      */
@@ -907,12 +913,13 @@ class Schema
     /**
      * Render part.
      * 
+     * @param   {string}    name
      * @param   {string}    part
      * @param   {object}    data
      * 
      * @return
      */
-    renderPart(part, data = null)
+    renderPart(name, part, data = null)
     {
         let defs = this.config.schemaDefs;
         if (!defs[part]) {
@@ -984,7 +991,7 @@ class Schema
             }
         }
 
-        //syslog.inspect(sch.resolveProps(), "error");
+        this.schemaGraph.set(name, sch);
 
     }
 
@@ -995,7 +1002,8 @@ class Schema
      */
     render(page, replacer = null, space = null)
     {
-        this.renderPart('website');
+        this.renderPart('website', 'website');
+        syslog.inspect(this.schemaGraph.resolve(), "error");
 
         this._renderImages(page);
         this._renderVideos(page);
