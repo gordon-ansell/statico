@@ -115,6 +115,7 @@ class Schema
         this.config = config;
         SchemaBase.urlDomain = this.config.hostname;
         this.graph = new SchemaGraph;
+        this.schemaGraph = new SchemaGraph;
     }
 
     /**
