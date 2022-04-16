@@ -1003,8 +1003,8 @@ class Schema
      */
     render(page, replacer = null, space = null)
     {
-        this.renderPart('website', 'website');
-        syslog.inspect(this.schemaGraph.resolve(), "error");
+        //this.renderPart('website', 'website');
+        //syslog.inspect(this.schemaGraph.resolve(), "error");
 
         this._renderImages(page);
         this._renderVideos(page);
