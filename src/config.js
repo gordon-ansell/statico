@@ -285,7 +285,7 @@ class Config
         let cns = {
             nunjucks_image: NunjucksImagePreprocessor,
             nunjucks_comment: NunjucksCommentPreprocessor,
-            nunjucks_delimiter: DelimiterPreprocessor
+            delimiter: DelimiterPreprocessor
         }
 
         if (!cns[name]) {
