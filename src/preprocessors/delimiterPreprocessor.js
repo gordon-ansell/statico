@@ -49,7 +49,7 @@ class DelimiterPreprocessor
             let ret = string.replaceAll(content, '{ldelim}', '{');
             ret = string.replaceAll(ret, '{rdelim}', '}');
 
-            syslog.inspect(ret, 'error');
+            //syslog.inspect(ret, 'error');
 
             return ret;
         }
