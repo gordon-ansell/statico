@@ -686,7 +686,7 @@ class Schema
                         }
                         sch.organizer(SchemaCreator.create('Organization', null, n));
                     } else if ('location' === idx) {
-                        sch.location(SchemaCreator.create('Place', null, {address: productFields[idx]}));
+                        sch.location(SchemaCreator.create('Place', null, {name: productFields.name, address: productFields[idx]}));
                     } else if ('organizer_url' !== idx) {
                         sch.addProp(idx, productFields[idx]);
                     }
