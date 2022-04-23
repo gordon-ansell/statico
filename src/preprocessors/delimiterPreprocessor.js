@@ -45,12 +45,16 @@ class DelimiterPreprocessor
      */
     async preprocessString(content)
     {
-        let ret = string.replaceAll(content, '{rdelim}', '}');
-        ret = string.replaceAll(ret, '{ldelim}', '{');
+        if (-1 !== content.indexOf('{ldelim}') || -1 !== content.indexOf('{rdelim}')) {
+            let ret = string.replaceAll(content, '{ldelim}', '{');
+            ret = string.replaceAll(ret, '{rdelim}', '}');
 
-        //syslog.inspect(ret, 'error');
+            syslog.inspect(ret, 'error');
 
-        return ret;
+            return ret;
+        }
+
+        return content;
     }
 
 
