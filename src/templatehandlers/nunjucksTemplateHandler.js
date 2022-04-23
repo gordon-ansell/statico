@@ -185,8 +185,12 @@ class NunjucksTemplateHandler extends TemplateHandler
         let fp = templateFile.filePath.replace(this.sitePath, '');
         debug(`Nunjucks template handler is processing file: ${fp}`);
 
+
         // Preprocess?
         if (this.#preprocessors && this.#preprocessors.length > 0) {
+                    
+            let rss = this.config.rssBuildSeparateContent || false;
+
             for (let pp of this.#preprocessors) {
                 if (rss) {
                     templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, templateFile.data.permalink, 
