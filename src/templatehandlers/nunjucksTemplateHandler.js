@@ -192,12 +192,16 @@ class NunjucksTemplateHandler extends TemplateHandler
             let rss = this.config.rssBuildSeparateContent || false;
 
             for (let pp of this.#preprocessors) {
-                if (rss) {
-                    templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, templateFile.data.permalink, 
-                        templateFile.filePath, true);
+                if (rss && templateFile.data.contentRss) {
+                    templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, 
+                    templateFile.data.permalink, 
+                    templateFile.filePath, true);
                 }
-                templateFile.data.content = await pp.preprocessString(templateFile.data.content, templateFile.data.permalink, 
+                if (templateFile.data.content) {
+                    templateFile.data.content = await pp.preprocessString(templateFile.data.content, 
+                    templateFile.data.permalink, 
                     templateFile.filePath);
+                }
             }
         }
 
