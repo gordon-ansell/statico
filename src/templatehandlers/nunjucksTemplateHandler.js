@@ -34,6 +34,13 @@ class NunjucksTemplateHandler extends TemplateHandler
     #engine = null;
 
     /**
+     * Preprocessors.
+     * @member {object[]}
+     */
+    #preprocessors = [];
+
+
+    /**
      * Constructor.
      * 
      * @param   {JSON}      config         Config.
@@ -63,6 +70,10 @@ class NunjucksTemplateHandler extends TemplateHandler
         this.addFilters();
         this.addShortcodes();
         this.addPairedShortcodes();
+
+        if (config.preprocessors && config.preprocessors.nunjucks) {
+            this.#preprocessors = config.preprocessors.nunjucks;
+        }
     }
 
     /**
@@ -173,6 +184,18 @@ class NunjucksTemplateHandler extends TemplateHandler
     {
         let fp = templateFile.filePath.replace(this.sitePath, '');
         debug(`Nunjucks template handler is processing file: ${fp}`);
+
+        // Preprocess?
+        if (this.#preprocessors && this.#preprocessors.length > 0) {
+            for (let pp of this.#preprocessors) {
+                if (rss) {
+                    templateFile.data.contentRss = await pp.preprocessString(templateFile.data.contentRss, templateFile.data.permalink, 
+                        templateFile.filePath, true);
+                }
+                templateFile.data.content = await pp.preprocessString(templateFile.data.content, templateFile.data.permalink, 
+                    templateFile.filePath);
+            }
+        }
 
         let compile = {
             content: false,
