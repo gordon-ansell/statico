@@ -20,6 +20,7 @@ const defaultSchemaShortcodes = require('./shortcodes/schema/defaultSchemaShortc
 const HandlerCollection = require('./handlerCollection');
 const NunjucksImagePreprocessor = require('./preprocessors/nunjucksImagePreprocessor');
 const NunjucksCommentPreprocessor = require('./preprocessors/nunjucksCommentPreprocessor');
+const DelimiterPreprocessor = require('./preprocessors/delimiterPreprocessor');
 const { URL } = require('url');
 const dateformat = require('dateformat');
 const ImageInfoStore = require('./imageInfoStore');
@@ -283,7 +284,8 @@ class Config
     {
         let cns = {
             nunjucks_image: NunjucksImagePreprocessor,
-            nunjucks_comment: NunjucksCommentPreprocessor
+            nunjucks_comment: NunjucksCommentPreprocessor,
+            nunjucks_delimiter: DelimiterPreprocessor
         }
 
         if (!cns[name]) {
