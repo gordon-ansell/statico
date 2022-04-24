@@ -9,8 +9,6 @@
 const { syslog, NunjucksShortcode, MultiDate } = require("js-framework");
 const VideoLinkShortcode = require('./videolinkShortcode'); 
 const Schema = require('../schema/schema');
-const VideoLinkShortcode = require("./videolinkShortcode");
-
 
 /**
  * Simple ideo link shortcode class.
