@@ -10,7 +10,7 @@ const TemplateHandler = require('./templateHandler');
 //const MarkdownIt = require('markdown-it');
 
 const showdown = require('showdown');
-const showdownHighlight = require("showdown-highlight");
+//const showdownHighlight = require("showdown-highlight");
 //const footnotes = require('@webdesigndecal/showdown-footnotes');
 const footnotes = require('./showdownFootnotes');
 
@@ -57,8 +57,7 @@ class MarkdownTemplateHandler extends TemplateHandler
 
         try {
             this.#engine = new showdown.Converter({ extensions: [
-                    footnotes, 
-                    showdownHighlight({pre: false})
+                    footnotes 
                 ] });
             this.#engine.setOption('strikethrough', true);
             this.#engine.setOption('tables', true);
