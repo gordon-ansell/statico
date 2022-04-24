@@ -74,6 +74,10 @@ class VideoLinkShortcode extends NunjucksShortcode
         let srcName = this.getSrcName();
         kwargs = this.configureLazyClass(kwargs);
 
+        if (!kwargs.class) {
+            kwargs['class'] = '';
+        }
+
         kwargs.class += " aspect-ratio--object";
 
         let ret = '';
