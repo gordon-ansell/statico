@@ -11,6 +11,7 @@ const ImgShortcode = require('./imgShortcode');
 const SimpleImgShortcode = require('./simpleImgShortcode');
 const ImgSpecificShortcode = require('./imgspecificShortcode');
 const VideoLinkShortcode = require('./videolinkShortcode');
+const SimpleVideoLinkShortcode = require('./simplevideolinkShortcode');
 const MetaShortcode = require('./metaShortcode');
 const TagsShortcode = require('./tagsShortcode');
 const SectionShortcode = require('./sectionShortcode');
@@ -40,6 +41,9 @@ module.exports = function(config) {
 
     config.addNunjucksShortcode('videolink', VideoLinkShortcode);
     debug(`Added shortcode to Nunjucks: videolink`);
+
+    config.addNunjucksShortcode('simplevideolink', SimpleVideoLinkShortcode);
+    debug(`Added shortcode to Nunjucks: simplevideolink`);
 
     config.addNunjucksShortcode('meta', MetaShortcode);
     debug(`Added shortcode to Nunjucks: meta`);
