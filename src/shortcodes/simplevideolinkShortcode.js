@@ -24,7 +24,7 @@ class SimpleVideoLinkShortcode extends VideoLinkShortcode
      */
     configureLazyClass(kwargs)
     {
-        return;
+        return kwargs;
     }
 
     /**

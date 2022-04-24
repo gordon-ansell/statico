@@ -31,6 +31,7 @@ class VideoLinkShortcode extends NunjucksShortcode
                 kwargs.class = 'lazyload';
             }
         }
+        return kwargs;
     }
 
     /**
@@ -71,7 +72,7 @@ class VideoLinkShortcode extends NunjucksShortcode
         }
 
         let srcName = this.getSrcName();
-        this.configureLazyClass(kwargs);
+        kwargs = this.configureLazyClass(kwargs);
 
         kwargs.class += " aspect-ratio--object";
 
