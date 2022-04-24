@@ -11,42 +11,10 @@ const Schema = require('../schema/schema');
 
 
 /**
- * Video link shortcode class.
+ * Simple ideo link shortcode class.
  */
-class VideoLinkShortcode extends NunjucksShortcode
+class SimpleVideoLinkShortcode extends NunjucksShortcode
 {
-    /**
-     * Configure lazyload class.
-     * 
-     * @param   {object}    kwargs
-     * 
-     * @return  {string}
-     */
-    configureLazyClass(kwargs)
-    {
-        if (this.config.lazyload) {
-            if (kwargs.class) {
-                kwargs.class += ' lazyload';
-            } else {
-                kwargs.class = 'lazyload';
-            }
-        }
-    }
-
-    /**
-     * Get src name.
-     * 
-     * @return  {string}
-     */
-    getSrcName()
-    {
-        let srcName = 'src';
-        if (this.config.lazyload) {
-            srcName = 'data-src';
-        }
-
-        return srcName;
-    }
 
     /**
      * Render.
@@ -70,8 +38,15 @@ class VideoLinkShortcode extends NunjucksShortcode
             syslog.error(`Video links require either and 'id' or a 'src' parameter: ${context.ctx.permalink}.`);
         }
 
-        let srcName = thie.getSrcName();
-        this.configureLazyClass(kwargs);
+        let srcName = 'src';
+        if (this.config.lazyload) {
+            srcName = 'data-src';
+            if (kwargs.class) {
+                kwargs.class += ' lazyload';
+            } else {
+                kwargs.class = 'lazyload';
+            }
+        }
 
         kwargs.class += " aspect-ratio--object";
 
@@ -146,6 +121,20 @@ class VideoLinkShortcode extends NunjucksShortcode
                 }
             }
 
+            /*
+            ret += '<span itemprop="video" itemtype="https://schema.org/VideoObject" itemscope>';
+            ret += `<link itemprop="embedUrl" href="${url}" />`;
+            ret += `<link itemprop="contentUrl" href="https://www.youtube-nocookie.com/watch?v=${id}" />`;
+            ret += `<link itemprop="thumbnailUrl" href="https://img.youtube-nocookie.com/vi/${id}/default.jpg" />`;
+            for (let idx in meta) {
+                if (!idx.startsWith('__')) {
+                    ret += `<meta itemprop="${idx}" content="${meta[idx]}" />`;
+                }
+            }
+
+            ret += '</span>';
+            */
+
             if (!this.config.schema[context.ctx.permalink]) {
                 this.config.schema[context.ctx.permalink] = new Schema(this.config);
             }
@@ -165,4 +154,4 @@ class VideoLinkShortcode extends NunjucksShortcode
     }
 }
 
-module.exports = VideoLinkShortcode;
+module.exports = SimpleVideoLinkShortcode;
