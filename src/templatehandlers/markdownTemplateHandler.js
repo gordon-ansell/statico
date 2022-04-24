@@ -58,7 +58,7 @@ class MarkdownTemplateHandler extends TemplateHandler
         try {
             this.#engine = new showdown.Converter({ extensions: [
                     footnotes, 
-                    showdownHighlight({pre: true})
+                    showdownHighlight({pre: false})
                 ] });
             this.#engine.setOption('strikethrough', true);
             this.#engine.setOption('tables', true);
