@@ -70,7 +70,7 @@ class VideoLinkShortcode extends NunjucksShortcode
             syslog.error(`Video links require either and 'id' or a 'src' parameter: ${context.ctx.permalink}.`);
         }
 
-        let srcName = thie.getSrcName();
+        let srcName = this.getSrcName();
         this.configureLazyClass(kwargs);
 
         kwargs.class += " aspect-ratio--object";
