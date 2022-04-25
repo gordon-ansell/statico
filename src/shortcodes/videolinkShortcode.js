@@ -197,7 +197,7 @@ class VideoLinkShortcode extends NunjucksShortcode
                 }
             }
 
-            ret += `<figure class="videolink aspect-ratio aspect-ratio--4x5">`
+            ret += `<div class="videolink aspect-ratio aspect-ratio--4x5">`
             ret += `<iframe frameborder="0"`
             for (let idx in kwargs) {
                 if (!idx.startsWith('__')) {
@@ -210,10 +210,10 @@ class VideoLinkShortcode extends NunjucksShortcode
             }
             ret += ' allowfullscreen>';
             ret += '</iframe>';
-            if (kwargs.caption) {
-                ret += '<figcaption>' + kwargs.caption + '</figcaption>';
-            }
-            ret += '</figure>';
+            //if (kwargs.caption) {
+            //    ret += '<figcaption>' + kwargs.caption + '</figcaption>';
+            //}
+            ret += '</div>';
 
             let url = kwargs.src;
             delete kwargs.src;
