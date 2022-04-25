@@ -114,7 +114,7 @@ class VideoLinkShortcode extends NunjucksShortcode
             }
 
             ret += `<figure class="videolink aspect-ratio aspect-ratio--16x9">`
-            ret += `<iframe width="560" height="315" frameborder="0"`
+            ret += `<iframe frameborder="0"`
             for (let idx in kwargs) {
                 if (!idx.startsWith('__')) {
                     if ('src' == idx) {
