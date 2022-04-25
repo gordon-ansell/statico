@@ -39,11 +39,14 @@ class NunjucksCommentPreprocessor
     /**
      * Preprocess a string.
      * 
-     * @param   {string}    content    Content to preprocess.
+     * @param   {string}    content     Content to preprocess.
+     * @param   {string}    permalink   Permalink for post.
+     * @param   {string}    outputPath  Output path.
+     * @param   {boolean}   rss         For RSS?
      * 
      * @return  {string}
      */
-    async preprocessString(content)
+    async preprocessString(content, permalink, filePath, rss = false)
     {
         let ret = content;
         const regex = /\[\/\/\]\:\s\#\s\(\@(.*)\)/g;
@@ -91,6 +94,10 @@ class NunjucksCommentPreprocessor
 
                 } else {
                     rep += cmds;
+                }
+
+                if (rep.trim().startsWith('videolink') && rss) {
+                    rep = rep.replace('videolink', 'simplevideolink');
                 }
 
                 rep = '{% ' + rep + ' %}';
